@@ -61,7 +61,6 @@ public class LoginActivity extends AppCompatActivity {
             passwordEdit.setText(user.getUsr_paswprd());
             rememberPass.setChecked(true);
         }
-
         setListeners();
     }
 
