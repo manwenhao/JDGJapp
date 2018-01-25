@@ -1,7 +1,5 @@
 package com.example.jdgjapp.Friends;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 
 

@@ -1,10 +1,10 @@
 package com.example.jdgjapp.Friends;
 
+import android.content.Context;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
-import android.content.Context;
 
 /**
  * @author xiaobo.cui 2014年10月14日 下午5:08:22

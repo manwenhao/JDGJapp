@@ -1,15 +1,11 @@
 package com.example.jdgjapp;
 
 import android.app.Fragment;
-import android.content.ContentResolver;
 import android.content.Context;
-import android.database.Cursor;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.StrictMode;
-import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,12 +15,13 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.jdgjapp.Bean.Friend;
 import com.example.jdgjapp.Friends.CharacterParser;
 import com.example.jdgjapp.Friends.ContactsSortAdapter;
+import com.example.jdgjapp.Friends.MyDeptMent;
 import com.example.jdgjapp.Friends.PinYin;
 import com.example.jdgjapp.Friends.PinyinComparator;
 import com.example.jdgjapp.Friends.SideBar;
@@ -35,7 +32,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
-
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -59,6 +55,7 @@ public class AddressListFragment extends Fragment {
     private TextView dialog;
     private List<SortModel> mAllContactsList;
     private ContactsSortAdapter adapter;
+    private RelativeLayout relativeLayout;
     Context mContext;
     /**
      * 汉字转换成拼音的类
@@ -94,6 +91,7 @@ public class AddressListFragment extends Fragment {
         dialog=(TextView)view.findViewById(R.id.dialog);
         sideBar=(SideBar)view.findViewById(R.id.sidrbar);
         sideBar.setTextView(dialog);
+        relativeLayout=(RelativeLayout)view.findViewById(R.id.friend_mydept);
         return view;
     }
 
@@ -104,7 +102,7 @@ public class AddressListFragment extends Fragment {
             @Override
             public void run() {
                 OkHttpUtils.post()
-                        .addParams("user_id",MyApplication.getid())
+                        .addParams("user_id", MyApplication.getid())
                         .url("http://106.14.145.208:8080/JDGJ/BackAppFriend")
                         .build()
                         .execute(new StringCallback() {
@@ -116,7 +114,7 @@ public class AddressListFragment extends Fragment {
                             @Override
                             public void onResponse(String response, int id) {
                                 Log.d("好友列表",response);
-                                ACache aCache=ACache.get(MyApplication.getContext(),MyApplication.getid());
+                                ACache aCache= ACache.get(MyApplication.getContext(), MyApplication.getid());
                                 aCache.put("friends",response);
                                 Type type = new TypeToken<List<Friend>>() {
                                 }.getType();
@@ -209,6 +207,12 @@ public class AddressListFragment extends Fragment {
                 ContactsSortAdapter.ViewHolder viewHolder = (ContactsSortAdapter.ViewHolder) view.getTag();
                 viewHolder.cbChecked.performClick();
                 adapter.toggleChecked(position);
+            }
+        });
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), MyDeptMent.class));
             }
         });
 

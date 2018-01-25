@@ -1,9 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.jdgjapp.work.bangong.shipin.ShiPinMain">
+    tools:context="com.example.jdgjapp.work.bangong.shipin.ShiPinMain"
+    >
+    <fragment
+        android:id="@+id/select_friend"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="com.example.jdgjapp.AddressListFragment"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#3C3C3C">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="选择视频成员"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+        <ImageView
+            android:id="@+id/shipin_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_back"
+            />
 
-</android.support.constraint.ConstraintLayout>
+    </RelativeLayout>
+
+</FrameLayout>
