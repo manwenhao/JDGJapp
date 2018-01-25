@@ -1,0 +1,32 @@
+[33mcommit 3417b4c2d5b84ef609f77334d5542063956a926b[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: xuxiao304617 <304617547@qq.com>
+Date:   Tue Jan 23 21:34:14 2018 +0800
+
+    登录界面完成
+
+[33mcommit 404952d3e2bac4969500e848bbf99ae0fe63d3b7[m
+Merge: 3a10c08 05f92cb
+Author: mwh <mwhdev@foxmail.com>
+Date:   Mon Jan 22 22:53:10 2018 +0800
+
+    Merge branch 'master' of https://github.com/sky3046/JDGJapp
+    
+    ing to merge unrelated histories
+
+[33mcommit 3a10c08a86b5c822c20a2894a53befb160d93734[m
+Author: mwh <mwhdev@foxmail.com>
+Date:   Mon Jan 22 22:49:00 2018 +0800
+
+    1.0
+
+[33mcommit f6543f51bae7ace6f9950c5587d95a4f1843b6a7[m
+Author: mwh <mwhdev@foxmail.com>
+Date:   Mon Jan 22 22:03:32 2018 +0800
+
+    v1.0
+
+[33mcommit 05f92cbb23b6de7ee3a5c0e4750c7a6bb376b25c[m
+Author: sky3046 <304617547@qq.com>
+Date:   Mon Jan 22 21:36:40 2018 +0800
+
+    Initial commit

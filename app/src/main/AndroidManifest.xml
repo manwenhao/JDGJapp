@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.jdgjapp">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- 绑定手机权限 -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <meta-data
+            android:name="Mob-AppKey"
+            android:value="2165712e664fe" />
+        <meta-data
+            android:name="Mob-AppSecret"
+            android:value="6d5f2ffe527c08738bd583749852ee6c" />
+
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MyInfoActivity" />
+        <activity android:name=".work.bangong.baoxiao.BaoXiaoMain" />
+        <activity android:name=".work.bangong.cailiao.CaiLiaoMain" />
+        <activity android:name=".work.bangong.cheliang.CheLiangMain" />
+        <activity android:name=".work.bangong.gongdan.GongDanMain" />
+        <activity android:name=".work.bangong.shenpi.ShenPiMain" />
+        <activity android:name=".work.bangong.shipin.ShiPinMain" />
+        <activity android:name=".work.kaoqin.chuchai.ChuChaiMain" />
+        <activity android:name=".work.kaoqin.daka.DaKaMain" />
+        <activity android:name=".work.kaoqin.qiandao.QianDaoMain" />
+        <activity android:name=".work.kaoqin.qingjia.QingJiaMain" />
+        <activity android:name=".work.kaoqin.tongji.TongJiMain"></activity>
+        <activity android:name=".SetNameActivity" />
+        <activity android:name=".SetSexActivity" />
+        <activity android:name=".SetBirthActivity" />
+        <activity android:name=".SetAddressActivity" />
+        <activity android:name=".SetPhoneActivity" />
+        <activity android:name=".SetPasswordActivity"></activity>
+    </application>
+
+</manifest>
