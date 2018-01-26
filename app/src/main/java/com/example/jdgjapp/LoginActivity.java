@@ -13,8 +13,12 @@ import android.widget.Toast;
 
 import com.example.jdgjapp.Bean.Depart;
 import com.example.jdgjapp.Bean.User;
+import com.example.jdgjapp.Util.ACache;
+import com.example.jdgjapp.Util.ReturnUsrDep;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -22,6 +26,7 @@ import org.litepal.crud.DataSupport;
 
 import java.util.List;
 
+import okhttp3.Call;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -117,6 +122,52 @@ public class LoginActivity extends AppCompatActivity {
                     parseJSON(responseDate);
 
                     if (isSuccess.equals("1")){
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                OkHttpUtils.post()
+                                        .addParams("user_id", MyApplication.getid())
+                                        .url("http://106.14.145.208:8080/JDGJ/BackAppFriend")
+                                        .build()
+                                        .execute(new StringCallback() {
+                                            @Override
+                                            public void onError(Call call, Exception e, int id) {
+                                                Log.d("好友列表Error",e.toString());
+                                            }
+
+                                            @Override
+                                            public void onResponse(String response, int id) {
+                                                Log.d("好友列表",response);
+                                                ACache aCache= ACache.get(MyApplication.getContext(), MyApplication.getid());
+                                                aCache.put("friends",response);
+                                            }
+                                        });
+                            }
+                        }).start();
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                User u= ReturnUsrDep.returnUsr();
+                                OkHttpUtils.post()
+                                        .url("http://106.14.145.208:8080/JDGJ/BackMangrUsrInfo")
+                                        .addParams("user_id",u.getUsr_id())
+                                        .addParams("dept_id",u.getUsr_deptId())
+                                        .build()
+                                        .execute(new StringCallback() {
+                                            @Override
+                                            public void onError(Call call, Exception e, int id) {
+                                                Log.d("查看我的部门错误",e.toString());
+                                            }
+
+                                            @Override
+                                            public void onResponse(String response, int id) {
+                                                Log.d("我的部门成员",response);
+                                                ACache aCache= ACache.get(MyApplication.getContext(), MyApplication.getid());
+                                                aCache.put("depterlist",response);
+                                            }
+                                        });
+                            }
+                        }).start();
                         showResponse("登录成功");
                         Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                         startActivity(intent);

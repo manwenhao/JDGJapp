@@ -60,41 +60,23 @@ public class MyDeptMent extends AppCompatActivity {
                        startActivity(intent);
                    }
                });
-               OkHttpUtils.post()
-                       .url("http://106.14.145.208:8080/JDGJ/BackMangrUsrInfo")
-                       .addParams("user_id",u.getUsr_id())
-                       .addParams("dept_id",u.getUsr_deptId())
-                       .build()
-                       .execute(new StringCallback() {
-                           @Override
-                           public void onError(Call call, Exception e, int id) {
-                               Log.d("查看我的部门错误",e.toString());
+               runOnUiThread(new Runnable() {
+                   @Override
+                   public void run() {
+                       if (u.getUsr_bossId()==null){
+                           adapter=new DeptAdapter(deptlist, MyApplication.getContext());
+                       }else {
+                           List<Depart>list=new ArrayList<Depart>();
+                           for (Depart d:deptlist){
+                               if (d.getDep_id().equals(u.getUsr_deptId())){
+                                   list.add(d);
+                               }
                            }
-
-                           @Override
-                           public void onResponse(String response, int id) {
-                               Log.d("我的部门",response);
-                               ACache aCache= ACache.get(MyApplication.getContext(), MyApplication.getid());
-                               aCache.put("depterlist",response);
-                               runOnUiThread(new Runnable() {
-                                   @Override
-                                   public void run() {
-                                       if (u.getUsr_bossId()==null){
-                                           adapter=new DeptAdapter(deptlist, MyApplication.getContext());
-                                       }else {
-                                           List<Depart>list=new ArrayList<Depart>();
-                                           for (Depart d:deptlist){
-                                               if (d.getDep_id().equals(u.getUsr_deptId())){
-                                                 list.add(d);
-                                               }
-                                           }
-                                           adapter=new DeptAdapter(list, MyApplication.getContext());
-                                       }
-                                       listView.setAdapter(adapter);
-                                   }
-                               });
-                           }
-                       });
+                           adapter=new DeptAdapter(list, MyApplication.getContext());
+                       }
+                       listView.setAdapter(adapter);
+                   }
+               });
 
            }
        }).start();

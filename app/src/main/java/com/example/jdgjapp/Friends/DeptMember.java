@@ -17,6 +17,7 @@ import com.example.jdgjapp.Bean.User;
 import com.example.jdgjapp.MyApplication;
 import com.example.jdgjapp.R;
 import com.example.jdgjapp.Util.ACache;
+import com.example.jdgjapp.work.bangong.shipin.ShiPinMain;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -41,6 +42,8 @@ public class DeptMember extends AppCompatActivity {
     private ContactsSortAdapter adapter;
     private CharacterParser characterParser;
     private PinyinComparator pinyinComparator;
+    public static int flag=0;
+    private TextView ok;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,16 @@ public class DeptMember extends AppCompatActivity {
         back=(ImageView)findViewById(R.id.deptmember_back);
         etSearch=(EditText)findViewById(R.id.et_search2);
         ivClearText=(ImageView)findViewById(R.id.ivClearText2);
+        ok=(TextView)findViewById(R.id.shipin_depter_ok);
+        if (flag==1){
+            ok.setVisibility(View.VISIBLE);
+        }
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("邀请人员id", ShiPinMain.useridList.toString());
+            }
+        });
         mListView=(ListView)findViewById(R.id.lv_contacts2);
         dialog=(TextView)findViewById(R.id.dialog2);
         sideBar=(SideBar)findViewById(R.id.sidrbar2);
@@ -178,11 +191,12 @@ public class DeptMember extends AppCompatActivity {
     public void loadContacts(){
         Log.d("开始解析","哈哈哈哈");
         for (Friend friend:friendList){
+            String id=friend.getId();
             String tal=friend.getUsr_phone();
             String name=friend.getName();
             String deptname=friend.getUsr_dept();
             String sortkey=name;
-            SortModel sm=new SortModel(name,tal,deptname,sortkey);
+            SortModel sm=new SortModel(id,name,tal,deptname,sortkey);
             Log.d("name",name);
             String sortletter=getSortLetter(name);
             sm.sortLetters=sortletter;

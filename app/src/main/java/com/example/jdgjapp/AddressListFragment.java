@@ -101,36 +101,29 @@ public class AddressListFragment extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                OkHttpUtils.post()
-                        .addParams("user_id", MyApplication.getid())
-                        .url("http://106.14.145.208:8080/JDGJ/BackAppFriend")
-                        .build()
-                        .execute(new StringCallback() {
-                            @Override
-                            public void onError(Call call, Exception e, int id) {
-                                Log.d("好友列表Error",e.toString());
-                            }
-
-                            @Override
-                            public void onResponse(String response, int id) {
-                                Log.d("好友列表",response);
-                                ACache aCache= ACache.get(MyApplication.getContext(), MyApplication.getid());
-                                aCache.put("friends",response);
-                                Type type = new TypeToken<List<Friend>>() {
-                                }.getType();
-                                friendslist=new Gson().fromJson(response,type);
-                                Log.d("好友列表",friendslist.toString());
-                                getActivity().runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        init();
-                                    }
-                                });
-                            }
-                        });
+                ACache aCache=ACache.get(MyApplication.getContext(),MyApplication.getid());
+                String response=aCache.getAsString("friends");
+                Type type = new TypeToken<List<Friend>>() {
+                }.getType();
+                friendslist=new Gson().fromJson(response,type);
+                Log.d("好友列表",friendslist.toString());
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        init();
+                    }
+                });
             }
         }).start();
     }
+    public void setChecked(){
+        ContactsSortAdapter.flag=1;
+
+    }
+    public void serunChecked(){
+        ContactsSortAdapter.flag=0;
+    }
+
     private void init() {
         initView();
         initListener();
@@ -220,11 +213,12 @@ public class AddressListFragment extends Fragment {
     private void loadContacts(){
         Log.d("开始解析","哈哈哈哈");
         for (Friend friend:friendslist){
+            String id=friend.getId();
             String tal=friend.getUsr_phone();
             String name=friend.getName();
             String deptname=friend.getUsr_dept();
             String sortkey=name;
-            SortModel sm=new SortModel(name,tal,deptname,sortkey);
+            SortModel sm=new SortModel(id,name,tal,deptname,sortkey);
             Log.d("name",name);
             String sortletter=getSortLetter(name);
             sm.sortLetters=sortletter;
@@ -233,7 +227,6 @@ public class AddressListFragment extends Fragment {
         }
         Collections.sort(mAllContactsList, pinyinComparator);
         adapter.updateListView(mAllContactsList);
-
     }
     private List<SortModel> search(String str) {
         List<SortModel> filterList = new ArrayList<SortModel>();// 过滤后的list

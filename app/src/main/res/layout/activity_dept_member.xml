@@ -24,6 +24,17 @@
             android:layout_centerVertical="true"
             android:src="@mipmap/ic_back"
             />
+        <TextView
+            android:id="@+id/shipin_depter_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="确定"
+            android:textColor="#FFFFFF"
+            android:visibility="invisible"
+            android:textSize="20sp" />
 
     </RelativeLayout>
     <FrameLayout
