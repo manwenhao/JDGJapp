@@ -17,7 +17,8 @@
         android:id="@+id/layoutContainer"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:padding="8dp" >
+        android:padding="8dp"
+        android:background="@color/bg_color">
 
         <EditText
             android:id="@+id/et_search"
@@ -41,7 +42,49 @@
             android:src="@drawable/clear_button"
             android:visibility="invisible" />
     </FrameLayout>
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"/>
+    <RelativeLayout
+        android:id="@+id/friend_mydept"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="#000"
+            android:text="我的部门"
+            android:layout_centerVertical="true"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon_right"
+            />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="center_vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="常用联系人"
+            android:textColor="#000"
+            android:textSize="20sp"
+            />
+    </LinearLayout>
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >

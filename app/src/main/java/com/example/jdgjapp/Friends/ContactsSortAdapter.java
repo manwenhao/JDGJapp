@@ -1,19 +1,22 @@
 package com.example.jdgjapp.Friends;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.example.jdgjapp.R;
+import com.example.jdgjapp.work.bangong.shipin.ShiPinMain;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
 
 
 public class ContactsSortAdapter extends BaseAdapter implements SectionIndexer {
@@ -21,7 +24,7 @@ public class ContactsSortAdapter extends BaseAdapter implements SectionIndexer {
 	private List<SortModel> mSelectedList;
 	private Context mContext;
 	LayoutInflater mInflater;
-
+	public static int flag=0;
 	public ContactsSortAdapter(Context mContext, List<SortModel> list) {
 		this.mContext = mContext;
 		mSelectedList = new ArrayList<SortModel>();
@@ -44,6 +47,7 @@ public class ContactsSortAdapter extends BaseAdapter implements SectionIndexer {
 		}
 		notifyDataSetChanged();
 	}
+
 
 	public int getCount() {
 		return this.mList.size();
@@ -86,7 +90,44 @@ public class ContactsSortAdapter extends BaseAdapter implements SectionIndexer {
 
 		viewHolder.tvTitle.setText(this.mList.get(position).name);
 		viewHolder.tvNumber.setText(this.mList.get(position).number);
-		viewHolder.cbChecked.setChecked(isSelected(mContent));
+		if (flag==1){
+			viewHolder.cbChecked.setVisibility(View.VISIBLE);
+		}
+		viewHolder.cbChecked.setChecked(false);
+		for (String id:ShiPinMain.useridList){
+			if (id.equals(mList.get(position).id)){
+				viewHolder.cbChecked.setChecked(true);
+			}
+		}
+		viewHolder.cbChecked.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+				if (b){
+					boolean check=true;
+					for (String id:ShiPinMain.useridList){
+						if (id.equals(mList.get(position).id)){
+							check=false;
+						}
+					}
+					if (check){
+						ShiPinMain.useridList.add(mList.get(position).id);
+					}
+
+				}else {
+					boolean check=false;
+					for (String id:ShiPinMain.useridList){
+						if (id.equals(mList.get(position).id)){
+							check=true;
+						}
+
+					}
+					if (check){
+						ShiPinMain.useridList.remove(mList.get(position).id);
+					}
+
+				}
+			}
+		});
 		viewHolder.dept.setText(this.mList.get(position).dept);
 
 		return view;

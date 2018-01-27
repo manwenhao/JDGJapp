@@ -79,6 +79,10 @@
         <activity android:name=".SetAddressActivity" />
         <activity android:name=".SetPhoneActivity" />
         <activity android:name=".SetPasswordActivity"></activity>
+        <activity
+            android:name=".Friends.MyDeptMent"
+            android:launchMode="singleTask" />
+        <activity android:name=".Friends.DeptMember"></activity>
 
         <service
             android:name="com.baidu.location.f"

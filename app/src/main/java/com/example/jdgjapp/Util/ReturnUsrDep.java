@@ -11,7 +11,7 @@ import java.util.List;
  * Created by mwh on 2018/1/25.
  */
 
-class ReturnUsrDep {
+public class ReturnUsrDep {
     public static User returnUsr(){
         User user = DataSupport.findFirst(User.class);
         return user;
