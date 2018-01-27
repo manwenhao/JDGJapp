@@ -26,6 +26,7 @@ import org.litepal.crud.DataSupport;
 
 import java.util.List;
 
+import cn.jpush.android.api.JPushInterface;
 import okhttp3.Call;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -228,6 +229,7 @@ public class LoginActivity extends AppCompatActivity {
                         user1.setUsr_bossId(user.getUsr_bossId());
                         user1.save();
                     }
+                    JPushInterface.setAlias(getApplicationContext(),1,user.getUsr_id());
                     MyApplication.setid(user.getUsr_id());
                     Log.d(TAG, "usr_id is " + user.getUsr_id());
                     Log.d(TAG, "usr_name is " + user.getUsr_name());
