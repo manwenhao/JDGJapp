@@ -1,5 +1,6 @@
 package com.example.jdgjapp.Friends;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -11,21 +12,31 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jdgjapp.Bean.Friend;
 import com.example.jdgjapp.Bean.User;
 import com.example.jdgjapp.MyApplication;
 import com.example.jdgjapp.R;
 import com.example.jdgjapp.Util.ACache;
+import com.example.jdgjapp.Util.ActivityUtils;
+import com.example.jdgjapp.Util.ReturnUsrDep;
 import com.example.jdgjapp.work.bangong.shipin.ShiPinMain;
+import com.example.jdgjapp.work.bangong.shipin.agora.openvcall.model.ConstantApp;
+import com.example.jdgjapp.work.bangong.shipin.agora.openvcall.ui.ChatActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import okhttp3.Call;
 
 public class DeptMember extends AppCompatActivity {
     private List<Friend> friendList;
@@ -49,6 +60,7 @@ public class DeptMember extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dept_member);
+        ActivityUtils.getInstance().addActivity(DeptMember.class.getName(),this);
         dept_id=getIntent().getStringExtra("deptid");
         deptname=getIntent().getStringExtra("deptname");
         back=(ImageView)findViewById(R.id.deptmember_back);
@@ -61,7 +73,57 @@ public class DeptMember extends AppCompatActivity {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("邀请人员id", ShiPinMain.useridList.toString());
+                if (ShiPinMain.useridList.size()==0){
+                    Toast.makeText(DeptMember.this, "请选择视频人员", Toast.LENGTH_SHORT).show();
+                }else {
+                    Log.d("邀请人员id", ShiPinMain.useridList.toString());
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            StringBuilder builder=new StringBuilder();
+                            builder.append(";");
+                            for (String name:ShiPinMain.useridList){
+                                builder.append(name);
+                                builder.append(";");
+                            }
+                            String sendlist=builder.toString();
+                            final String chanel= MyApplication.getid()+";"+new Date().toString();
+                            User u= ReturnUsrDep.returnUsr();
+                            String sender=MyApplication.getid()+";"+u.getUsr_name();
+                            Log.d("list===",sendlist);
+                            OkHttpUtils.post()
+                                    .url("http://106.14.145.208:8080//JDGJ/SendVideoPush")
+                                    .addParams("usr_sender",sender)
+                                    .addParams("usr_ids",sendlist)
+                                    .addParams("chanel",chanel)
+                                    .build()
+                                    .execute(new StringCallback() {
+                                        @Override
+                                        public void onError(Call call, Exception e, int id) {
+                                            Log.d("视频会议出错",e.toString());
+                                        }
+
+                                        @Override
+                                        public void onResponse(String response, int id) {
+                                            runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    ActivityUtils.getInstance().delActivity(ShiPinMain.class.getName());
+                                                    ActivityUtils.getInstance().delActivity(MyDeptMent.class.getName());
+                                                    ActivityUtils.getInstance().delActivity(DeptMember.class.getName());
+                                                    ((MyApplication)MyApplication.getContext()).initWorkerThread();
+                                                    Intent intent=new Intent(MyApplication.getContext(), ChatActivity.class);
+                                                    intent.putExtra(ConstantApp.ACTION_KEY_CHANNEL_NAME,chanel);
+                                                    startActivity(intent);
+                                                }
+                                            });
+                                        }
+                                    });
+
+                        }
+                    }).start();
+                }
+
             }
         });
         mListView=(ListView)findViewById(R.id.lv_contacts2);

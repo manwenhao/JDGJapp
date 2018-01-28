@@ -251,6 +251,10 @@ public class DaKaMain extends AppCompatActivity {
                     //获取具体地址
                     currentaddr = location.getAddrStr();
 
+                    //关闭定位
+                    stop();
+                    unregisterListener(mylisten);
+
                     //读取工号
                     User user = DataSupport.findFirst(User.class);
                     //读取当前时间
@@ -265,10 +269,6 @@ public class DaKaMain extends AppCompatActivity {
                             sendRequestPosition(user.getUsr_id(), position3, position4, currenttime, "2");
                         }
                     }else showResponse("无法定位，打卡失败！");
-
-                    //关闭定位
-                    stop();
-                    unregisterListener(mylisten);
 
                 }
             });
@@ -361,7 +361,7 @@ public class DaKaMain extends AppCompatActivity {
                 }
             }
         }).start();
-        Log.d(TAG, "已发送");
+        Log.d(TAG, "*********打卡定位已发送*********");
     }
 
     private void showResponse(final String response){

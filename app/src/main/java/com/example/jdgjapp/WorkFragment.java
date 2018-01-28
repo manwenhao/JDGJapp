@@ -18,6 +18,7 @@ import com.example.jdgjapp.work.bangong.cailiao.CaiLiaoMain;
 import com.example.jdgjapp.work.bangong.cheliang.CheLiangMain;
 import com.example.jdgjapp.work.bangong.gongdan.GongDanMain;
 import com.example.jdgjapp.work.bangong.shenpi.ShenPiMain;
+import com.example.jdgjapp.work.bangong.shipin.ShiPin;
 import com.example.jdgjapp.work.bangong.shipin.ShiPinMain;
 import com.example.jdgjapp.work.kaoqin.chuchai.ChuChaiMain;
 import com.example.jdgjapp.work.kaoqin.daka.DaKaMain;
@@ -112,7 +113,7 @@ public class WorkFragment extends Fragment {
                         startActivity(new Intent(getActivity(), CheLiangMain.class));
                         break;
                     case 3:
-                        startActivity(new Intent(getActivity(), ShiPinMain.class));
+                        startActivity(new Intent(getActivity(), ShiPin.class));
                         break;
                     case 4:
                         startActivity(new Intent(getActivity(),BaoXiaoMain.class));

@@ -45,9 +45,7 @@ public class DingWeiService extends Service {
             public void run() {
                 nLocationClient = new LocationClient(getApplicationContext());
                 nLocationClient.registerLocationListener(new MyLocationListener());
-
                 requestLocation();
-
             }
         }).start();
         return super.onStartCommand(intent, flags, startId);
@@ -95,26 +93,26 @@ public class DingWeiService extends Service {
             @Override
             public void run() {
                 try {
-                        OkHttpClient client = new OkHttpClient();
-                        RequestBody requestBody = new FormBody.Builder()
-                                .add("user_id", id)
-                                .add("posy", Position1)
-                                .add("posx", Position2)
-                                .add("datetime", datetime)
-                                .build();
-                        Request request = new Request.Builder()
-                                .url("http://106.14.145.208:8080//JDGJ/ReceiveUsrSsLocate")
-                                .post(requestBody)
-                                .build();
-                        Response response = client.newCall(request).execute();
-                        String responseDate = response.body().string();
-                    Log.d(TAG, "定位已发送111");
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
+                    OkHttpClient client = new OkHttpClient();
+                    RequestBody requestBody = new FormBody.Builder()
+                            .add("user_id", id)
+                            .add("posy", Position1)
+                            .add("posx", Position2)
+                            .add("datetime", datetime)
+                            .build();
+                    Request request = new Request.Builder()
+                            .url("http://106.14.145.208:8080//JDGJ/ReceiveUsrSsLocate")
+                            .post(requestBody)
+                            .build();
+                    Response response = client.newCall(request).execute();
+                    String responseDate = response.body().string();
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         }).start();
-        Log.d(TAG, "定位已发送");
+        Log.d(TAG, "#########实时定位已发送#########");
     }
 
     @Override
