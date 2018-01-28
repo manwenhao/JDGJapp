@@ -147,6 +147,11 @@ public class DaKaMain extends AppCompatActivity {
                     String date = pref0.getString("date","");
 
                     if (!currentdate.equals(date)){
+                        //清空之前的数据
+                        time1Tv.setText("");
+                        addr1Tv.setText("");
+                        time2Tv.setText("");
+                        addr2Tv.setText("");
                         flag = 0;
                         SharedPreferences.Editor editor = getSharedPreferences("flag",
                                 MODE_PRIVATE).edit();
@@ -230,7 +235,7 @@ public class DaKaMain extends AppCompatActivity {
             runOnUiThread(new Runnable(){
                 @Override
                 public void run() {
-                    Log.d(TAG, "定位Listener开启");
+                    Log.d(TAG, "打卡定位Listener开启");
                     //获取经纬度
                     Double position1 = location.getLatitude();
                     Double position2 = location.getLongitude();
@@ -240,8 +245,8 @@ public class DaKaMain extends AppCompatActivity {
                     boolean iscontain1 = position3.contains("E");
                     boolean iscontain2 = position4.contains("E");
 
-                    Log.d(TAG, "经度为" + position4);
-                    Log.d(TAG, "纬度为" + position3);
+                    Log.d(TAG, "打卡定位经度" + position4);
+                    Log.d(TAG, "打卡定位纬度" + position3);
 
                     //获取具体地址
                     currentaddr = location.getAddrStr();
@@ -302,6 +307,10 @@ public class DaKaMain extends AppCompatActivity {
                                 message1.what = ADD_INFO_shangban;
                                 handler.sendMessage(message1);
 
+                                //开启实时定位服务
+                                Intent startIntent = new Intent(DaKaMain.this,DingWeiService.class);
+                                startService(startIntent);
+
                                 showResponse("上班打卡成功！");
                                 //flag=1
                                 SharedPreferences.Editor editor = getSharedPreferences("flag",
@@ -318,6 +327,11 @@ public class DaKaMain extends AppCompatActivity {
                                 Message message2 = new Message();
                                 message2.what = ADD_INFO_xiaban;
                                 handler.sendMessage(message2);
+
+                                //关闭实时定位服务
+                                Intent stopIntent = new Intent(DaKaMain.this,DingWeiService.class);
+                                stopService(stopIntent);
+
                                 showResponse("下班打卡成功！");
                                 //flag=2
                                 SharedPreferences.Editor editor = getSharedPreferences("flag",
@@ -363,7 +377,7 @@ public class DaKaMain extends AppCompatActivity {
         synchronized (objLock) {
             if(nLocationClient != null && nLocationClient.isStarted()){
                 nLocationClient.stop();
-                Log.d(TAG, "定位Listener关闭");
+                Log.d(TAG, "打卡定位Listener关闭");
             }
         }
     }
@@ -390,12 +404,15 @@ public class DaKaMain extends AppCompatActivity {
                     dakaBtn.setText("下班打卡");
                     break;
                 case ADD_INFO_shangban:
+                    //清空之前的数据
+                    time1Tv.setText("");
+                    addr1Tv.setText("");
+                    time2Tv.setText("");
+                    addr2Tv.setText("");
                     String current1 = "上班打卡时间";
                     String currenttime1 = current1.concat(time);
                     time1Tv.setText(currenttime1);
                     addr1Tv.setText(currentaddr);
-                    time2Tv.setText("");
-                    addr2Tv.setText("");
                     //保存打卡数据
                     SharedPreferences.Editor editor1 = getSharedPreferences("shangban",
                             MODE_PRIVATE).edit();

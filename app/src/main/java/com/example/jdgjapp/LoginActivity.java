@@ -213,21 +213,20 @@ public class LoginActivity extends AppCompatActivity {
                 Log.d(TAG, ""+userJson);
                 Gson gson = new Gson();
                 List<User> userList = gson.fromJson(userJson, new TypeToken<List<User>>(){}.getType());
+                DataSupport.deleteAll(User.class);
                 for (User user : userList){
-                    List<User> users = DataSupport.where("usr_id = ?",user.getUsr_id()).find(User.class);
-                    if (users == null || users.size()==0){ //本地没有则添加
-                        User user1 = new User();
-                        user1.setUsr_id(user.getUsr_id());
-                        user1.setUsr_name(user.getUsr_name());
-                        user1.setUsr_paswprd(user.getUsr_paswprd());
-                        user1.setUsr_sex(user.getUsr_sex());
-                        user1.setUsr_addr(user.getUsr_addr());
-                        user1.setUsr_phone(user.getUsr_phone());
-                        user1.setUsr_birth(user.getUsr_birth());
-                        user1.setUsr_deptId(user.getUsr_deptId());
-                        user1.setUsr_bossId(user.getUsr_bossId());
-                        user1.save();
-                    }
+                    User user1 = new User();
+                    user1.setUsr_id(user.getUsr_id());
+                    user1.setUsr_name(user.getUsr_name());
+                    user1.setUsr_paswprd(user.getUsr_paswprd());
+                    user1.setUsr_sex(user.getUsr_sex());
+                    user1.setUsr_addr(user.getUsr_addr());
+                    user1.setUsr_phone(user.getUsr_phone());
+                    user1.setUsr_birth(user.getUsr_birth());
+                    user1.setUsr_deptId(user.getUsr_deptId());
+                    user1.setUsr_bossId(user.getUsr_bossId());
+                    user1.save();
+
                     MyApplication.setid(user.getUsr_id());
                     Log.d(TAG, "usr_id is " + user.getUsr_id());
                     Log.d(TAG, "usr_name is " + user.getUsr_name());
@@ -247,15 +246,14 @@ public class LoginActivity extends AppCompatActivity {
                 String departJson = "[".concat(depatJson);
                 Gson gson1 = new Gson();
                 List<Depart> departList = gson1.fromJson(departJson,new TypeToken<List<Depart>>(){}.getType());
+                DataSupport.deleteAll(Depart.class);
                 for (Depart depart : departList){
-                    List<Depart> departs = DataSupport.where("dep_id = ?",depart.getDep_id()).find(Depart.class);
-                    if(departs == null || departs.size()==0){    //本地没有则添加
-                        Depart depart1 = new Depart();
-                        depart1.setDep_id(depart.getDep_id());
-                        depart1.setDep_name(depart.getDep_name());
-                        depart1.setDep_manager(depart.getDep_manager());
-                        depart1.save();
-                    }
+                    Depart depart1 = new Depart();
+                    depart1.setDep_id(depart.getDep_id());
+                    depart1.setDep_name(depart.getDep_name());
+                    depart1.setDep_manager(depart.getDep_manager());
+                    depart1.save();
+
                     Log.d(TAG, "dep_id is " + depart.getDep_id());
                     Log.d(TAG, "dep_name is " + depart.getDep_name());
                     Log.d(TAG, "dep_manager is " + depart.getDep_manager());
