@@ -85,10 +85,8 @@ public class DingWeiService extends Service {
             Calendar calendar = Calendar.getInstance();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             String currenttime = format.format(calendar.getTime());
-            Log.d(TAG, "定位111111111");
             //上传数据
             sendRequestPosition(user.getUsr_id(),position3,position4,currenttime);
-            Log.d(TAG, "定位222222222");
         }
     }
 
