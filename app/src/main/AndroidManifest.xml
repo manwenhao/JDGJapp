@@ -112,14 +112,14 @@
         <activity android:name=".SetPhoneActivity" />
         <activity android:name=".SetPasswordActivity" />
         <activity
-            android:name=".Friends.MyDeptMent"
-            android:launchMode="singleTask" />
+            android:name=".Friends.MyDeptMent" />
         <activity android:name=".Friends.DeptMember" />
 
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
+
         <activity
             android:name="cn.jpush.android.ui.PopWinActivity"
             android:exported="false"
@@ -210,8 +210,7 @@
 
         <receiver
             android:name=".MyJPushReceiver"
-            android:enabled="true"
-            >
+            android:enabled="true">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.REGISTRATION" />
                 <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
@@ -224,11 +223,10 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".work.bangong.shipin.StartShiPin"></activity>
+        <activity android:name=".work.bangong.shipin.StartShiPin" />
         <activity
             android:name=".work.bangong.shipin.agora.openvcall.ui.ShiPinActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize">
-        </activity>
+            android:configChanges="orientation|keyboardHidden|screenSize"></activity>
         <activity
             android:name=".work.bangong.shipin.agora.openvcall.ui.ChatActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -238,6 +236,7 @@
             android:name=".work.bangong.shipin.agora.openvcall.ui.SettingsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/label_settings" />
+        <activity android:name=".work.bangong.shipin.ShiPin"></activity>
     </application>
 
 </manifest>

@@ -20,7 +20,7 @@ import cn.jpush.android.data.JPushLocalNotification;
 
 public class MyJPushReceiver extends BroadcastReceiver {
     private static String type;
-    public String sender;
+    public static String sender;
     public static String chanel;
 
     @Override
@@ -40,15 +40,17 @@ public class MyJPushReceiver extends BroadcastReceiver {
                         JPushLocalNotification ln = new JPushLocalNotification();
                         ln.setBuilderId(0);
                         ln.setTitle("视频邀请");
-                        ln.setContent("用户"+sender+"邀请你进行视频");
+                        String sendername=sender;
+                        ln.setContent("用户"+sendername+"邀请你进行视频");
                         ln.setNotificationId(11111111) ;
                         JPushInterface.addLocalNotification(context, ln);
                         //如果是在前台，就直接运行
                         if (MyApplication.count!=0)   {
                             ((MyApplication)MyApplication.getContext()).initWorkerThread();
-                            Intent i=new Intent(MyApplication.getContext(), ChatActivity.class);
+                            Intent i=new Intent(MyApplication.getContext(), StartShiPin.class);
                             i.putExtra(ConstantApp.ACTION_KEY_CHANNEL_NAME,chanel);
                             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            i.putExtra("sender",sendername);
                             context.startActivity(i);
                         }
                         break;
@@ -67,9 +69,11 @@ public class MyJPushReceiver extends BroadcastReceiver {
                     if (MyApplication.count==0)  {
                         ((MyApplication)MyApplication.getContext()).initWorkerThread();
                     Log.d("极光推送自定义动作","用户点击了视频notification");
-                        Intent i=new Intent(MyApplication.getContext(), ChatActivity.class);
+                        Intent i=new Intent(MyApplication.getContext(), StartShiPin.class);
                         i.putExtra(ConstantApp.ACTION_KEY_CHANNEL_NAME,chanel);
                         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        String sendername=sender.split(";")[1];
+                        i.putExtra("sender",sendername);
                         context.startActivity(i);
                     }
                 }

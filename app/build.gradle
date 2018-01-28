@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.example.jdgjapp"
-        minSdkVersion 15
+        minSdkVersion 17
         targetSdkVersion 20
         versionCode 1
         versionName "1.0"
@@ -39,7 +39,7 @@ android {
     defaultConfig {
         multiDexEnabled true
         ndk {
-            abiFilters "armeabi", "armeabi-v7a", "x86","arm64-v8a","mips","mips64","x86_64"
+            abiFilters "armeabi", "armeabi-v7a", "x86", "arm64-v8a", "mips", "mips64", "x86_64"
         }
     }
     sourceSets.main {
@@ -68,6 +68,8 @@ dependencies {
     compile files('libs/MobTools-2017.0607.1736.jar')
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'org.slf4j:slf4j-api:1.7.21'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.github.tony19:logback-android-core:1.1.1-4'
     compile('com.github.tony19:logback-android-classic:1.1.1-4') {
         // workaround issue #73

@@ -19,6 +19,7 @@ import com.example.jdgjapp.Bean.User;
 import com.example.jdgjapp.MyApplication;
 import com.example.jdgjapp.R;
 import com.example.jdgjapp.Util.ACache;
+import com.example.jdgjapp.Util.ActivityUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import com.example.jdgjapp.Util.ReturnUsrDep;
@@ -38,6 +39,7 @@ public class MyDeptMent extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_dept_ment);
+        ActivityUtils.getInstance().addActivity(MyDeptMent.class.getName(),this);
         listView=(ListView)findViewById(R.id.my_deptlist);
         back=(ImageView)findViewById(R.id.deptlist_back);
         back.setOnClickListener(new View.OnClickListener() {
