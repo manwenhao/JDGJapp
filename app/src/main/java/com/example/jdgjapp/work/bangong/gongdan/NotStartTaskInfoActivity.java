@@ -102,8 +102,7 @@ public class NotStartTaskInfoActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
-
-
+        
     }
 
 
@@ -142,7 +141,7 @@ public class NotStartTaskInfoActivity extends AppCompatActivity {
 
                         showResponse("已开始工单" + taskId);
 
-                        Intent intent = new Intent(NotStartTaskInfoActivity.this, OnGoingTaskActivity.class);
+                        Intent intent = new Intent(NotStartTaskInfoActivity.this, GongDanMain.class);
                         startActivity(intent);
                     } else {  //发送失败
                         showResponse("请求失败，请稍后再试！");

@@ -184,7 +184,6 @@ public class GongDanMain extends AppCompatActivity {
 
         for(Task task:tasks)
         {
-
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("title", task.getTaskid());
             map.put("time", task.getCreatetime());

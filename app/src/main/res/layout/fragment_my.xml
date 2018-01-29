@@ -18,7 +18,7 @@
         android:textColor="#FFFFFF"
         android:textSize="20sp" />
 
-    <com.example.jdgjapp.Util.BounceScrollView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -204,5 +204,5 @@
 
 
     </LinearLayout>
-    </com.example.jdgjapp.Util.BounceScrollView>
+    </ScrollView>
 </LinearLayout>

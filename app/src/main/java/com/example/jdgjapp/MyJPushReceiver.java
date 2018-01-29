@@ -57,7 +57,6 @@ public class MyJPushReceiver extends BroadcastReceiver {
                     default:
                         break;
 
-
                 }
             }
 

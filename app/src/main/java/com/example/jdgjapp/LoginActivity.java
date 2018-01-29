@@ -65,9 +65,8 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences pref = getSharedPreferences("rememberpwd",MODE_PRIVATE);
         boolean isRemember = pref.getBoolean("remember_password",false);
         if (isRemember){
-            User user = DataSupport.findFirst(User.class);
-            useridEdit.setText(user.getUsr_id());
-            passwordEdit.setText(user.getUsr_paswprd());
+            useridEdit.setText(ReturnUsrDep.returnUsr().getUsr_id());
+            passwordEdit.setText(ReturnUsrDep.returnUsr().getUsr_paswprd());
             rememberPass.setChecked(true);
         }
         setListeners();
@@ -278,6 +277,7 @@ public class LoginActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
     //发送请求匹配未接受工单
     private void TongBuNotReceiveTaskRequest(final String userid) {
         new Thread(new Runnable() {
@@ -351,7 +351,6 @@ public class LoginActivity extends AppCompatActivity {
 
         }
     }
-
 
     //发送请求匹配未开始工单
     private void TongBuNotStartTaskRequest(final String userid) {
@@ -427,7 +426,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-
     //发送请求匹配进行中工单
     private void TongBuOnGoingTaskRequest(final String userid) {
         new Thread(new Runnable() {
@@ -502,7 +500,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-
     //发送请求匹配已完成工单
     private void TongBuDoneTaskRequest(final String userid) {
         new Thread(new Runnable() {
@@ -575,7 +572,6 @@ public class LoginActivity extends AppCompatActivity {
             DataSupport.deleteAll(Task.class, "status = ?", "3");
         }
     }
-
 
     //发送请求匹配请假申请
     private void TongBuLeaveRequest(final String userid) {
@@ -663,7 +659,6 @@ public class LoginActivity extends AppCompatActivity {
             DataSupport.deleteAll(Leave.class);
         }
     }
-
 
     //发送请求匹配出差申请
     private void TongBuTravelRequest(final String userid) {

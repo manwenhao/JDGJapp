@@ -14,14 +14,6 @@
         android:textColor="#FFFFFF"
         android:textSize="20sp" />
 
-    <com.example.jdgjapp.Util.BounceScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/layoutContainer"
@@ -95,40 +87,39 @@
             android:textSize="20sp"
             />
     </LinearLayout>
-    <FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
 
-        <com.example.jdgjapp.Util.ListViewForScrollView
-            android:id="@+id/lv_contacts"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:cacheColorHint="#000000"
-            android:divider="#e3e3e3"
-            android:dividerHeight="1.0dp"
-            android:fadingEdge="none"
-            android:scrollbars="none"
-            android:scrollingCache="false"
-            android:visibility="visible" />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/dialog"
-            android:layout_width="80.0dip"
-            android:layout_height="80.0dip"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textColor="#ffffffff"
-            android:textSize="30.0dip"
-            android:visibility="invisible" />
+            <ListView
+                android:id="@+id/lv_contacts"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:cacheColorHint="#000000"
+                android:divider="#e3e3e3"
+                android:dividerHeight="1.0dp"
+                android:fadingEdge="none"
+                android:scrollbars="none"
+                android:scrollingCache="false"
+                android:visibility="visible" />
 
-        <com.example.jdgjapp.Friends.SideBar
-            android:id="@+id/sidrbar"
-            android:layout_width="30.0dip"
-            android:layout_height="match_parent"
-            android:layout_gravity="right|center" />
-    </FrameLayout>
+            <TextView
+                android:id="@+id/dialog"
+                android:layout_width="80.0dip"
+                android:layout_height="80.0dip"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="#ffffffff"
+                android:textSize="30.0dip"
+                android:visibility="invisible" />
+
+            <com.example.jdgjapp.Friends.SideBar
+                android:id="@+id/sidrbar"
+                android:layout_width="30.0dip"
+                android:layout_height="match_parent"
+                android:layout_gravity="right|center" />
+        </FrameLayout>
 
 
-    </LinearLayout>
-    </com.example.jdgjapp.Util.BounceScrollView>
 </LinearLayout>

@@ -174,7 +174,7 @@ public class OnGoingTaskInfoActivity extends AppCompatActivity {
 
                     showResponse("已完成工单" + taskid);
 
-                    Intent intent = new Intent(OnGoingTaskInfoActivity.this, DoneTaskActivity.class);
+                    Intent intent = new Intent(OnGoingTaskInfoActivity.this, GongDanMain.class);
                     startActivity(intent);
                     } else {  //发送失败
                     showResponse("请求失败，请稍后再试！");

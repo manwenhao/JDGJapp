@@ -250,13 +250,10 @@
             android:name=".work.kaoqin.daka.DingWeiService"
             android:enabled="true"
             android:exported="true"></service>
-        <activity android:name=".work.bangong.gongdan.DoneTaskActivity"/>
+
         <activity android:name=".work.bangong.gongdan.DoneTaskInfoActivity"/>
-        <activity android:name=".work.bangong.gongdan.NotReceivedTaskActivity"/>
         <activity android:name=".work.bangong.gongdan.NotReceivedTaskInfoActivity"/>
-        <activity android:name=".work.bangong.gongdan.NotStartTaskActivity"/>
         <activity android:name=".work.bangong.gongdan.NotStartTaskInfoActivity"/>
-        <activity android:name=".work.bangong.gongdan.OnGoingTaskActivity"/>
         <activity android:name=".work.bangong.gongdan.OnGoingTaskInfoActivity"/>
         <activity android:name=".work.bangong.gongdan.PastTaskReportActivity"/>
         <activity android:name=".work.bangong.gongdan.PastTaskReportInfoActivity"/>

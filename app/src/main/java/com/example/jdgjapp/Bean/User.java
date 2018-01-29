@@ -17,6 +17,7 @@ public class User extends DataSupport{
     private String usr_deptId;
     private String usr_bossId;
 
+
     public String getUsr_id() {
         return usr_id;
     }

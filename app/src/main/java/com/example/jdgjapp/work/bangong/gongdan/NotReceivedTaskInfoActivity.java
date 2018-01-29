@@ -172,7 +172,7 @@ public class NotReceivedTaskInfoActivity extends AppCompatActivity {
 
                         showResponse("已接收工单" + taskId);
 
-                        Intent intent = new Intent(NotReceivedTaskInfoActivity.this, NotStartTaskActivity.class);
+                        Intent intent = new Intent(NotReceivedTaskInfoActivity.this, GongDanMain.class);
                         startActivity(intent);
                     } else if(responseDate.equals("no")){
                         showResponse("已拒绝工单" + taskId);

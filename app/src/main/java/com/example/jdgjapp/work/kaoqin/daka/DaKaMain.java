@@ -33,6 +33,8 @@ import com.example.jdgjapp.LoginActivity;
 import com.example.jdgjapp.MainActivity;
 import com.example.jdgjapp.MyApplication;
 import com.example.jdgjapp.R;
+import com.example.jdgjapp.Util.ACache;
+import com.example.jdgjapp.Util.ReturnUsrDep;
 
 import org.litepal.crud.DataSupport;
 import org.w3c.dom.Text;
@@ -87,8 +89,7 @@ public class DaKaMain extends AppCompatActivity {
         addr2Tv = (TextView)findViewById(R.id.addr_xiaban);
 
         //显示姓名
-        User user = DataSupport.findFirst(User.class);
-        nameTv.setText(user.getUsr_name());
+        nameTv.setText(ReturnUsrDep.returnUsr().getUsr_name());
         //显示当前日期
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -96,22 +97,18 @@ public class DaKaMain extends AppCompatActivity {
         dateTv.setText(currentdate);
 
         //更新打卡按钮
-        SharedPreferences pref = getSharedPreferences("flag",MODE_PRIVATE);
-        flag  = pref.getInt("flag",0);
+        SharedPreferences pref = getSharedPreferences(ReturnUsrDep.returnUsr().getUsr_id(),MODE_PRIVATE);
+        flag  = pref.getInt("dkflag",0);
         if (flag == 1)
             dakaBtn.setText("下班打卡");
         else dakaBtn.setText("上班打卡");
 
         //更新打卡具体信息 新的一天清空
-        SharedPreferences pref0 = getSharedPreferences("date",MODE_PRIVATE);
-        String date = pref0.getString("date","");
-        Log.d(TAG, "date:"+date);
-        SharedPreferences pref1 = getSharedPreferences("shangban",MODE_PRIVATE);
-        String sbtime = pref1.getString("time","");
-        String sbaddr = pref1.getString("address","");
-        SharedPreferences pref2 = getSharedPreferences("xiaban",MODE_PRIVATE);
-        String xbtime = pref2.getString("time","");
-        String xbaddr = pref2.getString("address","");
+        String date = pref.getString("date","");
+        String sbtime = pref.getString("sbtime","");
+        String sbaddr = pref.getString("sbaddr","");
+        String xbtime = pref.getString("xbtime","");
+        String xbaddr = pref.getString("xbaddr","");
         if (currentdate.equals(date)){
             time1Tv.setText(sbtime);
             addr1Tv.setText(sbaddr);
@@ -135,16 +132,15 @@ public class DaKaMain extends AppCompatActivity {
             switch (view.getId()){
                 case R.id.btn_daka:
                     //读取当前flag
-                    SharedPreferences pref = getSharedPreferences("flag",MODE_PRIVATE);
-                    flag  = pref.getInt("flag",0);
+                    SharedPreferences pref = getSharedPreferences(ReturnUsrDep.returnUsr().getUsr_id(),MODE_PRIVATE);
+                    flag  = pref.getInt("dkflag",0);
+                    //读取上一次点击打卡的日期
+                    String date = pref.getString("date","");
 
                     //读取当前日期
                     Calendar calendar = Calendar.getInstance();
                     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                     String currentdate = format.format(calendar.getTime());
-                    //读取本地存储的日期
-                    SharedPreferences pref0 = getSharedPreferences("date",MODE_PRIVATE);
-                    String date = pref0.getString("date","");
 
                     if (!currentdate.equals(date)){
                         //清空之前的数据
@@ -153,9 +149,9 @@ public class DaKaMain extends AppCompatActivity {
                         time2Tv.setText("");
                         addr2Tv.setText("");
                         flag = 0;
-                        SharedPreferences.Editor editor = getSharedPreferences("flag",
+                        SharedPreferences.Editor editor = getSharedPreferences(ReturnUsrDep.returnUsr().getUsr_id(),
                                 MODE_PRIVATE).edit();
-                        editor.putInt("flag",0);
+                        editor.putInt("dkflag",0);
                         editor.apply();
                         //发送定位
                         startLocation();
@@ -255,8 +251,6 @@ public class DaKaMain extends AppCompatActivity {
                     stop();
                     unregisterListener(mylisten);
 
-                    //读取工号
-                    User user = DataSupport.findFirst(User.class);
                     //读取当前时间
                     Calendar calendar = Calendar.getInstance();
                     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -264,9 +258,9 @@ public class DaKaMain extends AppCompatActivity {
                     //上传数据
                     if (!iscontain1&&!iscontain2) {
                         if (flag == 0) {   //上班打卡
-                            sendRequestPosition(user.getUsr_id(), position3, position4, currenttime, "1");
+                            sendRequestPosition(ReturnUsrDep.returnUsr().getUsr_id(), position3, position4, currenttime, "1");
                         } else if (flag == 1) {  //下班打卡
-                            sendRequestPosition(user.getUsr_id(), position3, position4, currenttime, "2");
+                            sendRequestPosition(ReturnUsrDep.returnUsr().getUsr_id(), position3, position4, currenttime, "2");
                         }
                     }else showResponse("无法定位，打卡失败！");
 
@@ -299,13 +293,9 @@ public class DaKaMain extends AppCompatActivity {
                         if (responseDate.equals("ok")){
                             if (type.equals("1")){        //上班打卡成功
                                 //更新按钮上的内容
-                                Message message = new Message();
-                                message.what = UPDATE_BUTTON_xiaban;
-                                handler.sendMessage(message);
+                                updateUI(UPDATE_BUTTON_xiaban);
                                 //显示打卡信息
-                                Message message1 = new Message();
-                                message1.what = ADD_INFO_shangban;
-                                handler.sendMessage(message1);
+                                updateUI(ADD_INFO_shangban);
 
                                 //开启实时定位服务
                                 Intent startIntent = new Intent(DaKaMain.this,DingWeiService.class);
@@ -313,20 +303,16 @@ public class DaKaMain extends AppCompatActivity {
 
                                 showResponse("上班打卡成功！");
                                 //flag=1
-                                SharedPreferences.Editor editor = getSharedPreferences("flag",
+                                SharedPreferences.Editor editor = getSharedPreferences(ReturnUsrDep.returnUsr().getUsr_id(),
                                         MODE_PRIVATE).edit();
-                                editor.putInt("flag",1);
+                                editor.putInt("dkflag",1);
                                 editor.apply();
 
                             }else if (type.equals("2")){  //下班打卡成功
                                 //更新按钮上的内容
-                                Message message = new Message();
-                                message.what = UPDATE_BUTTON_shangban;
-                                handler.sendMessage(message);
+                                updateUI(UPDATE_BUTTON_shangban);
                                 //显示打卡信息
-                                Message message2 = new Message();
-                                message2.what = ADD_INFO_xiaban;
-                                handler.sendMessage(message2);
+                                updateUI(ADD_INFO_xiaban);
 
                                 //关闭实时定位服务
                                 Intent stopIntent = new Intent(DaKaMain.this,DingWeiService.class);
@@ -334,9 +320,9 @@ public class DaKaMain extends AppCompatActivity {
 
                                 showResponse("下班打卡成功！");
                                 //flag=2
-                                SharedPreferences.Editor editor = getSharedPreferences("flag",
+                                SharedPreferences.Editor editor = getSharedPreferences(ReturnUsrDep.returnUsr().getUsr_id(),
                                         MODE_PRIVATE).edit();
-                                editor.putInt("flag",2);
+                                editor.putInt("dkflag",2);
                                 editor.apply();
                             }
                         }else {
@@ -354,7 +340,7 @@ public class DaKaMain extends AppCompatActivity {
                     Calendar calendar = Calendar.getInstance();
                     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                     String date = format.format(calendar.getTime());
-                    SharedPreferences.Editor editor = getSharedPreferences("date",
+                    SharedPreferences.Editor editor = getSharedPreferences(ReturnUsrDep.returnUsr().getUsr_id(),
                             MODE_PRIVATE).edit();
                     editor.putString("date",date);
                     editor.apply();
@@ -388,15 +374,16 @@ public class DaKaMain extends AppCompatActivity {
         }
     }
 
-    private Handler handler = new Handler() {
+    private void updateUI(final int type){
+
+    runOnUiThread(new Runnable() {
         @Override
-        public void handleMessage(Message msg) {
+        public void run() {
             //读取当前时间
             Calendar calendar = Calendar.getInstance();
             SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss");
             String time = format.format(calendar.getTime());
-
-            switch (msg.what){
+            switch (type){
                 case UPDATE_BUTTON_shangban:
                     dakaBtn.setText("上班打卡");
                     break;
@@ -414,10 +401,10 @@ public class DaKaMain extends AppCompatActivity {
                     time1Tv.setText(currenttime1);
                     addr1Tv.setText(currentaddr);
                     //保存打卡数据
-                    SharedPreferences.Editor editor1 = getSharedPreferences("shangban",
+                    SharedPreferences.Editor editor1 = getSharedPreferences(ReturnUsrDep.returnUsr().getUsr_id(),
                             MODE_PRIVATE).edit();
-                    editor1.putString("time",currenttime1);
-                    editor1.putString("address",currentaddr);
+                    editor1.putString("sbtime",currenttime1);
+                    editor1.putString("sbaddr",currentaddr);
                     editor1.apply();
                     break;
                 case ADD_INFO_xiaban:
@@ -426,10 +413,10 @@ public class DaKaMain extends AppCompatActivity {
                     time2Tv.setText(currenttime2);
                     addr2Tv.setText(currentaddr);
                     //保存打卡数据
-                    SharedPreferences.Editor editor2 = getSharedPreferences("xiaban",
+                    SharedPreferences.Editor editor2 = getSharedPreferences(ReturnUsrDep.returnUsr().getUsr_id(),
                             MODE_PRIVATE).edit();
-                    editor2.putString("time",currenttime2);
-                    editor2.putString("address",currentaddr);
+                    editor2.putString("xbtime",currenttime2);
+                    editor2.putString("xbaddr",currentaddr);
                     editor2.apply();
                     break;
 
@@ -437,8 +424,7 @@ public class DaKaMain extends AppCompatActivity {
                     break;
             }
         }
-    };
-
-
+    });
+}
 
 }
