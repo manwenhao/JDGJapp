@@ -7,6 +7,7 @@ import android.graphics.PorterDuff;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -118,6 +119,8 @@ public class ChatActivity extends BaseActivity implements AGEventHandler {
             }
         });
 
+
+
         SurfaceView surfaceV = RtcEngine.CreateRendererView(getApplicationContext());
         rtcEngine().setupLocalVideo(new VideoCanvas(surfaceV, VideoCanvas.RENDER_MODE_HIDDEN, 0));
         surfaceV.setZOrderOnTop(false);
@@ -140,6 +143,7 @@ public class ChatActivity extends BaseActivity implements AGEventHandler {
         fmp.bottomMargin = virtualKeyHeight() + 16;
 
         initMessageList();
+
     }
 
     public void onClickHideIME(View view) {
@@ -710,7 +714,7 @@ public class ChatActivity extends BaseActivity implements AGEventHandler {
         if (twoWayVideoCall) {
             recycler.setLayoutManager(new RtlLinearLayoutManager(getApplicationContext(), RtlLinearLayoutManager.HORIZONTAL, false));
         } else {
-            recycler.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+            recycler.setLayoutManager(new GridLayoutManager(getApplicationContext(),3));
         }
         recycler.addItemDecoration(new SmallVideoViewDecoration());
         recycler.setAdapter(mSmallVideoViewAdapter);
