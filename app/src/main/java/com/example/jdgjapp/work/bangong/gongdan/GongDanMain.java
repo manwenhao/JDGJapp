@@ -35,10 +35,7 @@ public class GongDanMain extends AppCompatActivity {
     private Button notstart;
     private Button doing;
     private Button done;
-    private Button notaccept2;
-    private Button notstart2;
-    private Button doing2;
-    private Button done2;
+
     private TextView date;
     private float mFirstY;
     private float mCurrentY;
@@ -52,19 +49,11 @@ public class GongDanMain extends AppCompatActivity {
         listView=(ListView)findViewById(R.id.task_listview);
         head=(LinearLayout)findViewById(R.id.task_listview_head);
         over=(LinearLayout)findViewById(R.id.task_listview_over);
-        myhead=(View)this.getLayoutInflater().inflate(R.layout.task_listhead,listView,false);
-        date=(TextView)myhead.findViewById(R.id.task_head_date);
-        listView.addHeaderView(myhead);
-        myover=(View)this.getLayoutInflater().inflate(R.layout.task_list_over,listView,false);
-        notaccept=(Button)myover.findViewById(R.id.notaccept);
-        notstart=(Button)myover.findViewById(R.id.notstart);
-        doing=(Button)myover.findViewById(R.id.doing);
-        done=(Button)myover.findViewById(R.id.haddone);
-        listView.addHeaderView(myover);
-        notaccept2=(Button)over.findViewById(R.id.notaccept);
-        notstart2=(Button)over.findViewById(R.id.notstart);
-        doing2=(Button)over.findViewById(R.id.doing);
-        done2=(Button)over.findViewById(R.id.haddone);
+        date=(TextView)head.findViewById(R.id.task_head_date);
+        notaccept=(Button)over.findViewById(R.id.notaccept);
+        notstart=(Button)over.findViewById(R.id.notstart);
+        doing=(Button)over.findViewById(R.id.doing);
+        done=(Button)over.findViewById(R.id.haddone);
         initlist();
         initbutton();
 
@@ -77,10 +66,7 @@ public class GongDanMain extends AppCompatActivity {
                 notstart.setTextColor(getResources().getColor(R.color.taskbutton));
                 doing.setTextColor(getResources().getColor(R.color.taskbutton));
                 done.setTextColor(getResources().getColor(R.color.taskbutton));
-                notaccept2.setTextColor(Color.RED);
-                notstart2.setTextColor(getResources().getColor(R.color.taskbutton));
-                doing2.setTextColor(getResources().getColor(R.color.taskbutton));
-                done2.setTextColor(getResources().getColor(R.color.taskbutton));
+
                 List<Map<String, Object>> list = getData1();
                 listView.setAdapter(new Task_ListViewAdapter(MyApplication.getContext(), list));
 
@@ -100,36 +86,7 @@ public class GongDanMain extends AppCompatActivity {
 
             }
         });
-        notaccept2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                notaccept.setTextColor(Color.RED);
-                notstart.setTextColor(getResources().getColor(R.color.taskbutton));
-                doing.setTextColor(getResources().getColor(R.color.taskbutton));
-                done.setTextColor(getResources().getColor(R.color.taskbutton));
-                notaccept2.setTextColor(Color.RED);
-                notstart2.setTextColor(getResources().getColor(R.color.taskbutton));
-                doing2.setTextColor(getResources().getColor(R.color.taskbutton));
-                done2.setTextColor(getResources().getColor(R.color.taskbutton));
-                List<Map<String, Object>> list = getData1();
-                listView.setAdapter(new Task_ListViewAdapter(MyApplication.getContext(), list));
 
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        //获取控件上的taskid
-                        TextView idTv = (TextView) view.findViewById(R.id.title);
-                        String taskid = idTv.getText().toString();
-
-                        Intent intent = new Intent(GongDanMain.this,NotReceivedTaskInfoActivity.class);
-                        intent.putExtra("taskid",taskid);
-                        startActivity(intent);
-                    }
-                });
-
-
-            }
-        });
         notstart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,10 +94,7 @@ public class GongDanMain extends AppCompatActivity {
                 notaccept.setTextColor(getResources().getColor(R.color.taskbutton));
                 doing.setTextColor(getResources().getColor(R.color.taskbutton));
                 done.setTextColor(getResources().getColor(R.color.taskbutton));
-                notstart2.setTextColor(Color.RED);
-                notaccept2.setTextColor(getResources().getColor(R.color.taskbutton));
-                doing2.setTextColor(getResources().getColor(R.color.taskbutton));
-                done2.setTextColor(getResources().getColor(R.color.taskbutton));
+
                 List<Map<String, Object>> list = getDat2a();
                 listView.setAdapter(new Task_ListViewAdapter(MyApplication.getContext(), list));
 
@@ -159,35 +113,7 @@ public class GongDanMain extends AppCompatActivity {
 
             }
         });
-        notstart2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                notstart.setTextColor(Color.RED);
-                notaccept.setTextColor(getResources().getColor(R.color.taskbutton));
-                doing.setTextColor(getResources().getColor(R.color.taskbutton));
-                done.setTextColor(getResources().getColor(R.color.taskbutton));
-                notstart2.setTextColor(Color.RED);
-                notaccept2.setTextColor(getResources().getColor(R.color.taskbutton));
-                doing2.setTextColor(getResources().getColor(R.color.taskbutton));
-                done2.setTextColor(getResources().getColor(R.color.taskbutton));
-                List<Map<String, Object>> list = getDat2a();
-                listView.setAdapter(new Task_ListViewAdapter(MyApplication.getContext(), list));
 
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        //获取控件上的taskid
-                        TextView idTv = (TextView) view.findViewById(R.id.title);
-                        String taskid = idTv.getText().toString();
-
-                        Intent intent = new Intent(GongDanMain.this,NotStartTaskInfoActivity.class);
-                        intent.putExtra("taskid",taskid);
-                        startActivity(intent);
-                    }
-                });
-
-            }
-        });
         doing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -195,10 +121,6 @@ public class GongDanMain extends AppCompatActivity {
                 notaccept.setTextColor(getResources().getColor(R.color.taskbutton));
                 notstart.setTextColor(getResources().getColor(R.color.taskbutton));
                 done.setTextColor(getResources().getColor(R.color.taskbutton));
-                doing2.setTextColor(Color.RED);
-                notaccept2.setTextColor(getResources().getColor(R.color.taskbutton));
-                notstart2.setTextColor(getResources().getColor(R.color.taskbutton));
-                done2.setTextColor(getResources().getColor(R.color.taskbutton));
                 List<Map<String, Object>> list = getData3();
                 listView.setAdapter(new Task_ListViewAdapter(MyApplication.getContext(), list));
 
@@ -216,34 +138,7 @@ public class GongDanMain extends AppCompatActivity {
 
             }
         });
-        doing2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doing.setTextColor(Color.RED);
-                notaccept.setTextColor(getResources().getColor(R.color.taskbutton));
-                notstart.setTextColor(getResources().getColor(R.color.taskbutton));
-                done.setTextColor(getResources().getColor(R.color.taskbutton));
-                doing2.setTextColor(Color.RED);
-                notaccept2.setTextColor(getResources().getColor(R.color.taskbutton));
-                notstart2.setTextColor(getResources().getColor(R.color.taskbutton));
-                done2.setTextColor(getResources().getColor(R.color.taskbutton));
-                List<Map<String, Object>> list = getData3();
-                listView.setAdapter(new Task_ListViewAdapter(MyApplication.getContext(), list));
 
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        //获取控件上的taskid
-                        TextView idTv = (TextView) view.findViewById(R.id.title);
-                        String taskid = idTv.getText().toString();
-                        Intent intent = new Intent(GongDanMain.this,OnGoingTaskInfoActivity.class);
-                        intent.putExtra("taskid",taskid);
-                        startActivity(intent);
-                    }
-                });
-
-            }
-        });
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -251,10 +146,6 @@ public class GongDanMain extends AppCompatActivity {
                 notstart.setTextColor(getResources().getColor(R.color.taskbutton));
                 doing.setTextColor(getResources().getColor(R.color.taskbutton));
                 done.setTextColor(Color.RED);
-                notaccept2.setTextColor(getResources().getColor(R.color.taskbutton));
-                notstart2.setTextColor(getResources().getColor(R.color.taskbutton));
-                doing2.setTextColor(getResources().getColor(R.color.taskbutton));
-                done2.setTextColor(Color.RED);
                 List<Map<String, Object>> list = getData4();
                 listView.setAdapter(new Task_ListViewAdapter(MyApplication.getContext(), list));
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -271,33 +162,7 @@ public class GongDanMain extends AppCompatActivity {
 
             }
         });
-        done2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                notaccept.setTextColor(getResources().getColor(R.color.taskbutton));
-                notstart.setTextColor(getResources().getColor(R.color.taskbutton));
-                doing.setTextColor(getResources().getColor(R.color.taskbutton));
-                done.setTextColor(Color.RED);
-                notaccept2.setTextColor(getResources().getColor(R.color.taskbutton));
-                notstart2.setTextColor(getResources().getColor(R.color.taskbutton));
-                doing2.setTextColor(getResources().getColor(R.color.taskbutton));
-                done2.setTextColor(Color.RED);
-                List<Map<String, Object>> list = getData4();
-                listView.setAdapter(new Task_ListViewAdapter(MyApplication.getContext(), list));
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        //获取控件上的taskid
-                        TextView idTv = (TextView) view.findViewById(R.id.title);
-                        String taskid = idTv.getText().toString();
-                        Intent intent = new Intent(GongDanMain.this,DoneTaskInfoActivity.class);
-                        intent.putExtra("taskid",taskid);
-                        startActivity(intent);
-                    }
-                });
 
-            }
-        });
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -306,55 +171,7 @@ public class GongDanMain extends AppCompatActivity {
         });
     }
     public void initlist(){
-        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
 
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                if (firstVisibleItem>=1){
-                    over.setVisibility(View.VISIBLE);
-                    flag=true;
-                }else {
-                    flag=false;
-                    over.setVisibility(View.GONE);
-                }
-                if (firstVisibleItem==0&&head.getVisibility()==View.VISIBLE){
-                    over.setVisibility(View.VISIBLE);
-                }
-
-
-            }
-        });
-        listView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()){
-                    case MotionEvent.ACTION_DOWN:
-                        mFirstY=event.getY();
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        mCurrentY=event.getY();
-                        if (mCurrentY-mFirstY>0){//手下滑
-                            direction=0;
-                        }else if (mCurrentY-mFirstY<0) {
-                            direction = 1;//手上滑
-                        }
-                        if (direction==0){
-                            head.setVisibility(View.VISIBLE);
-                        }else if (direction==1&&head.getVisibility()==View.VISIBLE){
-                            head.setVisibility(View.GONE);
-                        }
-
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        break;
-                }
-                return false;
-            }
-        });
     }
     public List<Map<String, Object>> getData1() {
         //添加数据
