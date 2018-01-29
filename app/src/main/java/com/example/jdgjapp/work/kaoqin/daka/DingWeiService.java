@@ -1,12 +1,8 @@
 package com.example.jdgjapp.work.kaoqin.daka;
 
-import android.Manifest;
 import android.app.Service;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.IBinder;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.baidu.location.BDLocation;
@@ -18,9 +14,7 @@ import com.example.jdgjapp.Bean.User;
 import org.litepal.crud.DataSupport;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -28,8 +22,11 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class DingWeiService extends Service {
+/**
+ * Created by xuxuxiao on 2018/1/29.
+ */
 
+public class DingWeiService extends Service {
     private static final String TAG = "DingWeiService";
     public LocationClient nLocationClient;
     private Object  objLock = new Object();
@@ -64,7 +61,7 @@ public class DingWeiService extends Service {
         nLocationClient.setLocOption(option);
     }
 
-    public class MyLocationListener implements BDLocationListener{
+    public class MyLocationListener implements BDLocationListener {
         @Override
         public void onReceiveLocation(BDLocation bdLocation) {
             Log.d(TAG, "实时定位Listener开启");

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingTop="6dp"
+    android:paddingBottom="10dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:text="工单标题"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="75dp"
+                android:text="时间"
+                android:textColor="#BBBBBB"
+                android:textSize="12sp"
+                android:layout_weight="0"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/info"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:textColor="#000"
+            android:text="工单的具体内容..."
+            android:textSize="15sp"
+            android:layout_marginTop="8dp"
+            android:maxLines="1"
+            android:ellipsize="end"/>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
