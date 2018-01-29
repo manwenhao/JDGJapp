@@ -28,19 +28,14 @@ import com.example.jdgjapp.Friends.SideBar;
 import com.example.jdgjapp.Friends.SortModel;
 import com.example.jdgjapp.Friends.SortToken;
 import com.example.jdgjapp.Util.ACache;
-import com.example.jdgjapp.Util.ListViewForScrollView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-
-import okhttp3.Call;
 
 
 /**
