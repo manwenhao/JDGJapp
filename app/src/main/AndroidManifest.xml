@@ -27,6 +27,12 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <!-- 百度地图权限 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -241,6 +247,18 @@
             android:name=".work.kaoqin.daka.DingWeiService"
             android:enabled="true"
             android:exported="true"></service>
+        <activity android:name=".work.bangong.gongdan.DoneTaskActivity"/>
+        <activity android:name=".work.bangong.gongdan.DoneTaskInfoActivity"/>
+        <activity android:name=".work.bangong.gongdan.NotReceivedTaskActivity"/>
+        <activity android:name=".work.bangong.gongdan.NotReceivedTaskInfoActivity"/>
+        <activity android:name=".work.bangong.gongdan.NotStartTaskActivity"/>
+        <activity android:name=".work.bangong.gongdan.NotStartTaskInfoActivity"/>
+        <activity android:name=".work.bangong.gongdan.OnGoingTaskActivity"/>
+        <activity android:name=".work.bangong.gongdan.OnGoingTaskInfoActivity"/>
+        <activity android:name=".work.bangong.gongdan.PastTaskReportActivity"/>
+        <activity android:name=".work.bangong.gongdan.PastTaskReportInfoActivity"/>
+        <activity android:name=".work.bangong.gongdan.TaskReportActivity"/>
+
     </application>
 
 </manifest>

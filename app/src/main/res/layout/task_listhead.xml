@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="#F7F6F7">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="工单"
+        android:textSize="25sp"
+        android:background="@android:color/transparent"
+        android:textColor="#000"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        />
+    <TextView
+        android:id="@+id/task_head_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="日历"
+        android:textSize="25sp"
+        android:background="@android:color/transparent"
+        android:textColor="#5CAAF8"
+        android:gravity="center"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        />
+
+</RelativeLayout>

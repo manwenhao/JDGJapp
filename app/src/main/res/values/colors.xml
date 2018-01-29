@@ -20,6 +20,7 @@
     <color name="dark_black">#CC262626</color>
 
     <color name="transparent_75_white">#ACFFFFFF</color>
+    <color name="taskbutton">#a79b9b</color>
 
     <color name="dark_gray">#FF55585A</color>
 </resources>
