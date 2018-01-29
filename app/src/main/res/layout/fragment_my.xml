@@ -18,6 +18,10 @@
         android:textColor="#FFFFFF"
         android:textSize="20sp" />
 
+    <com.example.jdgjapp.Util.BounceScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,10 +29,12 @@
         android:background="#F4F4F4">
 
         <LinearLayout
-            android:layout_width="340dp"
+            android:layout_width="match_parent"
             android:layout_height="170dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:background="@drawable/fg_peronal_info">
 
             <ImageView
@@ -49,10 +55,10 @@
                     android:id="@+id/username"
                     android:layout_width="120dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="35dp"
                     android:text="用户名"
                     android:textColor="#000"
-                    android:textSize="23sp"
+                    android:textSize="22sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -62,7 +68,7 @@
                     android:layout_marginTop="20dp"
                     android:text="部门"
                     android:textColor="#000"
-                    android:textSize="22sp" />
+                    android:textSize="21sp" />
 
             </LinearLayout>
 
@@ -198,5 +204,5 @@
 
 
     </LinearLayout>
-
+    </com.example.jdgjapp.Util.BounceScrollView>
 </LinearLayout>

@@ -13,6 +13,16 @@
         android:text="通讯录"
         android:textColor="#FFFFFF"
         android:textSize="20sp" />
+
+    <com.example.jdgjapp.Util.BounceScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
     <FrameLayout
         android:id="@+id/layoutContainer"
         android:layout_width="match_parent"
@@ -89,7 +99,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
 
-        <ListView
+        <com.example.jdgjapp.Util.ListViewForScrollView
             android:id="@+id/lv_contacts"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -119,4 +129,6 @@
     </FrameLayout>
 
 
+    </LinearLayout>
+    </com.example.jdgjapp.Util.BounceScrollView>
 </LinearLayout>

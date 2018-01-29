@@ -5,6 +5,7 @@
     android:orientation="vertical"
     android:background="@android:color/white">
 
+    
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -13,6 +14,16 @@
         android:text="工作"
         android:textColor="#FFFFFF"
         android:textSize="20sp" />
+
+    <com.example.jdgjapp.Util.BounceScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -30,7 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/workborder"/>
-    <GridView
+    <com.example.jdgjapp.Util.GridViewForScrollView
         android:id="@+id/work_one_gridView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -63,7 +74,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/workborder"/>
-    <GridView
+    <com.example.jdgjapp.Util.GridViewForScrollView
         android:id="@+id/work_two_gridView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -76,5 +87,8 @@
         android:layout_height="1dp"
         android:background="@color/workborder"/>
 
+
+</LinearLayout>
+    </com.example.jdgjapp.Util.BounceScrollView>
 
 </LinearLayout>

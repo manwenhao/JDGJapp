@@ -10,16 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.SimpleAdapter;
 
+import com.example.jdgjapp.Util.GridViewForScrollView;
 import com.example.jdgjapp.work.bangong.baoxiao.BaoXiaoMain;
 import com.example.jdgjapp.work.bangong.cailiao.CaiLiaoMain;
 import com.example.jdgjapp.work.bangong.cheliang.CheLiangMain;
 import com.example.jdgjapp.work.bangong.gongdan.GongDanMain;
 import com.example.jdgjapp.work.bangong.shenpi.ShenPiMain;
 import com.example.jdgjapp.work.bangong.shipin.ShiPin;
-import com.example.jdgjapp.work.bangong.shipin.ShiPinMain;
 import com.example.jdgjapp.work.kaoqin.chuchai.ChuChaiMain;
 import com.example.jdgjapp.work.kaoqin.daka.DaKaMain;
 import com.example.jdgjapp.work.kaoqin.qiandao.QianDaoMain;
@@ -36,8 +35,8 @@ import java.util.Map;
  */
 
 public class WorkFragment extends Fragment {
-    private GridView kaoqin;
-    private GridView bangong;
+    private GridViewForScrollView kaoqin;
+    private GridViewForScrollView bangong;
 
     public WorkFragment() {
 
@@ -57,8 +56,8 @@ public class WorkFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_work, container, false);
-        kaoqin=(GridView)view.findViewById(R.id.work_one_gridView);
-        bangong=(GridView)view.findViewById(R.id.work_two_gridView);
+        kaoqin=(GridViewForScrollView) view.findViewById(R.id.work_one_gridView);
+        bangong=(GridViewForScrollView) view.findViewById(R.id.work_two_gridView);
         return view;
     }
 
