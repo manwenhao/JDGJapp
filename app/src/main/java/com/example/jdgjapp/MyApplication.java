@@ -24,6 +24,7 @@ public class MyApplication extends MobApplication {
     private WorkerThread mWorkerThread;
     private ActivityLifecycleCallbacksImpl mActivityLifecycleCallbacksImpl;
     public static int count=0;
+    public static String bossid="1000";
     @Override
     public void onCreate() {
         super.onCreate();

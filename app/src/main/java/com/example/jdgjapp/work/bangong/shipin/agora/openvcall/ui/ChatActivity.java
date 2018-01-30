@@ -7,6 +7,7 @@ import android.graphics.PorterDuff;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -710,7 +711,7 @@ public class ChatActivity extends BaseActivity implements AGEventHandler {
         if (twoWayVideoCall) {
             recycler.setLayoutManager(new RtlLinearLayoutManager(getApplicationContext(), RtlLinearLayoutManager.HORIZONTAL, false));
         } else {
-            recycler.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+            recycler.setLayoutManager(new GridLayoutManager(getApplicationContext(), 3));
         }
         recycler.addItemDecoration(new SmallVideoViewDecoration());
         recycler.setAdapter(mSmallVideoViewAdapter);

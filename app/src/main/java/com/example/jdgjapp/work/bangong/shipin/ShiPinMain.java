@@ -60,6 +60,8 @@ public class ShiPinMain extends AppCompatActivity {
             public void onClick(View view) {
                 if (ShiPinMain.useridList.size()==0){
                     Toast.makeText(ShiPinMain.this, "请选择视频人员", Toast.LENGTH_SHORT).show();
+                }else if(ShiPinMain.useridList.size()>9){
+                    Toast.makeText(ShiPinMain.this, "邀请视频人员不得超过9人，请重试", Toast.LENGTH_SHORT).show();
                 }else {
                     Log.d("邀请人员id",ShiPinMain.useridList.toString());
                     new Thread(new Runnable() {
