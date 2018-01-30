@@ -119,8 +119,6 @@ public class ChatActivity extends BaseActivity implements AGEventHandler {
             }
         });
 
-
-
         SurfaceView surfaceV = RtcEngine.CreateRendererView(getApplicationContext());
         rtcEngine().setupLocalVideo(new VideoCanvas(surfaceV, VideoCanvas.RENDER_MODE_HIDDEN, 0));
         surfaceV.setZOrderOnTop(false);
@@ -143,7 +141,6 @@ public class ChatActivity extends BaseActivity implements AGEventHandler {
         fmp.bottomMargin = virtualKeyHeight() + 16;
 
         initMessageList();
-
     }
 
     public void onClickHideIME(View view) {
@@ -714,7 +711,7 @@ public class ChatActivity extends BaseActivity implements AGEventHandler {
         if (twoWayVideoCall) {
             recycler.setLayoutManager(new RtlLinearLayoutManager(getApplicationContext(), RtlLinearLayoutManager.HORIZONTAL, false));
         } else {
-            recycler.setLayoutManager(new GridLayoutManager(getApplicationContext(),3));
+            recycler.setLayoutManager(new GridLayoutManager(getApplicationContext(), 3));
         }
         recycler.addItemDecoration(new SmallVideoViewDecoration());
         recycler.setAdapter(mSmallVideoViewAdapter);
