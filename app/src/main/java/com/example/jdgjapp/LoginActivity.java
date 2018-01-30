@@ -172,10 +172,10 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         }).start();
                         showResponse("登录成功");
-                        TongBuNotReceiveTaskRequest(MyApplication.getid());
-                        TongBuNotStartTaskRequest(MyApplication.getid());
-                        TongBuOnGoingTaskRequest(MyApplication.getid());
-                        TongBuDoneTaskRequest(MyApplication.getid());
+
+                        //同步数据
+                        TongBuTaskRequest(MyApplication.getid());
+
                         TongBuLeaveRequest(MyApplication.getid());
                         TongBuTravelRequest(MyApplication.getid());
                         Intent intent = new Intent(LoginActivity.this,MainActivity.class);
@@ -278,25 +278,24 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    //发送请求匹配未接受工单
-    private void TongBuNotReceiveTaskRequest(final String userid) {
+    //发送请求匹配所有工单
+    private void TongBuTaskRequest(final String userid) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try{
                     OkHttpClient client = new OkHttpClient();
                     RequestBody requestBody = new FormBody.Builder()
-                            .add("userid",userid)
+                            .add("user_id",userid)
                             .build();
                     Request request = new Request.Builder()
-                            .url("http://106.14.145.208:8080/KQ/tongBuAppUnRevById")
+                            .url("http://106.14.145.208:8080/JDGJ/TongBuAppUserOrder")
                             .post(requestBody)
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
 
-//                    showResponse(responseDate);
-                    TongBuNotReceiveTaskparseJSON(responseData);
+                    TongBuTaskparseJSON(responseData);
 
                 } catch (Exception e){
                     e.printStackTrace();
@@ -306,34 +305,40 @@ public class LoginActivity extends AppCompatActivity {
         Log.d(TAG, "已发送");
     }
 
-    private void TongBuNotReceiveTaskparseJSON(String jsonData){
+    private void TongBuTaskparseJSON(String jsonData){
         Gson gson = new Gson();
         List<Task> taskList = gson.fromJson(jsonData, new TypeToken<List<Task>>(){}.getType());
-        if (taskList!=null && !taskList.isEmpty()) {    //如果有未接受工单数据
+        if (taskList!=null && !taskList.isEmpty()) {    //如果有工单数据
             for (Task task : taskList) {
-                Log.d(TAG, "未接收工单taskid is " + task.getTaskid());
-                Log.d(TAG, "未接收工单sender is " + task.getSender());
-                Log.d(TAG, "未接收工单createtime is " + task.getCreatetime());
-                Log.d(TAG, "未接收工单content is" + task.getContent());
-                Log.d(TAG, "未接收工单cycle is" + task.getCycle());
+                Log.d(TAG, "工单taskid is     " + task.getTaskid());
+                Log.d(TAG, "工单sender is     " + task.getSender());
+                Log.d(TAG, "工单createtime is " + task.getCreatetime());
+                Log.d(TAG, "工单starttime is  " + task.getStartime());
+                Log.d(TAG, "工单addr is       " + task.getAddr());
+                Log.d(TAG, "工单content is    " + task.getContent());
+                Log.d(TAG, "工单cycle is      " + task.getCycle());
+                Log.d(TAG, "工单status is     " + task.getStatus());
+                Log.d(TAG, "工单**************************************");
 
                 //查询本地数据库，如果没有则添加
-                List<Task> tasks = DataSupport.where("taskid = ? and status = ?", task.getTaskid(), "0").find(Task.class);
-                if (tasks.isEmpty()) {
+                List<Task> tasks = DataSupport.where("taskid = ?", task.getTaskid()).find(Task.class);
+                if (tasks == null || tasks.isEmpty()) {
                     Task task1 = new Task();
                     task1.setTaskid(task.getTaskid());
                     task1.setSender(task.getSender());
                     task1.setCreatetime(task.getCreatetime());
+                    task1.setStartime(task.getStartime());
+                    task1.setAddr(task.getAddr());
                     task1.setContent(task.getContent());
                     task1.setCycle(task.getCycle());
-                    task1.setStatus("0");
+                    task1.setStatus(task.getStatus());
                     task1.save();
-                    Log.d(TAG, "已添加未接收工单" + task.getTaskid());
+                    Log.d(TAG, "已添加工单" + task.getTaskid());
                 }
             }
 
             //将本地数据与接收的数据对比，多的删除
-            List<Task> bdtask = DataSupport.where("status = ?", "0").find(Task.class);
+            List<Task> bdtask = DataSupport.findAll(Task.class);
             for (Task task : bdtask) {
                 int num = 0;
                 for (Task task2 : taskList) {
@@ -341,235 +346,14 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 if (num != 1) {
                     DataSupport.deleteAll(Task.class, "taskid = ?", task.getTaskid());
-                    Log.d(TAG, "已删除未接收工单" + task.getTaskid());
+                    Log.d(TAG, "已删除工单" + task.getTaskid());
                 }
             }
 
-        } else {    //如果没有则删除本地未接受工单数据
-            Log.d(TAG, "没有未接收的工单！");
-            DataSupport.deleteAll(Task.class, "status = ?", "0");
+        } else {    //如果没有则删除本地所有工单数据
+            Log.d(TAG, "没有工单！");
+            DataSupport.deleteAll(Task.class);
 
-        }
-    }
-
-    //发送请求匹配未开始工单
-    private void TongBuNotStartTaskRequest(final String userid) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    OkHttpClient client = new OkHttpClient();
-                    RequestBody requestBody = new FormBody.Builder()
-                            .add("userid",userid)
-                            .build();
-                    Request request = new Request.Builder()
-                            .url("http://106.14.145.208:8080/KQ/tongBuAppNoStartOrd")
-                            .post(requestBody)
-                            .build();
-                    Response response = client.newCall(request).execute();
-                    String responseData = response.body().string();
-
-//                    showResponse(responseDate);
-                    TongBuNotStartTaskparseJSON(responseData);
-
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-        Log.d(TAG, "已发送");
-    }
-
-    private void TongBuNotStartTaskparseJSON(String jsonData){
-        Gson gson = new Gson();
-        List<Task> taskList = gson.fromJson(jsonData, new TypeToken<List<Task>>(){}.getType());
-        if (taskList!=null && !taskList.isEmpty()) {   //如果有未开始工单数据
-            for (Task task : taskList) {
-                Log.d(TAG, "未开始工单taskid is " + task.getTaskid());
-                Log.d(TAG, "未开始工单sender is " + task.getSender());
-                Log.d(TAG, "未开始工单createtime is " + task.getCreatetime());
-                Log.d(TAG, "未开始工单content is" + task.getContent());
-                Log.d(TAG, "未开始工单cycle is" + task.getCycle());
-
-                //查询本地数据库，如果没有则添加
-                List<Task> tasks = DataSupport.where("taskid = ? and status = ?", task.getTaskid(), "1").find(Task.class);
-                if (tasks.isEmpty()) {
-                    Task task1 = new Task();
-                    task1.setTaskid(task.getTaskid());
-                    task1.setSender(task.getSender());
-                    task1.setCreatetime(task.getCreatetime());
-                    task1.setContent(task.getContent());
-                    task1.setCycle(task.getCycle());
-                    task1.setStatus("1");
-                    task1.save();
-                    Log.d(TAG, "已添加未开始工单" + task.getTaskid());
-                }
-            }
-
-            //将本地数据与接收的数据对比，多的删除
-            List<Task> bdtask = DataSupport.where("status = ?", "1").find(Task.class);
-            for (Task task : bdtask) {
-                int num = 0;
-                for (Task task2 : taskList) {
-                    if (task2.getTaskid().equals(task.getTaskid())) num++;
-                }
-                if (num != 1) {
-                    DataSupport.deleteAll(Task.class, "taskid = ?", task.getTaskid());
-                    Log.d(TAG, "已删除未开始工单" + task.getTaskid());
-                }
-            }
-
-        } else {    //如果没有则删除本地进行中工单数据
-            Log.d(TAG, "没有未开始的工单！");
-            DataSupport.deleteAll(Task.class, "status = ?", "1");
-
-        }
-    }
-
-    //发送请求匹配进行中工单
-    private void TongBuOnGoingTaskRequest(final String userid) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    OkHttpClient client = new OkHttpClient();
-                    RequestBody requestBody = new FormBody.Builder()
-                            .add("userid",userid)
-                            .build();
-                    Request request = new Request.Builder()
-                            .url("http://106.14.145.208:8080/KQ/tongBuAppDongOrd")
-                            .post(requestBody)
-                            .build();
-                    Response response = client.newCall(request).execute();
-                    String responseData = response.body().string();
-
-//                    showResponse(responseDate);
-                    TongBuOnGoingTaskparseJSON(responseData);
-
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-        Log.d(TAG, "已发送");
-    }
-
-    private void TongBuOnGoingTaskparseJSON(String jsonData){
-        Gson gson = new Gson();
-        List<Task> taskList = gson.fromJson(jsonData, new TypeToken<List<Task>>(){}.getType());
-        if (taskList!=null && !taskList.isEmpty()) {  //如果有进行中工单数据
-            for (Task task : taskList) {
-                Log.d(TAG, "进行中工单taskid is " + task.getTaskid());
-                Log.d(TAG, "进行中工单sender is " + task.getSender());
-                Log.d(TAG, "进行中工单createtime is " + task.getCreatetime());
-                Log.d(TAG, "进行中工单content is" + task.getContent());
-                Log.d(TAG, "进行中工单cycle is" + task.getCycle());
-
-                //查询本地数据库，如果没有则添加
-                List<Task> tasks = DataSupport.where("taskid = ? and status = ?", task.getTaskid(), "2").find(Task.class);
-                if (tasks.isEmpty()) {
-                    Task task1 = new Task();
-                    task1.setTaskid(task.getTaskid());
-                    task1.setSender(task.getSender());
-                    task1.setCreatetime(task.getCreatetime());
-                    task1.setContent(task.getContent());
-                    task1.setCycle(task.getCycle());
-                    task1.setStatus("2");
-                    task1.save();
-                    Log.d(TAG, "已添加进行中工单" + task.getTaskid());
-                }
-            }
-
-            //将本地数据与接收的数据对比，多的删除
-            List<Task> bdtask = DataSupport.where("status = ?", "2").find(Task.class);
-            for (Task task : bdtask) {
-                int num = 0;
-                for (Task task2 : taskList) {
-                    if (task2.getTaskid().equals(task.getTaskid())) num++;
-                }
-                if (num != 1) {
-                    DataSupport.deleteAll(Task.class, "taskid = ?", task.getTaskid());
-                    Log.d(TAG, "已删除进行中工单" + task.getTaskid());
-                }
-            }
-
-        } else {   //没有则删除本地进行中工单数据
-            Log.d(TAG, "没有进行中的工单！");
-            DataSupport.deleteAll(Task.class, "status = ?", "2");
-
-        }
-    }
-
-    //发送请求匹配已完成工单
-    private void TongBuDoneTaskRequest(final String userid) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    OkHttpClient client = new OkHttpClient();
-                    RequestBody requestBody = new FormBody.Builder()
-                            .add("userid",userid)
-                            .build();
-                    Request request = new Request.Builder()
-                            .url("http://106.14.145.208:8080/KQ/tongBuAppFinishedOrd")
-                            .post(requestBody)
-                            .build();
-                    Response response = client.newCall(request).execute();
-                    String responseData = response.body().string();
-
-//                    showResponse(responseDate);
-                    TongBuDoneTaskparseJSON(responseData);
-
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-        Log.d(TAG, "已发送");
-    }
-
-    private void TongBuDoneTaskparseJSON(String jsonData){
-        Gson gson = new Gson();
-        List<Task> taskList = gson.fromJson(jsonData, new TypeToken<List<Task>>(){}.getType());
-        if (taskList!=null && !taskList.isEmpty()) {  //如果有已完成工单数据
-            for (Task task : taskList) {
-                Log.d(TAG, "已完成工单taskid is " + task.getTaskid());
-                Log.d(TAG, "已完成工单sender is " + task.getSender());
-                Log.d(TAG, "已完成工单createtime is " + task.getCreatetime());
-                Log.d(TAG, "已完成工单content is" + task.getContent());
-                Log.d(TAG, "已完成工单cycle is" + task.getCycle());
-
-                //查询本地数据库，如果没有则添加
-                List<Task> tasks = DataSupport.where("taskid = ? and status = ?", task.getTaskid(), "3").find(Task.class);
-                if (tasks.isEmpty()) {
-                    Task task1 = new Task();
-                    task1.setTaskid(task.getTaskid());
-                    task1.setSender(task.getSender());
-                    task1.setCreatetime(task.getCreatetime());
-                    task1.setContent(task.getContent());
-                    task1.setCycle(task.getCycle());
-                    task1.setStatus("3");
-                    task1.save();
-                    Log.d(TAG, "已添加已完成工单" + task.getTaskid());
-                }
-            }
-
-            //将本地数据与接收的数据对比，多的删除
-            List<Task> bdtask = DataSupport.where("status = ?", "3").find(Task.class);
-            for (Task task : bdtask) {
-                int num = 0;
-                for (Task task2 : taskList) {
-                    if (task2.getTaskid().equals(task.getTaskid())) num++;
-                }
-                if (num != 1) {
-                    DataSupport.deleteAll(Task.class, "taskid = ?", task.getTaskid());
-                    Log.d(TAG, "已删除已完成工单" + task.getTaskid());
-                }
-            }
-
-        } else {    //如果没有则删除本地进行中工单数据
-            Log.i(TAG, "没有已完成的工单！");
-            DataSupport.deleteAll(Task.class, "status = ?", "3");
         }
     }
 

@@ -9,9 +9,11 @@ public class Task extends DataSupport {
     private String taskid;
     private String sender;
     private String createtime;
+    private String startime;
+    private String addr;
     private String content;
     private String cycle;
-    private String status; //0未接收 1未完成 2已完成
+    private String status; //工单状态：0：未开始 1：待接收 2:进行中 3：已完成 4：逾期未完成 5：逾期已完成 6：转发工单
 
     public String getTaskid() {
         return taskid;
@@ -35,6 +37,22 @@ public class Task extends DataSupport {
 
     public void setCreatetime(String createtime) {
         this.createtime = createtime;
+    }
+
+    public String getStartime(){
+        return startime;
+    }
+
+    public void setStartime(String startime){
+        this.startime = startime;
+    }
+
+    public String getAddr(){
+        return addr;
+    }
+
+    public void setAddr(String addr){
+        this.addr = addr;
     }
 
     public String getContent() {

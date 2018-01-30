@@ -31,13 +31,18 @@ public class DoneTaskInfoActivity extends AppCompatActivity {
     private static final String TAG = "DoneTaskInfoActivity";
     private Button backBtn;
     private Button pastBtn;
-    private TextView titleTv;
-    private TextView contentTv;
+
+    private TextView idTv;
     private TextView senderTv;
+    private TextView createtimeTv;
+    private TextView startimeTv;
     private TextView cycleTv;
-    private String id;
+    private TextView addrTv;
+    private TextView statusTv;
+    private TextView contentTv;
+
     private String taskid;
-    ProgressDialog pro;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +50,15 @@ public class DoneTaskInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_done_task_info);
         backBtn = (Button) findViewById(R.id.btn_back);
         pastBtn = (Button) findViewById(R.id.task_info_past_report);
-        titleTv = (TextView) findViewById(R.id.task_info_title);
-        contentTv = (TextView) findViewById(R.id.task_info_info);
+
+        idTv = (TextView) findViewById(R.id.task_info_id);
         senderTv = (TextView) findViewById(R.id.task_info_sender);
+        createtimeTv = (TextView) findViewById(R.id.task_info_createtime);
+        startimeTv = (TextView) findViewById(R.id.task_info_startime);
         cycleTv = (TextView) findViewById(R.id.task_info_cycle);
+        addrTv = (TextView) findViewById(R.id.task_info_addr);
+        statusTv = (TextView) findViewById(R.id.task_info_status);
+        contentTv = (TextView) findViewById(R.id.task_info_content);
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,15 +73,19 @@ public class DoneTaskInfoActivity extends AppCompatActivity {
         taskid = intent.getStringExtra("taskid");
         Log.d(TAG, "传递过来的taskid = " + taskid);
 
-        final List<Task> tasks = DataSupport.select("taskid","sender","cycle","content")
-                .where("taskid = ?", taskid)
-                .find(Task.class);
+        List<Task> tasks = DataSupport.where("taskid = ?", taskid).find(Task.class);
 
         //将数据显示到界面上
         for (Task task : tasks) {
-            titleTv.setText(task.getTaskid());
+            idTv.setText(task.getTaskid());
             senderTv.setText(task.getSender());
+            createtimeTv.setText(task.getCreatetime());
+            startimeTv.setText(task.getStartime());
             cycleTv.setText(task.getCycle());
+            addrTv.setText(task.getAddr());
+            if (task.getStatus().equals("3")) statusTv.setText("已完成");
+            else if (task.getStatus().equals("5")) statusTv.setText("逾期已完成");
+            else statusTv.setText("转发"); //6
             contentTv.setText(task.getContent());
         }
 

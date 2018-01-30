@@ -36,14 +36,18 @@ public class OnGoingTaskInfoActivity extends AppCompatActivity {
     private Button userReportBtn;
     private Button submitBtn;
     private Button pastBtn;
-    private TextView titleTv;
-    private TextView contentTv;
+
+    private TextView idTv;
     private TextView senderTv;
+    private TextView createtimeTv;
+    private TextView startimeTv;
     private TextView cycleTv;
-    private String id;
+    private TextView addrTv;
+    private TextView statusTv;
+    private TextView contentTv;
+
     private String taskid;
-    private String responseDate;
-    ProgressDialog pro;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +57,15 @@ public class OnGoingTaskInfoActivity extends AppCompatActivity {
         userReportBtn = (Button) findViewById(R.id.task_info_user_report);
         submitBtn = (Button) findViewById(R.id.task_info_submit);
         pastBtn = (Button) findViewById(R.id.task_info_past_report);
-        titleTv = (TextView) findViewById(R.id.task_info_title);
-        contentTv = (TextView) findViewById(R.id.task_info_info);
+
+        idTv = (TextView) findViewById(R.id.task_info_id);
         senderTv = (TextView) findViewById(R.id.task_info_sender);
+        createtimeTv = (TextView) findViewById(R.id.task_info_createtime);
+        startimeTv = (TextView) findViewById(R.id.task_info_startime);
         cycleTv = (TextView) findViewById(R.id.task_info_cycle);
+        addrTv = (TextView) findViewById(R.id.task_info_addr);
+        statusTv = (TextView) findViewById(R.id.task_info_status);
+        contentTv = (TextView) findViewById(R.id.task_info_content);
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,27 +82,24 @@ public class OnGoingTaskInfoActivity extends AppCompatActivity {
             }
         });
 
-        //读取工号
-        SharedPreferences pref = getSharedPreferences("userinfo",MODE_PRIVATE);
-        id = pref.getString("1","");
-
         //获取传递过来的taskid
         final Intent intent = getIntent();
         taskid = intent.getStringExtra("taskid");
         Log.d(TAG, "传递过来的taskid = " + taskid);
 
-        List<Task> tasks = DataSupport.select("taskid","sender","cycle","content")
-                .where("taskid = ?", taskid)
-                .find(Task.class);
+        List<Task> tasks = DataSupport.where("taskid = ?", taskid).find(Task.class);
 
         //将数据显示到界面上
         for (Task task : tasks) {
-            titleTv.setText(task.getTaskid());
+            idTv.setText(task.getTaskid());
             senderTv.setText(task.getSender());
+            createtimeTv.setText(task.getCreatetime());
+            startimeTv.setText(task.getStartime());
             cycleTv.setText(task.getCycle());
+            if (task.getStatus().equals("2")) statusTv.setText("进行中");
+            else statusTv.setText("逾期未完成"); //4
             contentTv.setText(task.getContent());
         }
-
 
         userReportBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,7 +128,7 @@ public class OnGoingTaskInfoActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //发送接收状态给服务器
-                        sendRequest(taskid,id);
+                        //sendRequest(taskid,id);
 
                     }
                 });
@@ -162,22 +168,22 @@ public class OnGoingTaskInfoActivity extends AppCompatActivity {
                             .post(requestBody)
                             .build();
                     Response response = client.newCall(request).execute();
-                    responseDate = response.body().string();
+                    String responseDate = response.body().string();
 
 //                    showResponse(responseDate);
 
                     if (responseDate.equals("ok")) {  //发送成功
 //                    修改数据库中工单状态staus=3已完成
-                    Task task = new Task();
-                    task.setStatus("3");
-                    task.updateAll("taskid = ?", taskid);
+                        Task task = new Task();
+                        task.setStatus("3");
+                        task.updateAll("taskid = ?", taskid);
 
-                    showResponse("已完成工单" + taskid);
+                        showResponse("已完成工单" + taskid);
 
-                    Intent intent = new Intent(OnGoingTaskInfoActivity.this, GongDanMain.class);
-                    startActivity(intent);
+                        Intent intent = new Intent(OnGoingTaskInfoActivity.this, GongDanMain.class);
+                        startActivity(intent);
                     } else {  //发送失败
-                    showResponse("请求失败，请稍后再试！");
+                        showResponse("请求失败，请稍后再试！");
                 }
 
                 } catch (Exception e){

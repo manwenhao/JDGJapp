@@ -85,7 +85,20 @@
         android:stretchMode="columnWidth"
         android:gravity="center"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"/>
+        android:layout_marginRight="15dp"
+        android:paddingBottom="15dp"/>
+
+
+    <Button
+        android:id="@+id/btn_select_material"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:onClick="selectImg"
+        android:textColor="#fff"
+        android:text="选择材料"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/btn_select_img" />
 
 
 </LinearLayout>

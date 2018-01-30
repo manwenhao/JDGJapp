@@ -32,13 +32,17 @@ public class NotStartTaskInfoActivity extends AppCompatActivity {
     private static final String TAG = "NotStartTaskInfoActivit";
     private Button backBtn;
     private Button startBtn;
-    private TextView titleTv;
-    private TextView contentTv;
+
+    private TextView idTv;
     private TextView senderTv;
+    private TextView createtimeTv;
+    private TextView startimeTv;
     private TextView cycleTv;
-    private String id;
-    private String taskId;
-    private String responseDate;
+    private TextView addrTv;
+    private TextView statusTv;
+    private TextView contentTv;
+
+    private String taskid;
 
 
     @Override
@@ -47,10 +51,15 @@ public class NotStartTaskInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_not_start_task_info);
         backBtn = (Button) findViewById(R.id.btn_back);
         startBtn = (Button) findViewById(R.id.task_start_btn);
-        titleTv = (TextView) findViewById(R.id.task_info_title);
-        contentTv = (TextView) findViewById(R.id.task_info_info);
+
+        idTv = (TextView) findViewById(R.id.task_info_id);
         senderTv = (TextView) findViewById(R.id.task_info_sender);
+        createtimeTv = (TextView) findViewById(R.id.task_info_createtime);
+        startimeTv = (TextView) findViewById(R.id.task_info_startime);
         cycleTv = (TextView) findViewById(R.id.task_info_cycle);
+        addrTv = (TextView) findViewById(R.id.task_info_addr);
+        statusTv = (TextView) findViewById(R.id.task_info_status);
+        contentTv = (TextView) findViewById(R.id.task_info_content);
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,24 +68,22 @@ public class NotStartTaskInfoActivity extends AppCompatActivity {
             }
         });
 
-        //读取工号
-        SharedPreferences pref = getSharedPreferences("userinfo",MODE_PRIVATE);
-        id = pref.getString("1","");
-
         //获取传递过来的taskid
         Intent intent = getIntent();
-        String taskid = intent.getStringExtra("taskid");
+        taskid = intent.getStringExtra("taskid");
         Log.d(TAG, "传递过来的taskid = " + taskid);
 
-        List<Task> tasks = DataSupport.select("taskid","sender","cycle","content")
-                .where("taskid = ?", taskid)
-                .find(Task.class);
+        List<Task> tasks = DataSupport.where("taskid = ?", taskid).find(Task.class);
 
         //将数据显示到界面上
         for (Task task : tasks) {
-            titleTv.setText(task.getTaskid());
+            idTv.setText(task.getTaskid());
             senderTv.setText(task.getSender());
+            createtimeTv.setText(task.getCreatetime());
+            startimeTv.setText(task.getStartime());
             cycleTv.setText(task.getCycle());
+            addrTv.setText(task.getAddr());
+            statusTv.setText("待开始");
             contentTv.setText(task.getContent());
         }
 
@@ -88,9 +95,8 @@ public class NotStartTaskInfoActivity extends AppCompatActivity {
                 dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //发送接收状态给服务器
-                        taskId = titleTv.getText().toString();
-                        sendRequest(taskId,id);
+
+                        //sendRequest(taskid,id);
                     }
                 });
                 dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -129,7 +135,7 @@ public class NotStartTaskInfoActivity extends AppCompatActivity {
                             .post(requestBody)
                             .build();
                     Response response = client.newCall(request).execute();
-                    responseDate = response.body().string();
+                    String responseDate = response.body().string();
 
 //                    showResponse(responseDate);
 
@@ -137,9 +143,9 @@ public class NotStartTaskInfoActivity extends AppCompatActivity {
                         //修改数据库中工单状态staus=2进行中
                         Task task = new Task();
                         task.setStatus("2");
-                        task.updateAll("taskid = ?", taskId);
+                        task.updateAll("taskid = ?", taskid);
 
-                        showResponse("已开始工单" + taskId);
+                        showResponse("已开始工单" + taskid);
 
                         Intent intent = new Intent(NotStartTaskInfoActivity.this, GongDanMain.class);
                         startActivity(intent);

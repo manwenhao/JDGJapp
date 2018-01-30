@@ -35,7 +35,7 @@ public class GongDanMain extends AppCompatActivity {
     private Button notstart;
     private Button doing;
     private Button done;
-
+    private TextView nodata;
     private TextView date;
     private float mFirstY;
     private float mCurrentY;
@@ -54,6 +54,7 @@ public class GongDanMain extends AppCompatActivity {
         notstart=(Button)over.findViewById(R.id.notstart);
         doing=(Button)over.findViewById(R.id.doing);
         done=(Button)over.findViewById(R.id.haddone);
+        nodata = (TextView)findViewById(R.id.tv_nodata);
         initlist();
         initbutton();
 
@@ -68,6 +69,8 @@ public class GongDanMain extends AppCompatActivity {
                 done.setTextColor(getResources().getColor(R.color.taskbutton));
 
                 List<Map<String, Object>> list = getData1();
+                if (list==null || list.isEmpty()) nodata.setText("暂无工单");
+                else nodata.setText("");
                 listView.setAdapter(new Task_ListViewAdapter(MyApplication.getContext(), list));
 
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -96,6 +99,9 @@ public class GongDanMain extends AppCompatActivity {
                 done.setTextColor(getResources().getColor(R.color.taskbutton));
 
                 List<Map<String, Object>> list = getDat2a();
+                if (list==null || list.isEmpty()) nodata.setText("暂无工单");
+                else nodata.setText("");
+
                 listView.setAdapter(new Task_ListViewAdapter(MyApplication.getContext(), list));
 
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -122,6 +128,8 @@ public class GongDanMain extends AppCompatActivity {
                 notstart.setTextColor(getResources().getColor(R.color.taskbutton));
                 done.setTextColor(getResources().getColor(R.color.taskbutton));
                 List<Map<String, Object>> list = getData3();
+                if (list==null || list.isEmpty()) nodata.setText("暂无工单");
+                else nodata.setText("");
                 listView.setAdapter(new Task_ListViewAdapter(MyApplication.getContext(), list));
 
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -147,6 +155,8 @@ public class GongDanMain extends AppCompatActivity {
                 doing.setTextColor(getResources().getColor(R.color.taskbutton));
                 done.setTextColor(Color.RED);
                 List<Map<String, Object>> list = getData4();
+                if (list==null || list.isEmpty()) nodata.setText("暂无工单");
+                else nodata.setText("");
                 listView.setAdapter(new Task_ListViewAdapter(MyApplication.getContext(), list));
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -177,61 +187,61 @@ public class GongDanMain extends AppCompatActivity {
         //添加数据
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 
-        //从数据库中查询status=0未接收的数据
+        //从数据库中查询status=1待接收的数据
         List<Task> tasks = DataSupport.select("taskid","createtime","content")
-                .where("status = ?","0")
+                .where("status = ?","1")
                 .find(Task.class);
-
-        for(Task task:tasks)
-        {
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("title", task.getTaskid());
-            map.put("time", task.getCreatetime());
-            map.put("info", task.getContent());
-            list.add(map);
+        if (tasks!=null && !tasks.isEmpty()){
+            for(Task task:tasks)
+            {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("title", task.getTaskid());
+                map.put("time", task.getCreatetime());
+                map.put("info", task.getContent());
+                list.add(map);
+            }
         }
-
         return list;
     }
+
     public List<Map<String, Object>> getDat2a() {
         //添加数据
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 
-        //从数据库中查询status=1未开始的数据
+        //从数据库中查询status=0未开始的数据
         List<Task> tasks = DataSupport.select("taskid","createtime","content")
-                .where("status = ?","1")
+                .where("status = ?","0")
                 .find(Task.class);
-
-        for(Task task:tasks)
-        {
-
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("title", task.getTaskid());
-            map.put("time", task.getCreatetime());
-            map.put("info", task.getContent());
-            list.add(map);
+        if (tasks!=null && !tasks.isEmpty()){
+            for(Task task:tasks)
+            {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("title", task.getTaskid());
+                map.put("time", task.getCreatetime());
+                map.put("info", task.getContent());
+                list.add(map);
+            }
         }
-
-
-
         return list;
     }
+
     public List<Map<String, Object>> getData3() {
         //添加数据
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 
         //从数据库中查询status=2进行中的数据
         List<Task> tasks = DataSupport.select("taskid","createtime","content")
-                .where("status = ?","2")
+                .where("status = ? or status = ?","2","4")
                 .find(Task.class);
-
-        for(Task task:tasks)
-        {
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("title", task.getTaskid());
-            map.put("time", task.getCreatetime());
-            map.put("info", task.getContent());
-            list.add(map);
+        if (tasks!=null && !tasks.isEmpty()){
+            for(Task task:tasks)
+            {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("title", task.getTaskid());
+                map.put("time", task.getCreatetime());
+                map.put("info", task.getContent());
+                list.add(map);
+            }
         }
         return list;
     }
@@ -241,16 +251,17 @@ public class GongDanMain extends AppCompatActivity {
 
         //从数据库中查询status=3已完成的数据
         List<Task> tasks = DataSupport.select("taskid","createtime","content")
-                .where("status = ?","3")
+                .where("status = ? or status = ? or status = ?","3","5","6")
                 .find(Task.class);
-
-        for(Task task:tasks)
-        {
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("title", task.getTaskid());
-            map.put("time", task.getCreatetime());
-            map.put("info", task.getContent());
-            list.add(map);
+        if (tasks!=null && !tasks.isEmpty()){
+            for(Task task:tasks)
+            {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("title", task.getTaskid());
+                map.put("time", task.getCreatetime());
+                map.put("info", task.getContent());
+                list.add(map);
+            }
         }
         return list;
 

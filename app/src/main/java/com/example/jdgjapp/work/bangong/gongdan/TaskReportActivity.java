@@ -66,8 +66,6 @@ public class TaskReportActivity extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(TaskReportActivity.this,OnGoingTaskActivity.class);
-//                startActivity(intent);
                 finish();
             }
         });

@@ -42,143 +42,238 @@
         android:layout_height="1dp"
         android:background="#000" />
 
-    <LinearLayout
+    <com.example.jdgjapp.Util.BounceScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="30dp"
-                android:text="工单编号:"
-                android:textSize="20sp"
-                android:textColor="#000"
-                android:gravity="left"
-                android:layout_weight="0"/>
-
-            <TextView
-                android:id="@+id/task_info_title"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:text="工单编号"
-                android:textSize="20sp"
-                android:textColor="#000"
-                android:gravity="left"
-                android:layout_weight="1"/>
+                android:layout_height="25dp"
+                android:orientation="horizontal">
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="工单编号:"
+                    android:textSize="16sp"
+                    android:gravity="left"
+                    android:layout_weight="0"
+                    android:layout_marginRight="15dp"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp">
+                <TextView
+                    android:id="@+id/task_info_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text="工单编号"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="派发人员:"
+                    android:textSize="16sp"
+                    android:layout_marginRight="15dp"/>
+
+                <TextView
+                    android:id="@+id/task_info_sender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="派发人"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="创建日期:"
+                    android:textSize="16sp"
+                    android:layout_marginRight="15dp"/>
+
+                <TextView
+                    android:id="@+id/task_info_createtime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="创建日期"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="开始日期:"
+                    android:textSize="16sp"
+                    android:layout_marginRight="15dp"/>
+
+                <TextView
+                    android:id="@+id/task_info_startime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="开始日期"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="工单周期:"
+                    android:textSize="16sp"
+                    android:layout_marginRight="15dp"/>
+
+                <TextView
+                    android:id="@+id/task_info_cycle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="工单周期"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="执行地点:"
+                    android:textSize="16sp"
+                    android:layout_marginRight="15dp"/>
+
+                <TextView
+                    android:id="@+id/task_info_addr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="执行地点"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="工单状态:"
+                    android:textSize="16sp"
+                    android:layout_marginRight="15dp"/>
+
+                <TextView
+                    android:id="@+id/task_info_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="工单状态"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="25dp"
-                android:text="发送人:"
+                android:text="工单内容:"
                 android:textSize="16sp"
-                android:layout_marginRight="5dp"/>
+                android:layout_marginTop="10dp"/>
 
             <TextView
-                android:id="@+id/task_info_sender"
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:text="发送人"
-                android:textSize="16sp" />
+                android:id="@+id/task_info_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="工单内容"
+                android:textSize="16sp"
+                android:textColor="#000"
+                android:layout_marginTop="10dp"/>
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="25dp"
-                android:background="#9E9E9E"
+
+            <Button
+                android:id="@+id/task_info_user_report"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="center"
+                android:text="发送简报"
+                android:textSize="17sp"
+                android:textColor="#ffffff"
+                android:background="@drawable/login_btn"
                 />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:text="周期(天):"
-                android:textSize="16sp"
-                android:layout_marginRight="5dp"/>
+            <Button
+                android:id="@+id/task_info_past_report"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_gravity="center"
+                android:text="历史简报"
+                android:textSize="17sp"
+                android:textColor="#ffffff"
+                android:background="@drawable/login_btn"
+                />
 
-            <TextView
-                android:id="@+id/task_info_cycle"
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:text="周期"
-                android:textSize="16sp"/>
+            <Button
+                android:id="@+id/task_info_submit"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_gravity="center"
+                android:text="完成"
+                android:textSize="17sp"
+                android:textColor="#ffffff"
+                android:background="@drawable/login_btn"
+                />
+
 
         </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:text="工单详情:"
-            android:textSize="16sp"
-            android:textColor="#000"/>
-
-        <TextView
-            android:id="@+id/task_info_info"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:text="工单具体信息"
-            android:textSize="16sp"
-            android:textColor="#000"
-            android:layout_marginTop="5dp"/>
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/task_info_user_report"
-        android:layout_width="match_parent"
-        android:layout_height="43dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_gravity="center"
-        android:text="发送简报"
-        android:textSize="17sp"
-        android:textColor="#ffffff"
-        android:background="@drawable/login_btn"
-        />
-
-    <Button
-        android:id="@+id/task_info_past_report"
-        android:layout_width="match_parent"
-        android:layout_height="43dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_gravity="center"
-        android:text="历史简报"
-        android:textSize="17sp"
-        android:textColor="#ffffff"
-        android:background="@drawable/login_btn"
-        />
-
-    <Button
-        android:id="@+id/task_info_submit"
-        android:layout_width="match_parent"
-        android:layout_height="43dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_gravity="center"
-        android:text="完成"
-        android:textSize="17sp"
-        android:textColor="#ffffff"
-        android:background="@drawable/login_btn"
-        />
+    </com.example.jdgjapp.Util.BounceScrollView>
 
 </LinearLayout>

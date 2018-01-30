@@ -51,7 +51,7 @@
         android:background="#000" />
 
 
-    <ScrollView
+    <com.example.jdgjapp.Util.BounceScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -130,6 +130,6 @@
 
     </LinearLayout>
 
-    </ScrollView>
+    </com.example.jdgjapp.Util.BounceScrollView>
 
 </LinearLayout>
