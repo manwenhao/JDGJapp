@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.example.jdgjapp.Bean.Task;
 import com.example.jdgjapp.R;
+import com.example.jdgjapp.work.bangong.shipin.ShiPin;
+import com.example.jdgjapp.work.bangong.shipin.ShiPinMain;
 
 import org.litepal.crud.DataSupport;
 import org.w3c.dom.Text;
@@ -33,6 +35,7 @@ public class NotReceivedTaskInfoActivity extends AppCompatActivity {
     private static final String TAG = "NotReceivedTaskInfoActi";
     private Button backBtn;
     private Button acceptBtn;
+    private Button transmitBtn;
     private Button refuseBtn;
 
     private TextView idTv;
@@ -53,6 +56,7 @@ public class NotReceivedTaskInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_not_received_task_info);
         backBtn = (Button) findViewById(R.id.btn_back);
         acceptBtn = (Button) findViewById(R.id.task_accept_btn);
+        transmitBtn = (Button) findViewById(R.id.task_transmit_btn);
         refuseBtn = (Button) findViewById(R.id.task_refuse_btn);
 
         idTv = (TextView) findViewById(R.id.task_info_id);
@@ -109,6 +113,14 @@ public class NotReceivedTaskInfoActivity extends AppCompatActivity {
                 });
                 dialog.show();
 
+            }
+        });
+
+        transmitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Intent intent=new Intent(NotReceivedTaskInfoActivity.this,TransmitListActivity.class);
+                //startActivity(intent);
             }
         });
 

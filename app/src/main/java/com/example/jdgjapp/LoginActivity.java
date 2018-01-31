@@ -335,6 +335,22 @@ public class LoginActivity extends AppCompatActivity {
                     task1.save();
                     Log.d(TAG, "已添加工单" + task.getTaskid());
                 }
+
+                if (tasks.size()>=2){ //删除本地有重复的工单并重新添加
+                    DataSupport.deleteAll(Task.class,"taskid = ?",task.getTaskid());
+                    Task task1 = new Task();
+                    task1.setTaskid(task.getTaskid());
+                    task1.setSender(task.getSender());
+                    task1.setCreatetime(task.getCreatetime());
+                    task1.setStartime(task.getStartime());
+                    task1.setAddr(task.getAddr());
+                    task1.setContent(task.getContent());
+                    task1.setCycle(task.getCycle());
+                    task1.setStatus(task.getStatus());
+                    task1.save();
+                    int size = tasks.size()-1;
+                    Log.d(TAG, "已删除多余工单" + task.getTaskid()+"共"+size+"个");
+                }
             }
 
             //将本地数据与接收的数据对比，多的删除

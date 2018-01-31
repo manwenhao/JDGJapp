@@ -1,6 +1,7 @@
 package com.example.jdgjapp.work.bangong.gongdan;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,32 +23,36 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.jdgjapp.R;
-import com.scrat.app.selectorlibrary.ImageSelector;
+import com.yancy.imageselector.ImageConfig;
+import com.yancy.imageselector.ImageSelector;
+import com.yancy.imageselector.ImageSelectorActivity;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import okhttp3.Call;
 
 public class TaskReportActivity extends AppCompatActivity {
 
     private static final String TAG = "TaskReportActivity";
-    private static final int REQUEST_CODE_SELECT_IMG = 1;
-    private static final int MAX_SELECT_COUNT = 9;
+
     private String id;
     private String taskid;
     private ImageView imageView;
     private EditText despEt;
     private Button backBtn;
     private Button sendBtn;
+    private Button selectImgBtn;
     private GridView gv;
-    List<String> paths;
-    private String desp;
 
-    ProgressDialog pro;
+    private List<String> paths;
+    private String desp;
+    private ProgressDialog pro;
 
 
 
@@ -57,16 +62,26 @@ public class TaskReportActivity extends AppCompatActivity {
         setContentView(R.layout.activity_task_report);
         sendBtn = (Button) findViewById(R.id.btn_send_task_report);
         backBtn = (Button) findViewById(R.id.btn_back);
+        selectImgBtn = (Button) findViewById(R.id.btn_select_photo);
         despEt = (EditText) findViewById(R.id.et_task_desp);
         imageView = (ImageView) findViewById(R.id.image);
         gv = (GridView) findViewById(R.id.gridView);
         paths=new ArrayList<>();
 
-
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        selectImgBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ImageConfig imageConfig = new ImageConfig.Builder(new GlideLoader())
+                        .showCamera()
+                        .build();
+                ImageSelector.open(TaskReportActivity.this, imageConfig);   // 开启图片选择器
             }
         });
 
@@ -158,32 +173,6 @@ public class TaskReportActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CODE_SELECT_IMG) {
-            showContent(data);
-            gv.setAdapter(new GridViewAdapter(paths));
-            return;
-        }
-    }
-
-    private void showContent(Intent data) {
-        if (ImageSelector.getImagePaths(data)==null)
-            return;
-        paths =  ImageSelector.getImagePaths(data);
-        if (paths.isEmpty()) {
-            return;
-        }
-        Log.d(TAG, "已找到所选图片路径");
-
-    }
-
-
-    public void selectImg(View v) {
-        ImageSelector.show(this, REQUEST_CODE_SELECT_IMG, MAX_SELECT_COUNT);
-    }
-
-
     //GridView适配器
     class GridViewAdapter extends BaseAdapter {
         private List<String> listUrls;
@@ -193,6 +182,7 @@ public class TaskReportActivity extends AppCompatActivity {
             this.listUrls = listUrls;
             inflater = LayoutInflater.from(getApplicationContext());
         }
+
 
         public int getCount(){
             return  listUrls.size();
@@ -230,33 +220,33 @@ public class TaskReportActivity extends AppCompatActivity {
         }
     }
 
-    //计算图片的缩放值
-    public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
-        final int height = options.outHeight;
-        final int width = options.outWidth;
-        int inSampleSize = 1;
 
-        if (height > reqHeight || width > reqWidth) {
-            final int heightRatio = Math.round((float) height/ (float) reqHeight);
-            final int widthRatio = Math.round((float) width / (float) reqWidth);
-            inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ImageSelector.IMAGE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+
+            // Get Image Path List
+            paths = data.getStringArrayListExtra(ImageSelectorActivity.EXTRA_RESULT);
+
+            gv.setAdapter(new GridViewAdapter(paths));
+            for (String path : paths) {
+                Log.i("ImagePathList", path);
+            }
+
         }
-        return inSampleSize;
     }
 
-    // 根据路径获得图片并压缩，返回bitmap用于显示
-    public static Bitmap getSmallBitmap(String filePath) {
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(filePath, options);
+    public class GlideLoader implements com.yancy.imageselector.ImageLoader {
+        @Override
+        public void displayImage(Context context, String path, ImageView imageView) {
+            Glide.with(context)
+                    .load(path)
+                    .placeholder(com.yancy.imageselector.R.mipmap.imageselector_photo)
+                    .centerCrop()
+                    .into(imageView);
+        }
 
-        // Calculate inSampleSize
-        options.inSampleSize = calculateInSampleSize(options, 480, 800);
-
-        // Decode bitmap with inSampleSize set
-        options.inJustDecodeBounds = false;
-
-        return BitmapFactory.decodeFile(filePath, options);
     }
 
 

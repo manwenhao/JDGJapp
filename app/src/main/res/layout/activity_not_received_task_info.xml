@@ -245,6 +245,20 @@
         android:background="@drawable/login_btn"
         />
 
+        <Button
+            android:id="@+id/task_transmit_btn"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_gravity="center"
+            android:text="转发"
+            android:textSize="17sp"
+            android:textColor="#ffffff"
+            android:background="@drawable/login_btn"
+            />
+
     <Button
         android:id="@+id/task_refuse_btn"
         android:layout_width="match_parent"
