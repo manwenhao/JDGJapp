@@ -13,6 +13,5 @@ public class BaoXiaoMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bso_xiao_main);
-        startActivity(new Intent(BaoXiaoMain.this, TransmitList.class));
     }
 }

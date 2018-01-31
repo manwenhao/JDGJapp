@@ -1,12 +1,14 @@
 package com.example.jdgjapp.work.bangong.cailiao;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -29,7 +31,7 @@ import java.util.List;
 
 import okhttp3.Call;
 
-public class SeePersonCailiao extends AppCompatActivity {
+public class  SeePersonCailiao extends AppCompatActivity {
     private ListView listView;
 
     @Override
@@ -59,6 +61,16 @@ public class SeePersonCailiao extends AppCompatActivity {
                             public void run() {
                                 MyAdapter adapter=new MyAdapter(MyApplication.getContext(),liaoDetails);
                                 listView.setAdapter(adapter);
+                                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                        if (liaoDetails.get(i).getUse_kind().equals("0")){
+                                            Intent intent=new Intent(MyApplication.getContext(),PersonDetailCaiLiao.class);
+                                            intent.putExtra("person",liaoDetails.get(i));
+                                            startActivity(intent);
+                                        }
+                                    }
+                                });
                             }
                         });
                     }
@@ -91,6 +103,18 @@ public class SeePersonCailiao extends AppCompatActivity {
                             public void run() {
                                 MyAdapter adapter=new MyAdapter(MyApplication.getContext(),list);
                                 listView.setAdapter(adapter);
+                                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                        if (list.get(i).getUse_kind().equals("0")){
+                                            //日常使用
+                                            Intent intent=new Intent(MyApplication.getContext(),PersonDetailCaiLiao.class);
+                                            intent.putExtra("person",list.get(i));
+                                            startActivity(intent);
+                                        }
+                                    }
+                                });
+
                             }
                         });
 

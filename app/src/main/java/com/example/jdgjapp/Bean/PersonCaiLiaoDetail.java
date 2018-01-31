@@ -1,10 +1,13 @@
 package com.example.jdgjapp.Bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by xuxuxiao on 2018/1/31.
  */
 
-public class PersonCaiLiaoDetail {
+public class PersonCaiLiaoDetail implements Parcelable{
     private String use_name;
     private String use_num;
     private String use_cont;
@@ -71,5 +74,37 @@ public class PersonCaiLiaoDetail {
                 ", use_time='" + use_time + '\'' +
                 ", use_kind='" + use_kind + '\'' +
                 '}';
+    }
+    protected PersonCaiLiaoDetail(Parcel in) {
+       use_name=in.readString();
+       use_num=in.readString();
+       use_cont=in.readString();
+       use_time=in.readString();
+       use_kind=in.readString();
+    }
+
+    public static final Creator<PersonCaiLiaoDetail> CREATOR = new Creator<PersonCaiLiaoDetail>() {
+        @Override
+        public PersonCaiLiaoDetail createFromParcel(Parcel in) {
+            return new PersonCaiLiaoDetail(in.readString(),in.readString(),in.readString(),in.readString(),in.readString());
+        }
+
+        @Override
+        public PersonCaiLiaoDetail[] newArray(int size) {
+            return new PersonCaiLiaoDetail[size];
+        }
+    };
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(getUse_name());
+        parcel.writeString(getUse_num());
+        parcel.writeString(getUse_cont());
+        parcel.writeString(getUse_time());
+        parcel.writeString(getUse_kind());
     }
 }
