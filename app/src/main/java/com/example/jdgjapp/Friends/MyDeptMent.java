@@ -128,4 +128,10 @@ public class MyDeptMent extends AppCompatActivity {
             TextView name;
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityUtils.getInstance().delActivity(MyDeptMent.class.getName());
+    }
 }

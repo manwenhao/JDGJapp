@@ -123,6 +123,7 @@ public class ShiPinMain extends AppCompatActivity {
         fragment.serunChecked();
         useridList=new ArrayList<String>();
         DeptMember.flag=0;
+        ActivityUtils.getInstance().delActivity(ShiPinMain.class.getName());
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

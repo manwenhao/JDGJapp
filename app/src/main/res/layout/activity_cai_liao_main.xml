@@ -1,9 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.jdgjapp.work.bangong.cailiao.CaiLiaoMain">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#3C3C3C"
+        android:gravity="center"
+        android:text="材料管理"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp" />
+    <RelativeLayout
+        android:id="@+id/cailiao_mydept"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="#000"
+            android:text="我的部门"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon_right"
+            />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/workborder"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="#000"
+            android:text="我的材料"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
+            />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/workborder"/>
+    <ListView
+        android:id="@+id/person_cailiao_listview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#F8F7F8"
+        android:layout_weight="1"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#fff">
+        <Button
+            android:id="@+id/person_cailiao_detail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:background="@drawable/yuanjiaobutton"
+            android:text="查 看 详 情"/>
+    </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

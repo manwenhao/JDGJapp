@@ -21,6 +21,7 @@ import com.example.jdgjapp.R;
 import com.example.jdgjapp.Util.ACache;
 import com.example.jdgjapp.Util.ActivityUtils;
 import com.example.jdgjapp.Util.ReturnUsrDep;
+import com.example.jdgjapp.work.bangong.gongdan.TransmitList;
 import com.example.jdgjapp.work.bangong.shipin.ShiPinMain;
 import com.example.jdgjapp.work.bangong.shipin.agora.openvcall.model.ConstantApp;
 import com.example.jdgjapp.work.bangong.shipin.agora.openvcall.ui.ChatActivity;
@@ -67,69 +68,79 @@ public class DeptMember extends AppCompatActivity {
         etSearch=(EditText)findViewById(R.id.et_search2);
         ivClearText=(ImageView)findViewById(R.id.ivClearText2);
         ok=(TextView)findViewById(R.id.shipin_depter_ok);
-        if (flag==1){
+        if (flag==1||flag==2){
             ok.setVisibility(View.VISIBLE);
         }
-        ok.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (ShiPinMain.useridList.size()==0){
-                    Toast.makeText(DeptMember.this, "请选择视频人员", Toast.LENGTH_SHORT).show();
-                }else if(ShiPinMain.useridList.size()>9){
-                    Toast.makeText(DeptMember.this, "邀请视频人员不得超过9人，请重试", Toast.LENGTH_SHORT).show();
-                }
-                else
+        if (flag==1){
+            ok.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (ShiPinMain.useridList.size()==0){
+                        Toast.makeText(DeptMember.this, "请选择视频人员", Toast.LENGTH_SHORT).show();
+                    }else if(ShiPinMain.useridList.size()>9){
+                        Toast.makeText(DeptMember.this, "邀请视频人员不得超过9人，请重试", Toast.LENGTH_SHORT).show();
+                    }
+                    else
                     {
-                    Log.d("邀请人员id", ShiPinMain.useridList.toString());
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            StringBuilder builder=new StringBuilder();
-                            builder.append(";");
-                            for (String name:ShiPinMain.useridList){
-                                builder.append(name);
+                        Log.d("邀请人员id", ShiPinMain.useridList.toString());
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                StringBuilder builder=new StringBuilder();
                                 builder.append(";");
+                                for (String name:ShiPinMain.useridList){
+                                    builder.append(name);
+                                    builder.append(";");
+                                }
+                                String sendlist=builder.toString();
+                                final String chanel= MyApplication.getid()+";"+new Date().toString();
+                                User u= ReturnUsrDep.returnUsr();
+                                String sender=MyApplication.getid()+";"+u.getUsr_name();
+                                Log.d("list===",sendlist);
+                                OkHttpUtils.post()
+                                        .url("http://106.14.145.208:8080//JDGJ/SendVideoPush")
+                                        .addParams("usr_sender",sender)
+                                        .addParams("usr_ids",sendlist)
+                                        .addParams("chanel",chanel)
+                                        .build()
+                                        .execute(new StringCallback() {
+                                            @Override
+                                            public void onError(Call call, Exception e, int id) {
+                                                Log.d("视频会议出错",e.toString());
+                                            }
+
+                                            @Override
+                                            public void onResponse(String response, int id) {
+                                                runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        ActivityUtils.getInstance().delActivity(ShiPinMain.class.getName());
+                                                        ActivityUtils.getInstance().delActivity(MyDeptMent.class.getName());
+                                                        ActivityUtils.getInstance().delActivity(DeptMember.class.getName());
+                                                        ((MyApplication)MyApplication.getContext()).initWorkerThread();
+                                                        Intent intent=new Intent(MyApplication.getContext(), ChatActivity.class);
+                                                        intent.putExtra(ConstantApp.ACTION_KEY_CHANNEL_NAME,chanel);
+                                                        startActivity(intent);
+                                                    }
+                                                });
+                                            }
+                                        });
+
                             }
-                            String sendlist=builder.toString();
-                            final String chanel= MyApplication.getid()+";"+new Date().toString();
-                            User u= ReturnUsrDep.returnUsr();
-                            String sender=MyApplication.getid()+";"+u.getUsr_name();
-                            Log.d("list===",sendlist);
-                            OkHttpUtils.post()
-                                    .url("http://106.14.145.208:8080//JDGJ/SendVideoPush")
-                                    .addParams("usr_sender",sender)
-                                    .addParams("usr_ids",sendlist)
-                                    .addParams("chanel",chanel)
-                                    .build()
-                                    .execute(new StringCallback() {
-                                        @Override
-                                        public void onError(Call call, Exception e, int id) {
-                                            Log.d("视频会议出错",e.toString());
-                                        }
+                        }).start();
+                    }
 
-                                        @Override
-                                        public void onResponse(String response, int id) {
-                                            runOnUiThread(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    ActivityUtils.getInstance().delActivity(ShiPinMain.class.getName());
-                                                    ActivityUtils.getInstance().delActivity(MyDeptMent.class.getName());
-                                                    ActivityUtils.getInstance().delActivity(DeptMember.class.getName());
-                                                    ((MyApplication)MyApplication.getContext()).initWorkerThread();
-                                                    Intent intent=new Intent(MyApplication.getContext(), ChatActivity.class);
-                                                    intent.putExtra(ConstantApp.ACTION_KEY_CHANNEL_NAME,chanel);
-                                                    startActivity(intent);
-                                                }
-                                            });
-                                        }
-                                    });
-
-                        }
-                    }).start();
                 }
-
-            }
-        });
+            });
+        }
+        if (flag==2){
+            ok.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    TransmitList.click();
+                }
+            });
+        }
         mListView=(ListView)findViewById(R.id.lv_contacts2);
         dialog=(TextView)findViewById(R.id.dialog2);
         sideBar=(SideBar)findViewById(R.id.sidrbar2);
@@ -375,5 +386,11 @@ public class DeptMember extends AppCompatActivity {
             letter = sortString.toUpperCase(Locale.CHINESE);
         }
         return letter;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityUtils.getInstance().delActivity(DeptMember.class.getName());
     }
 }
