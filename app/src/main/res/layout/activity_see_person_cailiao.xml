@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.jdgjapp.work.bangong.cailiao.SeePersonCailiao">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#3C3C3C"
+        android:gravity="center"
+        android:text="个人材料使用详情"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp" />
+    <ListView
+        android:id="@+id/simple_person_cailiao_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

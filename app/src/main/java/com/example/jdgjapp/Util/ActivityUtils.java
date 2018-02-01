@@ -1,6 +1,7 @@
 package com.example.jdgjapp.Util;
 
 import android.app.Activity;
+import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +32,7 @@ public class ActivityUtils {
     public void addActivity(String key, Activity activity) {
         if (activityMap.get(key) == null) {
             activityMap.put(key, activity);
+            Log.d("加入活动",key);
         }
     }
 
@@ -40,12 +42,10 @@ public class ActivityUtils {
      * @param key
      */
     public void delActivity(String key) {
+
         Activity activity = activityMap.get(key);
         if (activity != null) {
-            if (activity.isDestroyed() || activity.isFinishing()) {
-                activityMap.remove(key);
-                return;
-            }
+            Log.d("删除活动",key);
             activity.finish();
             activityMap.remove(key);
         }

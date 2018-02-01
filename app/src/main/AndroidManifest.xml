@@ -263,6 +263,10 @@
         <activity android:name=".work.bangong.gongdan.PastTaskReportActivity" />
         <activity android:name=".work.bangong.gongdan.PastTaskReportInfoActivity" />
         <activity android:name=".work.bangong.gongdan.TaskReportActivity" />
+        <activity android:name=".work.bangong.cailiao.MyDeptOfCaiLiao" />
+        <activity android:name=".work.bangong.cailiao.SeePersonCailiao" />
+        <activity android:name=".work.bangong.gongdan.TransmitList" />
+        <activity android:name=".work.bangong.cailiao.PersonDetailCaiLiao"></activity>
     </application>
 
 </manifest>

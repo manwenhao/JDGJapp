@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="5dp">
+    <TextView
+        android:id="@+id/person_simplecailiao_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textColor="#000"
+        android:text="材料:钢笔"
+        android:layout_marginLeft="5dp"/>
+    <TextView
+        android:id="@+id/person_simplecailiao_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textColor="#000"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="50dp"
+        android:text="使用时间:2018/12/22"/>
+    <TextView
+        android:id="@+id/person_simplecailiao_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textColor="#000"
+        android:layout_below="@id/person_simplecailiao_name"
+        android:text="使用数量:10"
+        android:layout_marginLeft="5dp"/>
+
+    <TextView
+        android:id="@+id/person_simplecailiao_kind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/person_simplecailiao_date"
+        android:layout_below="@+id/person_simplecailiao_date"
+        android:text="使用去处:日常使用消耗"
+        android:textColor="#000"
+        android:textSize="15sp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/person_simplecailiao_kind"
+        android:layout_alignParentEnd="true"
+        android:src="@mipmap/icon_right" />
+
+</RelativeLayout>

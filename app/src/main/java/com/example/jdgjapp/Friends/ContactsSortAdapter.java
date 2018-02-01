@@ -11,6 +11,7 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.example.jdgjapp.R;
+import com.example.jdgjapp.work.bangong.gongdan.TransmitList;
 import com.example.jdgjapp.work.bangong.shipin.ShiPinMain;
 
 import java.util.ArrayList;
@@ -90,44 +91,84 @@ public class ContactsSortAdapter extends BaseAdapter implements SectionIndexer {
 
 		viewHolder.tvTitle.setText(this.mList.get(position).name);
 		viewHolder.tvNumber.setText(this.mList.get(position).number);
+		viewHolder.cbChecked.setChecked(false);
 		if (flag==1){
 			viewHolder.cbChecked.setVisibility(View.VISIBLE);
-		}
-		viewHolder.cbChecked.setChecked(false);
-		for (String id:ShiPinMain.useridList){
-			if (id.equals(mList.get(position).id)){
-				viewHolder.cbChecked.setChecked(true);
-			}
-		}
-		viewHolder.cbChecked.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-				if (b){
-					boolean check=true;
-					for (String id:ShiPinMain.useridList){
-						if (id.equals(mList.get(position).id)){
-							check=false;
-						}
-					}
-					if (check){
-						ShiPinMain.useridList.add(mList.get(position).id);
-					}
-
-				}else {
-					boolean check=false;
-					for (String id:ShiPinMain.useridList){
-						if (id.equals(mList.get(position).id)){
-							check=true;
-						}
-
-					}
-					if (check){
-						ShiPinMain.useridList.remove(mList.get(position).id);
-					}
-
+			for (String id:ShiPinMain.useridList){
+				if (id.equals(mList.get(position).id)){
+					viewHolder.cbChecked.setChecked(true);
 				}
 			}
-		});
+			viewHolder.cbChecked.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+				@Override
+				public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+					if (b){
+						boolean check=true;
+						for (String id:ShiPinMain.useridList){
+							if (id.equals(mList.get(position).id)){
+								check=false;
+							}
+						}
+						if (check){
+							ShiPinMain.useridList.add(mList.get(position).id);
+						}
+
+					}else {
+						boolean check=false;
+						for (String id:ShiPinMain.useridList){
+							if (id.equals(mList.get(position).id)){
+								check=true;
+							}
+
+						}
+						if (check){
+							ShiPinMain.useridList.remove(mList.get(position).id);
+						}
+
+					}
+				}
+			});
+		}
+		if (flag==2){
+			viewHolder.cbChecked.setVisibility(View.VISIBLE);
+			for (String id:TransmitList.useridList){
+				if (id.equals(mList.get(position).id)){
+					viewHolder.cbChecked.setChecked(true);
+				}
+			}
+
+			viewHolder.cbChecked.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+				@Override
+				public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+					if (b){
+						boolean check=true;
+						for (String id: TransmitList.useridList){
+							if (id.equals(mList.get(position).id)){
+								check=false;
+							}
+						}
+						if (check){
+							TransmitList.useridList.add(mList.get(position).id);
+						}
+
+					}else {
+						boolean check=false;
+						for (String id:TransmitList.useridList){
+							if (id.equals(mList.get(position).id)){
+								check=true;
+							}
+
+						}
+						if (check){
+							TransmitList.useridList.remove(mList.get(position).id);
+						}
+
+					}
+				}
+			});
+		}
+
+
 		viewHolder.dept.setText(this.mList.get(position).dept);
 
 		return view;
