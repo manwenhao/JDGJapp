@@ -336,7 +336,13 @@ public class LoginActivity extends AppCompatActivity {
                     Log.d(TAG, "已添加工单" + task.getTaskid());
                 }
 
-                if (tasks.size()>=2){ //删除本地有重复的工单并重新添加
+                if (tasks.size()==1){ //如果有，更新状态status
+                    Task task0 = new Task();
+                    task0.setStatus(task.getStatus());
+                    task0.updateAll("taskid = ?",task.getTaskid());
+                }
+
+                if (tasks.size()>=2){ //如果有多条，删除本地有重复的工单并重新添加
                     DataSupport.deleteAll(Task.class,"taskid = ?",task.getTaskid());
                     Task task1 = new Task();
                     task1.setTaskid(task.getTaskid());
@@ -360,7 +366,7 @@ public class LoginActivity extends AppCompatActivity {
                 for (Task task2 : taskList) {
                     if (task2.getTaskid().equals(task.getTaskid())) num++;
                 }
-                if (num != 1) {
+                if (num == 0) { //如果没有
                     DataSupport.deleteAll(Task.class, "taskid = ?", task.getTaskid());
                     Log.d(TAG, "已删除工单" + task.getTaskid());
                 }

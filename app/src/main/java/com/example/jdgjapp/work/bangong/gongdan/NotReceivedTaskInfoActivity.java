@@ -119,8 +119,10 @@ public class NotReceivedTaskInfoActivity extends AppCompatActivity {
         transmitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent intent=new Intent(NotReceivedTaskInfoActivity.this,TransmitListActivity.class);
-                //startActivity(intent);
+                Intent intent=new Intent(NotReceivedTaskInfoActivity.this,TransmitList.class);
+                intent.putExtra("taskid",taskid);
+                startActivity(intent);
+                //finish();
             }
         });
 

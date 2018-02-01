@@ -19,7 +19,7 @@ import cn.jpush.android.api.JPushInterface;
 
 public class MyApplication extends MobApplication {
 
-    private static Context context;
+    public static Context context;
     private static String userid;
     private WorkerThread mWorkerThread;
     private ActivityLifecycleCallbacksImpl mActivityLifecycleCallbacksImpl;
