@@ -53,30 +53,42 @@ public class MyDeptMent extends AppCompatActivity {
            public void run() {
                u= ReturnUsrDep.returnUsr();
                deptlist=ReturnUsrDep.returnDep();
-               listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                   @Override
-                   public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                       Intent intent=new Intent(MyDeptMent.this,DeptMember.class);
-                       intent.putExtra("deptid",deptlist.get(i).getDep_id());
-                       intent.putExtra("deptname",deptlist.get(i).getDep_name());
-                       startActivity(intent);
-                   }
-               });
+
                runOnUiThread(new Runnable() {
                    @Override
                    public void run() {
                        if (u.getUsr_bossId()==null){
                            adapter=new DeptAdapter(deptlist, MyApplication.getContext());
+                           listView.setAdapter(adapter);
+                           listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                               @Override
+                               public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                   Intent intent=new Intent(MyDeptMent.this,DeptMember.class);
+                                   intent.putExtra("deptid",deptlist.get(i).getDep_id());
+                                   intent.putExtra("deptname",deptlist.get(i).getDep_name());
+                                   startActivity(intent);
+                               }
+                           });
                        }else {
-                           List<Depart>list=new ArrayList<Depart>();
+                           final List<Depart>list=new ArrayList<Depart>();
                            for (Depart d:deptlist){
                                if (d.getDep_id().equals(u.getUsr_deptId())){
                                    list.add(d);
                                }
                            }
                            adapter=new DeptAdapter(list, MyApplication.getContext());
+                           listView.setAdapter(adapter);
+                           listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                               @Override
+                               public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                   Intent intent=new Intent(MyDeptMent.this,DeptMember.class);
+                                   intent.putExtra("deptid",list.get(i).getDep_id());
+                                   intent.putExtra("deptname",list.get(i).getDep_name());
+                                   startActivity(intent);
+                               }
+                           });
                        }
-                       listView.setAdapter(adapter);
+
                    }
                });
 

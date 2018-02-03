@@ -35,7 +35,7 @@ import java.util.List;
 import okhttp3.Call;
 
 public class CaiLiaoMain extends AppCompatActivity {
-    private RelativeLayout mydept;
+    private RelativeLayout mydept,apply;
     private ListView listView;
     private Button start;
     private List<PersonCaiLiao> list;
@@ -46,12 +46,23 @@ public class CaiLiaoMain extends AppCompatActivity {
         mydept=(RelativeLayout)findViewById(R.id.cailiao_mydept);
         listView=(ListView)findViewById(R.id.person_cailiao_listview);
         start=(Button)findViewById(R.id.person_cailiao_detail);
+        apply=(RelativeLayout)findViewById(R.id.cailiao_mydept_apply);
         final User user= ReturnUsrDep.returnUsr();
         mydept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (user.getUsr_bossId()==null||user.getUsr_bossId().equals(MyApplication.bossid)){
                     startActivity(new Intent(CaiLiaoMain.this,MyDeptOfCaiLiao.class));
+                }else {
+                    Toast.makeText(CaiLiaoMain.this, "您的权限不足，无法查看部门材料信息", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        apply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (user.getUsr_bossId()==null||user.getUsr_bossId().equals(MyApplication.bossid)){
+                    startActivity(new Intent(CaiLiaoMain.this,CaiLiaoApply.class));
                 }else {
                     Toast.makeText(CaiLiaoMain.this, "您的权限不足，无法查看部门材料信息", Toast.LENGTH_SHORT).show();
                 }

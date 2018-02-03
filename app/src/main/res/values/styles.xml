@@ -28,4 +28,5 @@
         <item name="android:shadowColor">@color/transparent_75_white</item>
     </style>
 
+
 </resources>

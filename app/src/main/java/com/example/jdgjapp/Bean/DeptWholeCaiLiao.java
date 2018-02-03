@@ -8,14 +8,16 @@ public class DeptWholeCaiLiao {
     private String use_name;
     private String use_num;
     private String use_left;
+    private String dep_name;
 
     public DeptWholeCaiLiao() {
     }
 
-    public DeptWholeCaiLiao(String use_name, String use_num, String use_left) {
+    public DeptWholeCaiLiao(String use_name, String use_num, String use_left, String dep_name) {
         this.use_name = use_name;
         this.use_num = use_num;
         this.use_left = use_left;
+        this.dep_name = dep_name;
     }
 
     public String getUse_name() {
@@ -42,12 +44,21 @@ public class DeptWholeCaiLiao {
         this.use_left = use_left;
     }
 
+    public String getDep_name() {
+        return dep_name;
+    }
+
+    public void setDep_name(String dep_name) {
+        this.dep_name = dep_name;
+    }
+
     @Override
     public String toString() {
         return "DeptWholeCaiLiao{" +
                 "use_name='" + use_name + '\'' +
                 ", use_num='" + use_num + '\'' +
                 ", use_left='" + use_left + '\'' +
+                ", dep_name='" + dep_name + '\'' +
                 '}';
     }
 }

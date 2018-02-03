@@ -5,17 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.jdgjapp.work.bangong.cailiao.MyDeptOfCaiLiao">
+    tools:context="com.example.jdgjapp.work.bangong.cailiao.DeptDetailCL">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#3C3C3C"
         android:gravity="center"
-        android:text="部门列表"
+        android:text="部门材料使用详情"
         android:textColor="#FFFFFF"
         android:textSize="20sp" />
     <ListView
-        android:id="@+id/cailiao_dept"
+        android:id="@+id/dept_cl_simple"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></ListView>
+
 </LinearLayout>

@@ -266,7 +266,15 @@
         <activity android:name=".work.bangong.cailiao.MyDeptOfCaiLiao" />
         <activity android:name=".work.bangong.cailiao.SeePersonCailiao" />
         <activity android:name=".work.bangong.gongdan.TransmitList" />
-        <activity android:name=".work.bangong.cailiao.PersonDetailCaiLiao"></activity>
+        <activity android:name=".work.bangong.cailiao.PersonDetailCaiLiao" />
+        <activity android:name=".work.bangong.cailiao.CaiLiaoApply" />
+        <activity android:name=".work.bangong.cailiao.CaiLiaoWholeOfDept" />
+        <activity android:name=".work.bangong.cailiao.DeptDetailCL" />
+        <activity android:name=".work.bangong.cailiao.ApplyCL"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".work.bangong.cailiao.ApplyIng" />
+        <activity android:name=".work.bangong.cailiao.ApplyPass" />
+        <activity android:name=".work.bangong.cailiao.ApplyRefuse"></activity>
     </application>
 
 </manifest>

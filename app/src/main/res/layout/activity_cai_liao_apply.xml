@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.jdgjapp.work.bangong.cailiao.CaiLiaoApply">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="部门材料申请"
+        android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:background="#3C3C3C"
+        android:textSize="20sp" />
+    <TextView
+        android:id="@+id/apply_cailiao"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="申请材料"
+        android:gravity="center_vertical"
+        android:textColor="#000"
+        android:paddingLeft="10dp"
+        android:textSize="20sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"/>
+    <TextView
+        android:id="@+id/apply_cailiao_ing"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="待批复申请"
+        android:gravity="center_vertical"
+        android:textColor="#000"
+        android:paddingLeft="10dp"
+        android:textSize="20sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"/>
+    <TextView
+        android:id="@+id/apply_cailiao_pass"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="已通过申请"
+        android:gravity="center_vertical"
+        android:textColor="#000"
+        android:paddingLeft="10dp"
+        android:textSize="20sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"/>
+    <TextView
+        android:id="@+id/apply_cailiao_refuse"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="未通过申请"
+        android:gravity="center_vertical"
+        android:textColor="#000"
+        android:paddingLeft="10dp"
+        android:textSize="20sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"/>
+
+</LinearLayout>
