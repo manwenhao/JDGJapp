@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.jdgjapp.work.bangong.cailiao.DatailOfApply">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#3C3C3C"
+        android:gravity="center"
+        android:text="申请详情"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/detail_cl_res_userid"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="申请列表"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:textColor="#000"
+        android:textSize="15sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"/>
+    <TextView
+        android:id="@+id/detail_cl_res_username"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="申请列表"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:textColor="#000"
+        android:textSize="15sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"/>
+    <TextView
+        android:id="@+id/detail_cl_res_name"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="申请列表"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:textColor="#000"
+        android:textSize="15sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"/>
+    <TextView
+        android:id="@+id/detail_cl_res_num"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="申请列表"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:textColor="#000"
+        android:textSize="15sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"/>
+    <TextView
+        android:id="@+id/detail_cl_res_time"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="申请列表"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:textColor="#000"
+        android:textSize="15sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"/>
+    <TextView
+        android:id="@+id/detail_cl_res_reason"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="申请列表"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:textColor="#000"
+        android:textSize="15sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"/>
+    <TextView
+        android:id="@+id/detail_cl_res_status"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="申请列表"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:textColor="#000"
+        android:textSize="15sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"/>
+    <TextView
+        android:id="@+id/detail_cl_res_response"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="申请列表"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:textColor="#000"
+        android:textSize="15sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"/>
+</LinearLayout>

@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:padding="5dp">
     <TextView
-        android:id="@+id/person_simplecailiao_name"
+        android:id="@+id/cl_res_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="15sp"
@@ -14,34 +12,34 @@
         android:text="材料:钢笔"
         android:layout_marginLeft="5dp"/>
     <TextView
-        android:id="@+id/person_simplecailiao_date"
+        android:id="@+id/cl_res_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="15sp"
         android:textColor="#000"
-        android:layout_toEndOf="@id/person_simplecailiao_name"
+        android:layout_toEndOf="@id/cl_res_name"
         android:layout_marginLeft="15dp"
         android:text="使用时间:2018/12/22"/>
     <TextView
-        android:id="@+id/person_simplecailiao_num"
+        android:id="@+id/cl_res_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="15sp"
         android:textColor="#000"
-        android:layout_below="@id/person_simplecailiao_name"
+        android:layout_below="@id/cl_res_name"
         android:text="使用数量:10"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"/>
 
     <TextView
-        android:id="@+id/person_simplecailiao_kind"
+        android:id="@+id/cl_res_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/person_simplecailiao_date"
-        android:layout_toEndOf="@id/person_simplecailiao_num"
+        android:layout_below="@id/cl_res_date"
+        android:layout_toEndOf="@id/cl_res_num"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="5dp"
-        android:text="使用去处:日常使用消耗"
+        android:text="申请者:徐啸"
         android:textColor="#000"
         android:textSize="15sp" />
 
@@ -51,5 +49,6 @@
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:src="@mipmap/icon_right" />
+
 
 </RelativeLayout>

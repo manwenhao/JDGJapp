@@ -58,7 +58,6 @@ public class ApplyCL extends AppCompatActivity {
                             public void onError(Call call, Exception e, int id) {
                                 Log.d("部门材料申请",e.toString());
                             }
-
                             @Override
                             public void onResponse(String response, int id) {
                                 Log.d("部门材料申请",response);
@@ -225,7 +224,7 @@ public class ApplyCL extends AppCompatActivity {
 
                                     }
                                 });
-                            }else if (Integer.parseInt(apply)<0||Integer.parseInt(apply)>Integer.parseInt(list.get(i).getMat_num())){
+                            }else if (Integer.parseInt(apply)<=0||Integer.parseInt(apply)>Integer.parseInt(list.get(i).getMat_num())){
                                 compoundButton.setChecked(false);
                                 vh.apply.setFocusable(true);
                                 vh.apply.setFocusableInTouchMode(true);
