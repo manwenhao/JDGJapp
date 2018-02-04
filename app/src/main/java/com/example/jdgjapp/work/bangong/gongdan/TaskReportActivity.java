@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -22,10 +23,20 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.jdgjapp.Bean.Task;
+import com.example.jdgjapp.Bean.TaskMaterial;
 import com.example.jdgjapp.R;
-import com.yancy.imageselector.ImageConfig;
-import com.yancy.imageselector.ImageSelector;
-import com.yancy.imageselector.ImageSelectorActivity;
+import com.example.jdgjapp.Util.ReturnUsrDep;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.yuyh.library.imgsel.ISNav;
+import com.yuyh.library.imgsel.common.ImageLoader;
+import com.yuyh.library.imgsel.config.ISListConfig;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
+
+
+import org.litepal.crud.DataSupport;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -48,11 +59,13 @@ public class TaskReportActivity extends AppCompatActivity {
     private Button backBtn;
     private Button sendBtn;
     private Button selectImgBtn;
+    private Button selectMarBtn;
     private GridView gv;
 
     private List<String> paths;
     private String desp;
     private ProgressDialog pro;
+    private static final int REQUEST_LIST_CODE = 0;
 
 
 
@@ -63,10 +76,19 @@ public class TaskReportActivity extends AppCompatActivity {
         sendBtn = (Button) findViewById(R.id.btn_send_task_report);
         backBtn = (Button) findViewById(R.id.btn_back);
         selectImgBtn = (Button) findViewById(R.id.btn_select_photo);
+        selectMarBtn = (Button) findViewById(R.id.btn_select_material);
         despEt = (EditText) findViewById(R.id.et_task_desp);
         imageView = (ImageView) findViewById(R.id.image);
         gv = (GridView) findViewById(R.id.gridView);
         paths=new ArrayList<>();
+
+        // 自定义图片加载器
+        ISNav.getInstance().init(new ImageLoader() {
+            @Override
+            public void displayImage(Context context, String path, ImageView imageView) {
+                Glide.with(context).load(path).into(imageView);
+            }
+        });
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,10 +100,14 @@ public class TaskReportActivity extends AppCompatActivity {
         selectImgBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ImageConfig imageConfig = new ImageConfig.Builder(new GlideLoader())
-                        .showCamera()
-                        .build();
-                ImageSelector.open(TaskReportActivity.this, imageConfig);   // 开启图片选择器
+                Iconselect(view);
+            }
+        });
+
+        selectMarBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendMaterialRequest(ReturnUsrDep.returnUsr().getUsr_deptId());
             }
         });
 
@@ -220,34 +246,72 @@ public class TaskReportActivity extends AppCompatActivity {
         }
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ImageSelector.IMAGE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
 
-            // Get Image Path List
-            paths = data.getStringArrayListExtra(ImageSelectorActivity.EXTRA_RESULT);
-
-            gv.setAdapter(new GridViewAdapter(paths));
-            for (String path : paths) {
-                Log.i("ImagePathList", path);
+        if (requestCode == REQUEST_LIST_CODE && resultCode == RESULT_OK && data != null) {
+            paths = data.getStringArrayListExtra("result");
+            for (String path : paths){
+                Log.i("简报图片", path);
             }
+            gv.setAdapter(new GridViewAdapter(paths));
 
         }
     }
 
-    public class GlideLoader implements com.yancy.imageselector.ImageLoader {
-        @Override
-        public void displayImage(Context context, String path, ImageView imageView) {
-            Glide.with(context)
-                    .load(path)
-                    .placeholder(com.yancy.imageselector.R.mipmap.imageselector_photo)
-                    .centerCrop()
-                    .into(imageView);
-        }
-
+    public void Iconselect(View view) {
+        ISListConfig config = new ISListConfig.Builder()
+                .multiSelect(true)
+                .titleBgColor(Color.parseColor("#0F0F0F"))
+                .maxNum(9)
+                .build();
+        ISNav.getInstance().toListActivity(this, config, REQUEST_LIST_CODE);
     }
+
+    private void sendMaterialRequest(final String DeptId){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    OkHttpUtils.post()
+                            .url("http://106.14.145.208:8080/JDGJ/BackDeptMaterialUsesTotal")
+                            .addParams("dep_id",DeptId)
+                            .build()
+                            .execute(new StringCallback() {
+                                @Override
+                                public void onError(Call call, Exception e, int id) {
+                                    Log.d(TAG, "工单材料加载失败"+e.toString());
+                                }
+
+                                @Override
+                                public void onResponse(String response, int id) {
+                                    Log.d(TAG, "工单材料加载成功"+response);
+                                    Gson gson = new Gson();
+                                    List<TaskMaterial> taskMaterialList = gson.fromJson(response, new TypeToken<List<TaskMaterial>>(){}.getType());
+                                    DataSupport.deleteAll(TaskMaterial.class);
+                                    for (TaskMaterial taskMaterial : taskMaterialList){
+                                        Log.d(TAG, "工单材料mat_id   " + taskMaterial.getMat_id());
+                                        Log.d(TAG, "工单材料mat_name " + taskMaterial.getMat_name());
+                                        Log.d(TAG, "工单材料mat_num  " + taskMaterial.getMat_num());
+                                        Log.d(TAG, "工单材料********************");
+                                        //更新材料数据库
+                                        TaskMaterial taskMaterial0 = new TaskMaterial();
+                                        taskMaterial0.setMat_id(taskMaterial.getMat_id());
+                                        taskMaterial0.setMat_name(taskMaterial.getMat_name());
+                                        taskMaterial0.setMat_name(taskMaterial.getMat_num());
+                                        taskMaterial0.save();
+                                    }
+                                }
+                            });
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
 
 
 }

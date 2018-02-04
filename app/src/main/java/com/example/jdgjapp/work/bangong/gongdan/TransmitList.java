@@ -1,7 +1,10 @@
 package com.example.jdgjapp.work.bangong.gongdan;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +28,8 @@ import com.example.jdgjapp.work.bangong.shipin.ShiPinMain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -39,6 +44,7 @@ public class TransmitList extends AppCompatActivity {
     public static List<String> useridList=new ArrayList<String>();//转发人员的id集合
     private TextView ok;
     public static String taskid;
+    public static final int UPDATE = 1;
 
 
     @Override
@@ -70,6 +76,7 @@ public class TransmitList extends AppCompatActivity {
         DeptMember.flag=0;
         ActivityUtils.getInstance().delActivity(TransmitList.class.getName());
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
@@ -77,9 +84,9 @@ public class TransmitList extends AppCompatActivity {
             useridList=new ArrayList<String>();
             DeptMember.flag=0;
         }
-
         return super.onKeyDown(keyCode, event);
     }
+
     //ok的点击事件
     public static void click(){
         Log.d("我选择的转发人员",TransmitList.useridList.toString());
@@ -94,14 +101,20 @@ public class TransmitList extends AppCompatActivity {
             String id = useridList.get(0);
             sendRequestTransmitList(ReturnUsrDep.returnUsr().getUsr_id(),id,taskid);
 
+//            Intent intent = new Intent(context,GongDanMain.class);
+//            context.startActivity(intent);
+
             ActivityUtils.getInstance().delActivity(MyDeptMent.class.getName());
             ActivityUtils.getInstance().delActivity(DeptMember.class.getName());
             ActivityUtils.getInstance().delActivity(TransmitList.class.getName());
+
+
         }
     }
 
 
     private static void sendRequestTransmitList(final String meid, final String youid, final String workid) {
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -124,9 +137,13 @@ public class TransmitList extends AppCompatActivity {
                         Task task = new Task();
                         task.setStatus("3");
                         task.updateAll("taskid = ?",taskid);
+
+                        //GongDanMain.status = "3";
+
                         Looper.prepare();
                         Toast.makeText(MyApplication.getContext(),"转发工单成功！",Toast.LENGTH_SHORT).show();
                         Looper.loop();
+
                     }
                     else{
                         Looper.prepare();
@@ -139,6 +156,7 @@ public class TransmitList extends AppCompatActivity {
                 }
             }
         }).start();
+
     }
 
 

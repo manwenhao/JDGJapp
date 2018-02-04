@@ -10,6 +10,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <!-- 图片选择器权限 -->
+
+
     <!-- 从sdcard中读取数据的权限 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!-- 往sdcard中写入数据的权限 -->
@@ -75,7 +77,7 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
 
     <application
-        android:name="com.example.jdgjapp.MyApplication"
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -266,7 +268,9 @@
         <activity android:name=".work.bangong.cailiao.MyDeptOfCaiLiao" />
         <activity android:name=".work.bangong.cailiao.SeePersonCailiao" />
         <activity android:name=".work.bangong.gongdan.TransmitList" />
-        <activity android:name=".work.bangong.cailiao.PersonDetailCaiLiao"></activity>
+        <activity android:name=".work.bangong.cailiao.PersonDetailCaiLiao" />
+        <activity android:name=".SetIconActivity" />
+        <activity android:name=".work.bangong.gongdan.TaskMaterialActivity"></activity>
     </application>
 
 </manifest>

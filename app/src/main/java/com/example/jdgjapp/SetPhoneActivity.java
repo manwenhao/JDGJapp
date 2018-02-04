@@ -54,11 +54,11 @@ public class SetPhoneActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_phone);
 
+        init();
+
         //记住数据
         User user = DataSupport.findFirst(User.class);
         inputPhoneEt.setText(user.getUsr_phone());
-
-        init();
     }
 
     /**

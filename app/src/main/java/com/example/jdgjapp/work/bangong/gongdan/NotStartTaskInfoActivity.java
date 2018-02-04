@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.jdgjapp.Bean.Task;
 import com.example.jdgjapp.R;
+import com.example.jdgjapp.Util.ReturnUsrDep;
 
 import org.litepal.crud.DataSupport;
 
@@ -96,7 +97,7 @@ public class NotStartTaskInfoActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        //sendRequest(taskid,id);
+                        sendRequest(taskid, ReturnUsrDep.returnUsr().getUsr_id());
                     }
                 });
                 dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -113,13 +114,6 @@ public class NotStartTaskInfoActivity extends AppCompatActivity {
 
 
     private void sendRequest(final String workid, final String userid) {
-        //设置ProgressDialog
-        final ProgressDialog pro = new ProgressDialog(this);
-        pro.setProgressStyle(ProgressDialog.STYLE_SPINNER);// 设置进度条的形式为圆形转动的进度条
-        pro.setCancelable(true);// 设置是否可以通过点击Back键取消
-        pro.setCanceledOnTouchOutside(false);// 设置在点击Dialog外是否取消Dialog进度条
-        pro.setMessage("正在发送请求...");
-        pro.show();
 
         new Thread(new Runnable() {
             @Override
@@ -128,16 +122,14 @@ public class NotStartTaskInfoActivity extends AppCompatActivity {
                     OkHttpClient client = new OkHttpClient();
                     RequestBody requestBody = new FormBody.Builder()
                             .add("workid",workid)
-                            .add("userid",userid)
+                            .add("user_id",userid)
                             .build();
                     Request request = new Request.Builder()
-                            .url("http://106.14.145.208:8080/KQ/workOrderStartSign")
+                            .url("http://106.14.145.208:8080/JDGJ/ReceiveOrderStartSign")
                             .post(requestBody)
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseDate = response.body().string();
-
-//                    showResponse(responseDate);
 
                     if (responseDate.equals("ok")) {  //发送成功
                         //修改数据库中工单状态staus=2进行中
@@ -149,14 +141,14 @@ public class NotStartTaskInfoActivity extends AppCompatActivity {
 
                         Intent intent = new Intent(NotStartTaskInfoActivity.this, GongDanMain.class);
                         startActivity(intent);
+                        GongDanMain.status = "2";
+                        finish();
                     } else {  //发送失败
                         showResponse("请求失败，请稍后再试！");
                     }
 
                 } catch (Exception e){
                     e.printStackTrace();
-                } finally {
-                    pro.dismiss();
                 }
             }
         }).start();

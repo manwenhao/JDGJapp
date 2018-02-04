@@ -1,10 +1,16 @@
 package com.example.jdgjapp;
 
 import android.app.Fragment;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +20,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.signature.StringSignature;
 import com.example.jdgjapp.Bean.Depart;
 import com.example.jdgjapp.Bean.User;
+import com.example.jdgjapp.Util.ReturnUsrDep;
 
 import org.litepal.crud.DataSupport;
 
 import java.util.List;
+import java.util.UUID;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by mwh on 2018/1/21.
@@ -29,12 +41,9 @@ public class MyFragment extends Fragment {
 
     private static final String TAG = "MyFragment";
     private Button meResetpwBtn;
-    private Button meBindphoneBtn;
     private Button meExitloginBtn;
-    private Button meNoticeBtn;
     private Button meInfoBtn;
     private ImageView iconIv;
-    private Bitmap mBitmap;
     private TextView usernameTv;
     private TextView departmentTv;
 
@@ -50,12 +59,14 @@ public class MyFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_my, container, false);
+
     }
 
     @Override
@@ -67,7 +78,7 @@ public class MyFragment extends Fragment {
         meInfoBtn = (Button) getActivity().findViewById(R.id.btn_my_infomation);
         meResetpwBtn = (Button) getActivity().findViewById(R.id.btn_me_reset_pw);
         meExitloginBtn = (Button) getActivity().findViewById(R.id.btn_me_exit_login);
-
+        iconIv = (ImageView) getActivity().findViewById(R.id.iv_icon);
 
         //读取姓名和部门并显示
         User user = DataSupport.findFirst(User.class);
@@ -77,6 +88,11 @@ public class MyFragment extends Fragment {
             departmentTv.setText(depart.getDep_name());
         }
 
+        refreshIcon();
+
+        IntentFilter filter = new IntentFilter(SetIconActivity.action);
+        getActivity().registerReceiver(broadcastReceiver, filter);
+
         setListeners();
     }
 
@@ -85,6 +101,7 @@ public class MyFragment extends Fragment {
         meInfoBtn.setOnClickListener(onClick);
         meResetpwBtn.setOnClickListener(onClick);
         meExitloginBtn.setOnClickListener(onClick);
+        iconIv.setOnClickListener(onClick);
     }
 
     private class OnClick implements View.OnClickListener {
@@ -105,10 +122,39 @@ public class MyFragment extends Fragment {
                     startActivity(intent);
                     getActivity().finish();
                     break;
+                case R.id.iv_icon:
+                    intent = new Intent(getActivity(),SetIconActivity.class);
+                    startActivity(intent);
+                    break;
+                default:break;
             }
 
 
         }
     }
+
+    private void refreshIcon(){
+        //读取头像并显示
+        String iconaddr = ReturnUsrDep.returnUsr().getTouxiang();
+        //更新签名
+        SharedPreferences pref = getActivity().getSharedPreferences(ReturnUsrDep.returnUsr().getUsr_id(),MODE_PRIVATE);
+        String qm = pref.getString("icontime","");
+        if (TextUtils.isEmpty(iconaddr)){
+            iconIv.setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(),R.drawable.me_pic));
+        }else {
+            Glide.with(this)
+                    .load(iconaddr)
+                    .signature(new StringSignature(qm))
+                    .error(R.drawable.me_pic)
+                    .into(iconIv);
+        }
+    }
+
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            refreshIcon();
+        }
+    };
 
 }

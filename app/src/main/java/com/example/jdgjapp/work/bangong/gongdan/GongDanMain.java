@@ -41,6 +41,8 @@ public class GongDanMain extends AppCompatActivity {
     private float mCurrentY;
     private int direction;
     private boolean flag=false;
+    public static String status = "-1";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +57,14 @@ public class GongDanMain extends AppCompatActivity {
         doing=(Button)over.findViewById(R.id.doing);
         done=(Button)over.findViewById(R.id.haddone);
         nodata = (TextView)findViewById(R.id.tv_nodata);
+
         initlist();
         initbutton();
+        refreshButton();
 
     }
     public void initbutton(){
+
         notaccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -173,6 +178,7 @@ public class GongDanMain extends AppCompatActivity {
             }
         });
 
+
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -266,4 +272,29 @@ public class GongDanMain extends AppCompatActivity {
         return list;
 
     }
+
+    private void refreshButton(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                switch (status){
+                    case "1":  //待接收
+                        notaccept.performClick();
+                        break;
+                    case "0":  //未开始
+                        notstart.performClick();
+                        break;
+                    case "2":  //进行中
+                        doing.performClick();
+                        break;
+                    case "3":  //已完成
+                        done.performClick();
+                        break;
+                    default:break;
+                }
+            }
+        });
+
+    }
+
 }

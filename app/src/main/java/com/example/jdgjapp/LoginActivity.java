@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -65,9 +66,18 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences pref = getSharedPreferences("rememberpwd",MODE_PRIVATE);
         boolean isRemember = pref.getBoolean("remember_password",false);
         if (isRemember){
-            useridEdit.setText(ReturnUsrDep.returnUsr().getUsr_id());
-            passwordEdit.setText(ReturnUsrDep.returnUsr().getUsr_paswprd());
-            rememberPass.setChecked(true);
+            if (TextUtils.isEmpty(ReturnUsrDep.returnUsr().getUsr_id())){
+                SharedPreferences.Editor editor = getSharedPreferences("rememberpwd",
+                        MODE_PRIVATE).edit();
+                editor.clear();
+                editor.apply();
+                rememberPass.setChecked(false);
+            }else {
+                useridEdit.setText(ReturnUsrDep.returnUsr().getUsr_id());
+                passwordEdit.setText(ReturnUsrDep.returnUsr().getUsr_paswprd());
+                rememberPass.setChecked(true);
+            }
+
         }
         setListeners();
     }
@@ -176,8 +186,8 @@ public class LoginActivity extends AppCompatActivity {
                         //同步数据
                         TongBuTaskRequest(MyApplication.getid());
 
-                        TongBuLeaveRequest(MyApplication.getid());
-                        TongBuTravelRequest(MyApplication.getid());
+                        //TongBuLeaveRequest(MyApplication.getid());
+                        //TongBuTravelRequest(MyApplication.getid());
                         Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                         startActivity(intent);
                         finish();
@@ -219,7 +229,7 @@ public class LoginActivity extends AppCompatActivity {
                 String usrJson = jsonData.substring(index+2,index2+1);
                 String left = "[";
                 String userJson = left.concat(usrJson).concat("]");
-                Log.d(TAG, ""+userJson);
+                Log.d(TAG, "userJson"+userJson);
                 Gson gson = new Gson();
                 List<User> userList = gson.fromJson(userJson, new TypeToken<List<User>>(){}.getType());
                 DataSupport.deleteAll(User.class);
@@ -234,6 +244,10 @@ public class LoginActivity extends AppCompatActivity {
                     user1.setUsr_birth(user.getUsr_birth());
                     user1.setUsr_deptId(user.getUsr_deptId());
                     user1.setUsr_bossId(user.getUsr_bossId());
+                    String addr = "http://106.14.145.208:8080";
+                    String touxiang = addr + user.getTouxiang();
+                    Log.d(TAG, "usrtouxiang"+touxiang);
+                    user1.setTouxiang(touxiang);
                     user1.save();
 
                     JPushInterface.setAlias(getApplicationContext(),1,user.getUsr_id());
@@ -248,6 +262,7 @@ public class LoginActivity extends AppCompatActivity {
                     Log.d(TAG, "usr_birth is " + user.getUsr_birth());
                     Log.d(TAG, "usr_deptId is " + user.getUsr_deptId());
                     Log.d(TAG, "usr_bossId is " + user.getUsr_bossId());
+                    Log.d(TAG, "usr_touxiang is " + user.getTouxiang());
                     Log.d(TAG, "------------------------------------");
                 }
 

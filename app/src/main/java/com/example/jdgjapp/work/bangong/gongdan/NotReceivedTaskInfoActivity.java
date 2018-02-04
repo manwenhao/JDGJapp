@@ -102,7 +102,7 @@ public class NotReceivedTaskInfoActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        //sendRequest(taskid,id,"1");
+                        sendRequest(taskid,"1");
                     }
                 });
                 dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -135,11 +135,8 @@ public class NotReceivedTaskInfoActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        //sendRequest(taskid,id,"1");
+                        sendRequest(taskid,"0");
 
-                        //将数据从数据库中删除
-                        //DataSupport.deleteAll(Task.class,"taskid = ?", taskid);
-                        //Toast.makeText(NotReceivedTaskInfoActivity.this,"已拒绝工单" + taskid, Toast.LENGTH_SHORT).show();
                     }
                 });
                 dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -154,14 +151,7 @@ public class NotReceivedTaskInfoActivity extends AppCompatActivity {
 
     }
 
-    private void sendRequest(final String workid, final String userid, final String answer) {
-        //设置ProgressDialog
-        final ProgressDialog pro = new ProgressDialog(this);
-        pro.setProgressStyle(ProgressDialog.STYLE_SPINNER);// 设置进度条的形式为圆形转动的进度条
-        pro.setCancelable(true);// 设置是否可以通过点击Back键取消
-        pro.setCanceledOnTouchOutside(false);// 设置在点击Dialog外是否取消Dialog进度条
-        pro.setMessage("正在发送请求...");
-        pro.show();
+    private void sendRequest(final String workid, final String answer) {
 
         new Thread(new Runnable() {
             @Override
@@ -170,11 +160,10 @@ public class NotReceivedTaskInfoActivity extends AppCompatActivity {
                     OkHttpClient client = new OkHttpClient();
                     RequestBody requestBody = new FormBody.Builder()
                             .add("workid",workid)
-                            .add("userid",userid)
                             .add("answer",answer)
                             .build();
                     Request request = new Request.Builder()
-                            .url("http://106.14.145.208:8080/KQ/reciveUsrRespToOrd")
+                            .url("http://106.14.145.208:8080/JDGJ/ReceiveUserRespToDispatchOrd")
                             .post(requestBody)
                             .build();
                     Response response = client.newCall(request).execute();
@@ -190,8 +179,16 @@ public class NotReceivedTaskInfoActivity extends AppCompatActivity {
 
                         Intent intent = new Intent(NotReceivedTaskInfoActivity.this, GongDanMain.class);
                         startActivity(intent);
+                        GongDanMain.status = "0";
+                        finish();
                     } else if(responseDate.equals("no")){
+                        DataSupport.deleteAll(Task.class,"taskid = ?", taskid);
                         showResponse("已拒绝工单" + taskid);
+
+                        Intent intent = new Intent(NotReceivedTaskInfoActivity.this, GongDanMain.class);
+                        startActivity(intent);
+                        GongDanMain.status = "0";
+                        finish();
 
                     } else {  //发送失败
                         showResponse("请求失败，请稍后再试！");
@@ -199,8 +196,6 @@ public class NotReceivedTaskInfoActivity extends AppCompatActivity {
 
                 } catch (Exception e){
                     e.printStackTrace();
-                } finally {
-                    pro.dismiss();
                 }
             }
         }).start();

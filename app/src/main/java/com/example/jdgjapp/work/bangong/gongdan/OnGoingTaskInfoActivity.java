@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.jdgjapp.Bean.Task;
 import com.example.jdgjapp.Bean.TaskReport;
 import com.example.jdgjapp.R;
+import com.example.jdgjapp.Util.ReturnUsrDep;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -83,7 +84,7 @@ public class OnGoingTaskInfoActivity extends AppCompatActivity {
         });
 
         //获取传递过来的taskid
-        final Intent intent = getIntent();
+        Intent intent = getIntent();
         taskid = intent.getStringExtra("taskid");
         Log.d(TAG, "传递过来的taskid = " + taskid);
 
@@ -127,8 +128,8 @@ public class OnGoingTaskInfoActivity extends AppCompatActivity {
                 dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //发送接收状态给服务器
-                        //sendRequest(taskid,id);
+
+                        sendRequest(taskid, ReturnUsrDep.returnUsr().getUsr_id());
 
                     }
                 });
@@ -146,14 +147,6 @@ public class OnGoingTaskInfoActivity extends AppCompatActivity {
 
     private void sendRequest(final String workid, final String userid) {
 
-        //设置ProgressDialog
-        final ProgressDialog pro = new ProgressDialog(this);
-        pro.setProgressStyle(ProgressDialog.STYLE_SPINNER);// 设置进度条的形式为圆形转动的进度条
-        pro.setCancelable(true);// 设置是否可以通过点击Back键取消
-        pro.setCanceledOnTouchOutside(false);// 设置在点击Dialog外是否取消Dialog进度条
-        pro.setMessage("正在发送请求...");
-        pro.show();
-
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -161,18 +154,16 @@ public class OnGoingTaskInfoActivity extends AppCompatActivity {
                     OkHttpClient client = new OkHttpClient();
                     RequestBody requestBody = new FormBody.Builder()
                             .add("workid",workid)
-                            .add("userid",userid)
+                            .add("user_id",userid)
                             .build();
                     Request request = new Request.Builder()
-                            .url("http://106.14.145.208:8080/KQ/reciveFinishedOrder")
+                            .url("http://106.14.145.208:8080/JDGJ/ReceiveOrderForSubmit")
                             .post(requestBody)
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseDate = response.body().string();
 
-//                    showResponse(responseDate);
-
-                    if (responseDate.equals("ok")) {  //发送成功
+                    if (responseDate.equals("ok")) {
 //                    修改数据库中工单状态staus=3已完成
                         Task task = new Task();
                         task.setStatus("3");
@@ -182,14 +173,14 @@ public class OnGoingTaskInfoActivity extends AppCompatActivity {
 
                         Intent intent = new Intent(OnGoingTaskInfoActivity.this, GongDanMain.class);
                         startActivity(intent);
-                    } else {  //发送失败
+                        GongDanMain.status = "3";
+                        finish();
+                    } else {
                         showResponse("请求失败，请稍后再试！");
                 }
 
                 } catch (Exception e){
                     e.printStackTrace();
-                } finally {
-                    pro.dismiss();
                 }
             }
         }).start();

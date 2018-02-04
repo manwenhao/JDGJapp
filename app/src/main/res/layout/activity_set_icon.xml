@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#0F0F0F">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="个人头像"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:layout_centerInParent="true"/>
+
+        <Button
+            android:id="@+id/btn_reset_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="修改"
+            android:textColor="#FFFFFF"
+            android:background="#0F0F0F"
+            android:textSize="20sp"
+            android:layout_alignParentRight="true"
+            />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/iv_myicon"
+            android:layout_width="match_parent"
+            android:layout_height="350dp" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

@@ -16,7 +16,7 @@ public class User extends DataSupport{
     private String usr_birth;
     private String usr_deptId;
     private String usr_bossId;
-
+    private String touxiang;
 
     public String getUsr_id() {
         return usr_id;
@@ -88,5 +88,13 @@ public class User extends DataSupport{
 
     public void setUsr_bossId(String usr_bossId){
         this.usr_bossId = usr_bossId;
+    }
+
+    public String getTouxiang(){
+        return touxiang;
+    }
+
+    public void setTouxiang(String touxiang){
+        this.touxiang = touxiang;
     }
 }
