@@ -5,17 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.jdgjapp.work.bangong.cailiao.MyDeptOfCaiLiao">
+    tools:context="com.example.jdgjapp.work.bangong.cailiao.ApplyPass">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#3C3C3C"
         android:gravity="center"
-        android:text="部门列表"
+        android:text="通过审核申请列表"
         android:textColor="#FFFFFF"
         android:textSize="20sp" />
     <ListView
-        android:id="@+id/cailiao_dept"
+        android:id="@+id/apply_cailiao_pass_listview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></ListView>
+        android:layout_height="match_parent"/>
+
 </LinearLayout>

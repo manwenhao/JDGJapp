@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.jdgjapp.Bean.CaiLiaoResponse;
 import com.example.jdgjapp.Bean.Depart;
 import com.example.jdgjapp.Bean.Leave;
 import com.example.jdgjapp.Bean.Task;
@@ -28,6 +29,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.litepal.crud.DataSupport;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 import cn.jpush.android.api.JPushInterface;
@@ -181,6 +183,7 @@ public class LoginActivity extends AppCompatActivity {
                                         });
                             }
                         }).start();
+
                         showResponse("登录成功");
 
                         //同步数据

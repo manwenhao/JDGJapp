@@ -15,6 +15,33 @@
         android:textColor="#FFFFFF"
         android:textSize="20sp" />
     <RelativeLayout
+        android:id="@+id/cailiao_mydept_apply"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="#000"
+            android:text="部门材料申请"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon_right"
+            />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/workborder"/>
+    <RelativeLayout
         android:id="@+id/cailiao_mydept"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -24,7 +51,7 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:textColor="#000"
-            android:text="我的部门"
+            android:text="部门材料消耗"
             android:layout_marginLeft="5dp"
             android:layout_centerVertical="true"
             />

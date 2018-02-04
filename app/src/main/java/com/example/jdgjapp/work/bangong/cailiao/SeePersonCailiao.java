@@ -124,7 +124,7 @@ public class  SeePersonCailiao extends AppCompatActivity {
 
         }
     }
-    class MyAdapter extends BaseAdapter{
+    public class MyAdapter extends BaseAdapter{
         private List<PersonCaiLiaoDetail> list;
         private LayoutInflater inflater;
         public MyAdapter(Context context,List<PersonCaiLiaoDetail> list) {
@@ -162,12 +162,12 @@ public class  SeePersonCailiao extends AppCompatActivity {
                 vh=(ViewHolder)view.getTag();
             }
             vh.name.setText("材料:"+list.get(i).getUse_name());
-            vh.date.setText("使用时间:"+list.get(i).getUse_time());
+            vh.kind.setText("使用时间:"+list.get(i).getUse_time());
             vh.num.setText("使用数量:"+list.get(i).getUse_num());
             if (list.get(i).getUse_kind().equals("0")){
-                vh.kind.setText("使用去处:日常使用");
+                vh.date.setText("使用去处:日常使用");
             }else if (list.get(i).getUse_kind().equals("1")){
-                vh.kind.setText("使用去处:用于工单");
+                vh.date.setText("使用去处:用于工单");
             }
             return view;
         }

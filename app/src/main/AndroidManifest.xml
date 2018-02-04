@@ -37,6 +37,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.GET_TASKS"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -269,8 +270,22 @@
         <activity android:name=".work.bangong.cailiao.SeePersonCailiao" />
         <activity android:name=".work.bangong.gongdan.TransmitList" />
         <activity android:name=".work.bangong.cailiao.PersonDetailCaiLiao" />
+
         <activity android:name=".SetIconActivity" />
-        <activity android:name=".work.bangong.gongdan.TaskMaterialActivity"></activity>
+        <activity android:name=".work.bangong.gongdan.TaskMaterialActivity"/>
+
+        <activity android:name=".work.bangong.cailiao.CaiLiaoApply" />
+        <activity android:name=".work.bangong.cailiao.CaiLiaoWholeOfDept" />
+        <activity android:name=".work.bangong.cailiao.DeptDetailCL" />
+        <activity
+            android:name=".work.bangong.cailiao.ApplyCL"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".work.bangong.cailiao.ApplyIng" />
+        <activity android:name=".work.bangong.cailiao.ApplyPass" />
+        <activity android:name=".work.bangong.cailiao.ApplyRefuse" />
+        <activity android:name=".work.bangong.cailiao.ListOfOneResponse" />
+        <activity android:name=".work.bangong.cailiao.DatailOfApply"/>
+
     </application>
 
 </manifest>
