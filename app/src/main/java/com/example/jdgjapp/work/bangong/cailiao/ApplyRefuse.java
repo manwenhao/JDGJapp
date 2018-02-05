@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.jdgjapp.Bean.CaiLiaoResponse;
 import com.example.jdgjapp.Bean.User;
@@ -169,6 +170,7 @@ public class ApplyRefuse extends AppCompatActivity {
                                         public void run() {
                                             adapter.setdata(l);
                                             adapter.notifyDataSetChanged();
+                                            Toast.makeText(MyApplication.getContext(), "材料申请审批结果刷新，您有申请未通过审批", Toast.LENGTH_SHORT).show();
                                             final String flag="clapplyrefuse";
                                             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                                 @Override

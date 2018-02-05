@@ -17,6 +17,12 @@ import com.example.jdgjapp.work.bangong.shipin.StartShiPin;
 import com.example.jdgjapp.work.bangong.shipin.agora.openvcall.model.ConstantApp;
 import com.example.jdgjapp.work.bangong.shipin.agora.openvcall.ui.ChatActivity;
 import com.example.jdgjapp.work.bangong.shipin.agora.openvcall.ui.ShiPinActivity;
+import com.example.jdgjapp.work.kaoqin.chuchai.CCApplying;
+import com.example.jdgjapp.work.kaoqin.chuchai.CCApplyok;
+import com.example.jdgjapp.work.kaoqin.chuchai.CCApplyrefuse;
+import com.example.jdgjapp.work.kaoqin.qingjia.QJApplying;
+import com.example.jdgjapp.work.kaoqin.qingjia.QJApplyok;
+import com.example.jdgjapp.work.kaoqin.qingjia.QJApplyrefuse;
 import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
@@ -44,6 +50,10 @@ public class MyJPushReceiver extends BroadcastReceiver {
     public static String answer;
     public static String answercont;
     public static String sign;
+    //请假结果
+    public static String qjanswer;
+    //出差结果
+    public static String ccanswer;
 
 
 
@@ -124,7 +134,7 @@ public class MyJPushReceiver extends BroadcastReceiver {
                        Log.d("接收到材料申请审批结果","answer: "+answer+" answercont: "+answercont+" sign: "+sign);
                         JPushLocalNotification ln2 = new JPushLocalNotification();
                         ln2.setBuilderId(0);
-                        ln2.setTitle("审批结果");
+                        ln2.setTitle("材料审批结果");
                         if (answer.equals("1")){
                             ln2.setContent("您有一个部门材料申请通过审核");
                         }else {
@@ -151,6 +161,65 @@ public class MyJPushReceiver extends BroadcastReceiver {
                             }
                         }
                         break;
+                    case "4":
+                        qjanswer=object.getString("answer");
+                        JPushLocalNotification ln4 = new JPushLocalNotification();
+                        ln4.setBuilderId(0);
+                        ln4.setTitle("请假审批结果");
+                        if (qjanswer.equals("1")){
+                            ln4.setContent("您有一个请假申请通过审核");
+                        }else {
+                            ln4.setContent("您有一个请假申请未通过审核");
+                        }
+                        ln4.setNotificationId(11111111) ;
+                        JPushInterface.addLocalNotification(context, ln4);
+                        ActivityManager activityManager4 = (ActivityManager)MyApplication.getContext().getSystemService(ACTIVITY_SERVICE);
+                        ComponentName componentName4 = activityManager4.getRunningTasks(1).get(0).topActivity;
+                        String classname4=componentName4.getClassName();
+                        if (qjanswer.equals("1")){
+                            if (classname4.equals(QJApplying.class.getName())||classname4.equals(QJApplyok.class.getName())){
+                                Intent intent1=new Intent("qjapplyok");
+                                MyApplication.getContext().sendBroadcast(intent1);
+                            }
+                        }
+                        if (qjanswer.equals("2")){
+                            if (classname4.equals(QJApplying.class.getName())||classname4.equals(QJApplyrefuse.class.getName())){
+                                Intent intent1=new Intent("qjapplyrefuse");
+                                MyApplication.getContext().sendBroadcast(intent1);
+                            }
+                        }
+
+                        break;
+                    case "5":
+                        ccanswer=object.getString("answer");
+                        JPushLocalNotification ln5 = new JPushLocalNotification();
+                        ln5.setBuilderId(0);
+                        ln5.setTitle("出差申请审批结果");
+                        if (ccanswer.equals("1")){
+                            ln5.setContent("您有一个出差申请通过审核");
+                        }else {
+                            ln5.setContent("您有一个出差申请未通过审核");
+                        }
+                        ln5.setNotificationId(11111111) ;
+                        JPushInterface.addLocalNotification(context, ln5);
+                        ActivityManager activityManager5 = (ActivityManager)MyApplication.getContext().getSystemService(ACTIVITY_SERVICE);
+                        ComponentName componentName5 = activityManager5.getRunningTasks(1).get(0).topActivity;
+                        String classname5=componentName5.getClassName();
+                        if (ccanswer.equals("1")){
+                            if (classname5.equals(CCApplying.class.getName())||classname5.equals(CCApplyok.class.getName())){
+                                Intent intent1=new Intent("ccapplyok");
+                                MyApplication.getContext().sendBroadcast(intent1);
+                            }
+                        }
+                        if (ccanswer.equals("2")){
+                            if (classname5.equals(CCApplying.class.getName())||classname5.equals(CCApplyrefuse.class.getName())){
+                                Intent intent1=new Intent("ccapplyrefuse");
+                                MyApplication.getContext().sendBroadcast(intent1);
+                            }
+                        }
+
+                        break;
+
                     default:
                         break;
 
@@ -181,24 +250,66 @@ public class MyJPushReceiver extends BroadcastReceiver {
                     ActivityManager activityManager = (ActivityManager)MyApplication.getContext().getSystemService(ACTIVITY_SERVICE);
                     ComponentName componentName = activityManager.getRunningTasks(1).get(0).topActivity;
                     String classname=componentName.getClassName();
-                    if (!classname.equals(ApplyPass.class.getName())){
-                        if (answer.equals("1")){
-                            Log.d("极光推送自定义动作","用户点击了材料申请审核回复");
-                            Intent intent1=new Intent(MyApplication.getContext(),ApplyPass.class);
-                            intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            context.startActivity(intent1);
-                        }
-                    }
-                    if (!classname.equals(ApplyRefuse.class.getName())){
-                        if (answer.equals("2")){
-                                Log.d("极光推送自定义动作","用户点击了材料申请审核回复");
-                                Intent intent1=new Intent(MyApplication.getContext(),ApplyRefuse.class);
+                   if (MyApplication.count>0){
+                       if (!classname.equals(ApplyPass.class.getName())){
+                           if (answer.equals("1")){
+                               Log.d("极光推送自定义动作","用户点击了材料申请审核回复");
+                               Intent intent1=new Intent(MyApplication.getContext(),ApplyPass.class);
+                               intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                               context.startActivity(intent1);
+                           }
+                       }
+                       if (!classname.equals(ApplyRefuse.class.getName())){
+                           if (answer.equals("2")){
+                               Log.d("极光推送自定义动作","用户点击了材料申请审核回复");
+                               Intent intent1=new Intent(MyApplication.getContext(),ApplyRefuse.class);
+                               intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                               context.startActivity(intent1);
+
+                           }
+                       }
+                   }
+
+                }else if (type.equals("4")){
+                    ActivityManager activityManager = (ActivityManager)MyApplication.getContext().getSystemService(ACTIVITY_SERVICE);
+                    ComponentName componentName = activityManager.getRunningTasks(1).get(0).topActivity;
+                    String classname=componentName.getClassName();
+                    if (MyApplication.count>0){
+                        if (!classname.equals(QJApplyok.class.getName())){
+                            if (qjanswer.equals("1")){
+                                Intent intent1=new Intent(MyApplication.getContext(),QJApplyok.class);
                                 intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 context.startActivity(intent1);
-
+                            }
+                        }
+                        if (!classname.equals(QJApplyrefuse.class.getName())){
+                            if (qjanswer.equals("2")){
+                                Intent intent1=new Intent(MyApplication.getContext(),QJApplyrefuse.class);
+                                intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                context.startActivity(intent1);
+                            }
                         }
                     }
-
+                }else if (type.equals("5")){
+                    ActivityManager activityManager = (ActivityManager)MyApplication.getContext().getSystemService(ACTIVITY_SERVICE);
+                    ComponentName componentName = activityManager.getRunningTasks(1).get(0).topActivity;
+                    String classname=componentName.getClassName();
+                    if (MyApplication.count>0){
+                        if (!classname.equals(CCApplyok.class.getName())){
+                            if (ccanswer.equals("1")){
+                                Intent intent1=new Intent(MyApplication.getContext(),CCApplyok.class);
+                                intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                context.startActivity(intent1);
+                            }
+                        }
+                        if (!classname.equals(CCApplyrefuse.class.getName())){
+                            if (ccanswer.equals("2")){
+                                Intent intent1=new Intent(MyApplication.getContext(),CCApplyrefuse.class);
+                                intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                context.startActivity(intent1);
+                            }
+                        }
+                    }
                 }
 
             }
