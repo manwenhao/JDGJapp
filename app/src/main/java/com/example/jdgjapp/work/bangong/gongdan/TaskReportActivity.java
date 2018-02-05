@@ -1,9 +1,11 @@
 package com.example.jdgjapp.work.bangong.gongdan;
 
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,12 +22,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.jdgjapp.Bean.Task;
 import com.example.jdgjapp.Bean.TaskMaterial;
 import com.example.jdgjapp.R;
+import com.example.jdgjapp.SetIconActivity;
 import com.example.jdgjapp.Util.ReturnUsrDep;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -61,11 +65,15 @@ public class TaskReportActivity extends AppCompatActivity {
     private Button selectImgBtn;
     private Button selectMarBtn;
     private GridView gv;
+    private TextView matTv;
 
     private List<String> paths;
     private String desp;
     private ProgressDialog pro;
     private static final int REQUEST_LIST_CODE = 0;
+
+    public static String mat_list_json = "[]";
+    public static String mat_list = null;
 
 
 
@@ -80,6 +88,7 @@ public class TaskReportActivity extends AppCompatActivity {
         despEt = (EditText) findViewById(R.id.et_task_desp);
         imageView = (ImageView) findViewById(R.id.image);
         gv = (GridView) findViewById(R.id.gridView);
+        matTv = (TextView) findViewById(R.id.my_mat);
         paths=new ArrayList<>();
 
         // 自定义图片加载器
@@ -89,6 +98,9 @@ public class TaskReportActivity extends AppCompatActivity {
                 Glide.with(context).load(path).into(imageView);
             }
         });
+
+        IntentFilter filter = new IntentFilter(TaskMaterialActivity.action);
+        registerReceiver(broadcastReceiver, filter);
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,20 +112,26 @@ public class TaskReportActivity extends AppCompatActivity {
         selectImgBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Iconselect(view);
+                selectImg(view);
             }
         });
+
+        //接收taskid
+        Intent intent = getIntent();
+        taskid = intent.getStringExtra("taskid");
 
         selectMarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendMaterialRequest(ReturnUsrDep.returnUsr().getUsr_deptId());
+                Intent intent = new Intent(TaskReportActivity.this,TaskMaterialActivity.class);
+                startActivity(intent);
             }
         });
 
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 AlertDialog.Builder dialog = new AlertDialog.Builder(TaskReportActivity.this);
                 dialog.setTitle("确认发送简报？");
                 dialog.setCancelable(true);
@@ -139,15 +157,9 @@ public class TaskReportActivity extends AppCompatActivity {
 
                         //发送简报
                         desp = despEt.getText().toString();
-                        //读取工号
-                        SharedPreferences pref = getSharedPreferences("userinfo",MODE_PRIVATE);
-                        id = pref.getString("1","");
-                        //接收传过来的工单号
-                        Intent intent = getIntent();
-                        taskid = intent.getStringExtra("taskid");
                         //将工单号、工号、简报文字拼接到一起
-                        String info = taskid.concat(";").concat(id).concat(";").concat(desp);
-                        Log.d(TAG, "拼接后的字符串为" + info);
+                        String info = taskid.concat("#&*").concat(ReturnUsrDep.returnUsr().getUsr_id()).concat("#&*").concat(desp).concat("#&*").concat(mat_list_json);
+                        Log.d(TAG, "拼接后的字符串为aaa" + info);
 
                         Map<String,File> files=null;
                         if (paths.size()!=0){
@@ -260,7 +272,7 @@ public class TaskReportActivity extends AppCompatActivity {
         }
     }
 
-    public void Iconselect(View view) {
+    public void selectImg(View view) {
         ISListConfig config = new ISListConfig.Builder()
                 .multiSelect(true)
                 .titleBgColor(Color.parseColor("#0F0F0F"))
@@ -269,48 +281,12 @@ public class TaskReportActivity extends AppCompatActivity {
         ISNav.getInstance().toListActivity(this, config, REQUEST_LIST_CODE);
     }
 
-    private void sendMaterialRequest(final String DeptId){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    OkHttpUtils.post()
-                            .url("http://106.14.145.208:8080/JDGJ/BackDeptMaterialUsesTotal")
-                            .addParams("dep_id",DeptId)
-                            .build()
-                            .execute(new StringCallback() {
-                                @Override
-                                public void onError(Call call, Exception e, int id) {
-                                    Log.d(TAG, "工单材料加载失败"+e.toString());
-                                }
-
-                                @Override
-                                public void onResponse(String response, int id) {
-                                    Log.d(TAG, "工单材料加载成功"+response);
-                                    Gson gson = new Gson();
-                                    List<TaskMaterial> taskMaterialList = gson.fromJson(response, new TypeToken<List<TaskMaterial>>(){}.getType());
-                                    DataSupport.deleteAll(TaskMaterial.class);
-                                    for (TaskMaterial taskMaterial : taskMaterialList){
-                                        Log.d(TAG, "工单材料mat_id   " + taskMaterial.getMat_id());
-                                        Log.d(TAG, "工单材料mat_name " + taskMaterial.getMat_name());
-                                        Log.d(TAG, "工单材料mat_num  " + taskMaterial.getMat_num());
-                                        Log.d(TAG, "工单材料********************");
-                                        //更新材料数据库
-                                        TaskMaterial taskMaterial0 = new TaskMaterial();
-                                        taskMaterial0.setMat_id(taskMaterial.getMat_id());
-                                        taskMaterial0.setMat_name(taskMaterial.getMat_name());
-                                        taskMaterial0.setMat_name(taskMaterial.getMat_num());
-                                        taskMaterial0.save();
-                                    }
-                                }
-                            });
-
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-    }
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            matTv.setText(mat_list);
+        }
+    };
 
 
 

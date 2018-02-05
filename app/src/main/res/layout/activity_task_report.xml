@@ -16,6 +16,7 @@
             android:layout_marginLeft="5dp"
             android:background="@drawable/left"
             android:layout_weight="0"
+            android:layout_marginRight="35dp"
             style="?android:attr/borderlessButtonStyle"
             />
 
@@ -28,8 +29,7 @@
             android:gravity="center"
             android:text="发送简报"
             android:textColor="#000"
-            android:textSize="20sp"
-            android:layout_marginLeft="15dp"/>
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btn_send_task_report"
@@ -50,6 +50,16 @@
         android:layout_height="1dp"
         android:background="#000" />
 
+
+    <com.example.jdgjapp.Util.BounceScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
     <EditText
         android:id="@+id/et_task_desp"
         android:layout_width="match_parent"
@@ -63,17 +73,39 @@
         android:background="@null"/>
 
     <Button
+        android:id="@+id/btn_select_material"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:onClick="selectImg"
+        android:textColor="#fff"
+        android:text="选择材料"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/btn_select_img" />
+
+    <TextView
+        android:id="@+id/my_mat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="8dp"
+        android:textSize="16sp"
+        android:textColor="#000"/>
+
+    <Button
         android:id="@+id/btn_select_photo"
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:textColor="#fff"
         android:text="选择图片"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:background="@drawable/btn_select_img"/>
 
 
-    <GridView
+    <com.example.jdgjapp.Util.GridViewForScrollView
         android:id="@+id/gridView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -85,19 +117,8 @@
         android:gravity="center"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:paddingBottom="10dp"/>
+        android:paddingBottom="15dp"/>
 
-
-    <Button
-        android:id="@+id/btn_select_material"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:onClick="selectImg"
-        android:textColor="#fff"
-        android:text="选择材料"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/btn_select_img" />
-
-
+    </LinearLayout>
+    </com.example.jdgjapp.Util.BounceScrollView>
 </LinearLayout>
