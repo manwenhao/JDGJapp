@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -132,6 +133,13 @@ public class TaskReportActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                desp = despEt.getText().toString();
+                if(TextUtils.isEmpty(desp)){
+                    Toast.makeText(TaskReportActivity.this, "请输入文字!", Toast.LENGTH_SHORT).show();
+                }else if (paths.size()==0){
+                    Toast.makeText(TaskReportActivity.this, "请选择图片!", Toast.LENGTH_SHORT).show();
+                }else {
+
                 AlertDialog.Builder dialog = new AlertDialog.Builder(TaskReportActivity.this);
                 dialog.setTitle("确认发送简报？");
                 dialog.setCancelable(true);
@@ -156,8 +164,7 @@ public class TaskReportActivity extends AppCompatActivity {
                         pro.show();
 
                         //发送简报
-                        desp = despEt.getText().toString();
-                        //将工单号、工号、简报文字拼接到一起
+                        //将工单号、工号、简报文字、材料拼接到一起
                         String info = taskid.concat("#&*").concat(ReturnUsrDep.returnUsr().getUsr_id()).concat("#&*").concat(desp).concat("#&*").concat(mat_list_json);
                         Log.d(TAG, "拼接后的字符串为aaa" + info);
 
@@ -169,14 +176,13 @@ public class TaskReportActivity extends AppCompatActivity {
                             }
                         }
 
-                        FileUploadManager.setUrl("http://106.14.145.208:8080/KQ/ZWLUploadServlet");
+                        FileUploadManager.setUrl("http://106.14.145.208:8080/JDGJ/UploadOrderReport");
                         FileUploadManager.setMylistener(new ReportListener() {
                             @Override
                             public void onError(Call call, Exception e, int id) {
                                 Log.d("发送简报失败！",e.toString());
                                 pro.cancel();
                                 Toast.makeText(TaskReportActivity.this, "发送简报失败!"+";exception: "+e.toString(), Toast.LENGTH_SHORT).show();
-
                             }
 
                             @Override
@@ -187,7 +193,6 @@ public class TaskReportActivity extends AppCompatActivity {
                                 if (responseData.equals("ok")) {
                                     Toast.makeText(TaskReportActivity.this, "发送简报成功！", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(TaskReportActivity.this,response, Toast.LENGTH_SHORT).show();
                                     Toast.makeText(TaskReportActivity.this, "发送简报失败！", Toast.LENGTH_SHORT).show();
                                 }
 
@@ -205,7 +210,7 @@ public class TaskReportActivity extends AppCompatActivity {
                     }
                 });
                 dialog.show();
-
+                } //else
             }
         });
     }
