@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="qj_type">
+        <item>事假</item>
+        <item>病假</item>
+        <item>产假</item>
+        <item>婚假</item>
+        <item>丧假</item>
+        <item>年休假</item>
+    </string-array>
+    <string-array name="cc_type">
+        <item>合同洽谈</item>
+        <item>技术交流</item>
+        <item>后期服务</item>
+        <item>学习培训</item>
+        <item>实地考察</item>
+        <item>技术援助</item>
+        <item>活动交流</item>
+    </string-array>
+</resources>

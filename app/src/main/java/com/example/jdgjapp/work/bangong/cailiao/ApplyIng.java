@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.jdgjapp.Bean.CaiLiaoResponse;
 import com.example.jdgjapp.Bean.User;
@@ -169,6 +170,7 @@ public class ApplyIng extends AppCompatActivity {
                                         public void run() {
                                             adapter.setdata(list);
                                             adapter.notifyDataSetChanged();
+                                            Toast.makeText(MyApplication.getContext(), "材料申请审批结果刷新", Toast.LENGTH_SHORT).show();
                                             final String flag="clapplying";
                                             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                                 @Override
