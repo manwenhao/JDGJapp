@@ -5,18 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.jdgjapp.work.kaoqin.qingjia.QJApplyDetail">
+    tools:context="com.example.jdgjapp.work.bangong.cheliang.DetailofCar">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#3C3C3C"
         android:gravity="center"
-        android:text="请假详情"
+        android:text="车辆信息"
         android:textColor="#FFFFFF"
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/detail_qj_time"
+        android:id="@+id/car_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="申请列表"
@@ -31,7 +31,7 @@
         android:layout_height="1dp"
         android:background="@color/workborder"/>
     <TextView
-        android:id="@+id/detail_qj_start"
+        android:id="@+id/car_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="申请列表"
@@ -46,7 +46,7 @@
         android:layout_height="1dp"
         android:background="@color/workborder"/>
     <TextView
-        android:id="@+id/detail_qj_end"
+        android:id="@+id/car_color"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="5dp"
@@ -61,7 +61,7 @@
         android:layout_height="1dp"
         android:background="@color/workborder"/>
     <TextView
-        android:id="@+id/detail_qj_type"
+        android:id="@+id/car_owner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="5dp"
@@ -75,51 +75,21 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/workborder"/>
-    <TextView
-        android:id="@+id/detail_qj_reason"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:text="申请列表"
-        android:gravity="center_vertical"
-        android:paddingLeft="10dp"
-        android:textColor="#000"
-        android:textSize="18sp" />
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/workborder"/>
-    <TextView
-        android:id="@+id/detail_qj_ans"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <Button
+        android:id="@+id/see_car_repair"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:text="申请列表"
-        android:gravity="center_vertical"
-        android:paddingLeft="10dp"
-        android:textColor="#000"
-        android:textSize="18sp" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/workborder"/>
-    <TextView
-        android:id="@+id/detail_qj_ansres"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:text="申请列表"
-        android:gravity="center_vertical"
-        android:paddingLeft="10dp"
-        android:textColor="#000"
-        android:textSize="18sp" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/workborder"/>
-
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:background="@drawable/yuanjiaobutton"
+        android:text="查看保养记录"/>
 
 </LinearLayout>

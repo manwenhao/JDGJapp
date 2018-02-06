@@ -294,7 +294,13 @@
         <activity android:name=".work.kaoqin.chuchai.CCApplying" />
         <activity android:name=".work.kaoqin.chuchai.CCApplyok" />
         <activity android:name=".work.kaoqin.chuchai.CCApplyrefuse" />
-        <activity android:name=".work.kaoqin.chuchai.CCApplyDetail"></activity>
+        <activity android:name=".work.kaoqin.chuchai.CCApplyDetail" />
+        <activity android:name=".work.bangong.cheliang.MydeptOfCar" />
+        <activity android:name=".work.bangong.cheliang.CarWholeOfDept" />
+        <activity android:name=".work.bangong.cheliang.DetailofCar" />
+        <activity android:name=".work.bangong.cheliang.CarRepair" />
+        <activity android:name=".work.bangong.cheliang.DetailOfCarRepair" />
+        <activity android:name=".work.bangong.cheliang.CarOfDepter"></activity>
     </application>
 
 </manifest>

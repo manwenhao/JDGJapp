@@ -5,18 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.jdgjapp.work.kaoqin.qingjia.QJApplyDetail">
+    tools:context="com.example.jdgjapp.work.bangong.cheliang.DetailOfCarRepair">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#3C3C3C"
         android:gravity="center"
-        android:text="请假详情"
+        android:text="保养详情"
         android:textColor="#FFFFFF"
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/detail_qj_time"
+        android:id="@+id/car_rep_carid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="申请列表"
@@ -31,7 +31,7 @@
         android:layout_height="1dp"
         android:background="@color/workborder"/>
     <TextView
-        android:id="@+id/detail_qj_start"
+        android:id="@+id/car_rep_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="申请列表"
@@ -46,7 +46,7 @@
         android:layout_height="1dp"
         android:background="@color/workborder"/>
     <TextView
-        android:id="@+id/detail_qj_end"
+        android:id="@+id/car_rep_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="5dp"
@@ -61,7 +61,7 @@
         android:layout_height="1dp"
         android:background="@color/workborder"/>
     <TextView
-        android:id="@+id/detail_qj_type"
+        android:id="@+id/car_rep_man"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="5dp"
@@ -76,7 +76,7 @@
         android:layout_height="1dp"
         android:background="@color/workborder"/>
     <TextView
-        android:id="@+id/detail_qj_reason"
+        android:id="@+id/car_rep_money"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="5dp"
@@ -91,7 +91,7 @@
         android:layout_height="1dp"
         android:background="@color/workborder"/>
     <TextView
-        android:id="@+id/detail_qj_ans"
+        android:id="@+id/car_rep_cont"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="5dp"
@@ -105,21 +105,4 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/workborder"/>
-    <TextView
-        android:id="@+id/detail_qj_ansres"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:text="申请列表"
-        android:gravity="center_vertical"
-        android:paddingLeft="10dp"
-        android:textColor="#000"
-        android:textSize="18sp" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/workborder"/>
-
-
 </LinearLayout>

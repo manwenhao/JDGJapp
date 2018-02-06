@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/car_repair_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:textSize="18sp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="保养地点：徐爱阿斯爱dsfs 娇的那"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:maxEms="10"/>
+    <TextView
+        android:id="@+id/car_repair_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:textSize="18sp"
+        android:text="保养日期：1999-22-22"
+        android:layout_below="@id/car_repair_add"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="5dp"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/icon_right"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"/>
+
+
+</RelativeLayout>
