@@ -75,6 +75,10 @@ public class DeptDetailCL extends AppCompatActivity {
                                             Intent intent=new Intent(MyApplication.getContext(),PersonDetailCaiLiao.class);
                                             intent.putExtra("person",caiLiaoDetail);
                                             startActivity(intent);
+                                        }else if (caiLiaoDetail.getUse_kind().equals("1")){
+                                            Intent intent=new Intent(MyApplication.getContext(),TaskInfoOfDepterCL.class);
+                                            intent.putExtra("task_id",caiLiaoDetail.getUse_cont());
+                                            startActivity(intent);
                                         }
                                     }
                                 });
@@ -107,6 +111,10 @@ public class DeptDetailCL extends AppCompatActivity {
                                             //日常使用
                                             Intent intent=new Intent(MyApplication.getContext(),PersonDetailCaiLiao.class);
                                             intent.putExtra("person",caiLiaoDetail);
+                                            startActivity(intent);
+                                        }else if (caiLiaoDetail.getUse_kind().equals("1")){
+                                            Intent intent=new Intent(MyApplication.getContext(),TaskInfoOfDepterCL.class);
+                                            intent.putExtra("task_id",caiLiaoDetail.getUse_cont());
                                             startActivity(intent);
                                         }
                                     }

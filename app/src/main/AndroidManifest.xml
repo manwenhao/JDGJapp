@@ -131,6 +131,7 @@
         <activity android:name=".Friends.MyDeptMent" />
         <activity android:name=".Friends.DeptMember" />
 
+
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
@@ -295,7 +296,16 @@
         <activity android:name=".work.kaoqin.chuchai.CCApplyok" />
         <activity android:name=".work.kaoqin.chuchai.CCApplyrefuse" />
         <activity android:name=".work.kaoqin.chuchai.CCApplyDetail" />
-        <activity android:name=".work.bangong.cailiao.TaskInfoOfDepterCL"></activity>
+
+        <activity android:name=".work.bangong.cailiao.TaskInfoOfDepterCL"/>
+        <activity android:name=".work.bangong.cheliang.MydeptOfCar" />
+        <activity android:name=".work.bangong.cheliang.CarWholeOfDept" />
+        <activity android:name=".work.bangong.cheliang.DetailofCar" />
+        <activity android:name=".work.bangong.cheliang.CarRepair" />
+        <activity android:name=".work.bangong.cheliang.DetailOfCarRepair" />
+        <activity android:name=".work.bangong.cheliang.CarOfDepter"/>
+        <activity android:name=".work.bangong.cailiao.TaskInfoOfCL"/>
+
     </application>
 
 </manifest>

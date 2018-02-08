@@ -68,6 +68,10 @@ public class  SeePersonCailiao extends AppCompatActivity {
                                             Intent intent=new Intent(MyApplication.getContext(),PersonDetailCaiLiao.class);
                                             intent.putExtra("person",liaoDetails.get(i));
                                             startActivity(intent);
+                                        }else if (liaoDetails.get(i).getUse_kind().equals("1")){
+                                            Intent intent=new Intent(MyApplication.getContext(),TaskInfoOfCL.class);
+                                            intent.putExtra("task_id",liaoDetails.get(i).getUse_cont());
+                                            startActivity(intent);
                                         }
                                     }
                                 });
@@ -110,6 +114,10 @@ public class  SeePersonCailiao extends AppCompatActivity {
                                             //日常使用
                                             Intent intent=new Intent(MyApplication.getContext(),PersonDetailCaiLiao.class);
                                             intent.putExtra("person",list.get(i));
+                                            startActivity(intent);
+                                        }else if (list.get(i).getUse_kind().equals("1")){
+                                            Intent intent=new Intent(MyApplication.getContext(),TaskInfoOfCL.class);
+                                            intent.putExtra("task_id",list.get(i).getUse_cont());
                                             startActivity(intent);
                                         }
                                     }
