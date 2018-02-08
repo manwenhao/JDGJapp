@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.jdgjapp.Bean.SystemNews;
 import com.example.jdgjapp.Bean.Task;
+import com.example.jdgjapp.Util.ACache;
 import com.example.jdgjapp.work.bangong.cailiao.ApplyIng;
 import com.example.jdgjapp.work.bangong.cailiao.ApplyPass;
 import com.example.jdgjapp.work.bangong.cailiao.ApplyRefuse;
@@ -27,6 +29,11 @@ import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.data.JPushLocalNotification;
@@ -65,6 +72,8 @@ public class MyJPushReceiver extends BroadcastReceiver {
                 String extras=bundle.getString(JPushInterface.EXTRA_EXTRA);
                 JSONObject object=new JSONObject(extras);
                 type=object.getString("type");
+                SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+                String datastring=sf.format(new Date());
                 switch (type){
                     case "1":  //收到的是一个工单
                         String taskid = bundle.getString(JPushInterface.EXTRA_TITLE);
@@ -86,7 +95,13 @@ public class MyJPushReceiver extends BroadcastReceiver {
                         task.setCycle(cycle);
                         task.setStatus("1");
                         task.save();
-
+                        SystemNews news=new SystemNews();
+                        news.setType("1");
+                        news.setContent(taskid);
+                        news.setTime(datastring);
+                        NewsFragment.list.add(news);
+                        Intent intent1news=new Intent("systemnews");
+                        MyApplication.getContext().sendBroadcast(intent1news);
                         Log.d(TAG, "JPush工单taskid is     " + taskid);
                         Log.d(TAG, "JPush工单sender is     " + senderr);
                         Log.d(TAG, "JPush工单createtime is " + createtime);
@@ -117,6 +132,14 @@ public class MyJPushReceiver extends BroadcastReceiver {
                         ln.setContent("用户"+sendername+"邀请你进行视频");
                         ln.setNotificationId(11111111) ;
                         JPushInterface.addLocalNotification(context, ln);
+                        SystemNews news1=new SystemNews();
+                        news1.setType("3");
+                        news1.setTime(datastring);
+                        news1.setTitle(sendername);
+                        news1.setContent(chanel);
+                        NewsFragment.list.add(news1);
+                        Intent intent3news=new Intent("systemnews");
+                        MyApplication.getContext().sendBroadcast(intent3news);
                         //如果是在前台，就直接运行
                         if (MyApplication.count!=0)   {
                             ((MyApplication)MyApplication.getContext()).initWorkerThread();
@@ -142,6 +165,13 @@ public class MyJPushReceiver extends BroadcastReceiver {
                         }
                         ln2.setNotificationId(11111111) ;
                         JPushInterface.addLocalNotification(context, ln2);
+                        SystemNews news2=new SystemNews();
+                        news2.setType("2");
+                        news2.setTime(datastring);
+                        news2.setContent(answer);
+                        NewsFragment.list.add(news2);
+                        Intent intent2news=new Intent("systemnews");
+                        MyApplication.getContext().sendBroadcast(intent2news);
                         ActivityManager activityManager = (ActivityManager)MyApplication.getContext().getSystemService(ACTIVITY_SERVICE);
                         ComponentName componentName = activityManager.getRunningTasks(1).get(0).topActivity;
                         String classname=componentName.getClassName();
@@ -173,6 +203,13 @@ public class MyJPushReceiver extends BroadcastReceiver {
                         }
                         ln4.setNotificationId(11111111) ;
                         JPushInterface.addLocalNotification(context, ln4);
+                        SystemNews news3=new SystemNews();
+                        news3.setType("4");
+                        news3.setTime(datastring);
+                        news3.setContent(qjanswer);
+                        NewsFragment.list.add(news3);
+                        Intent intent4news=new Intent("systemnews");
+                        MyApplication.getContext().sendBroadcast(intent4news);
                         ActivityManager activityManager4 = (ActivityManager)MyApplication.getContext().getSystemService(ACTIVITY_SERVICE);
                         ComponentName componentName4 = activityManager4.getRunningTasks(1).get(0).topActivity;
                         String classname4=componentName4.getClassName();
@@ -202,6 +239,13 @@ public class MyJPushReceiver extends BroadcastReceiver {
                         }
                         ln5.setNotificationId(11111111) ;
                         JPushInterface.addLocalNotification(context, ln5);
+                        SystemNews news4=new SystemNews();
+                        news4.setType("5");
+                        news4.setTime(datastring);
+                        news4.setContent(ccanswer);
+                        NewsFragment.list.add(news4);
+                        Intent intent5news=new Intent("systemnews");
+                        MyApplication.getContext().sendBroadcast(intent5news);
                         ActivityManager activityManager5 = (ActivityManager)MyApplication.getContext().getSystemService(ACTIVITY_SERVICE);
                         ComponentName componentName5 = activityManager5.getRunningTasks(1).get(0).topActivity;
                         String classname5=componentName5.getClassName();

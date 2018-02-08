@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/system_news_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:textSize="15sp"
+        android:text="材料管理通知"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"/>
+    <TextView
+        android:id="@+id/system_news_item_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:textSize="10sp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="5dp"
+        android:text="1999-22-22 11:22:22"/>
+    <TextView
+        android:id="@+id/system_news_item_cont"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textColor="#000"
+        android:layout_below="@id/system_news_item_title"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="您有一个材料申请通过申请"
+
+        />
+
+</RelativeLayout>
