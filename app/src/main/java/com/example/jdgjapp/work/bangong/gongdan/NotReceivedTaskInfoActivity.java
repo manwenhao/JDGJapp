@@ -33,7 +33,6 @@ import okhttp3.Response;
 public class NotReceivedTaskInfoActivity extends AppCompatActivity {
 
     private static final String TAG = "NotReceivedTaskInfoActi";
-    private Button backBtn;
     private Button acceptBtn;
     private Button transmitBtn;
     private Button refuseBtn;
@@ -54,7 +53,6 @@ public class NotReceivedTaskInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_not_received_task_info);
-        backBtn = (Button) findViewById(R.id.btn_back);
         acceptBtn = (Button) findViewById(R.id.task_accept_btn);
         transmitBtn = (Button) findViewById(R.id.task_transmit_btn);
         refuseBtn = (Button) findViewById(R.id.task_refuse_btn);
@@ -67,13 +65,6 @@ public class NotReceivedTaskInfoActivity extends AppCompatActivity {
         addrTv = (TextView) findViewById(R.id.task_info_addr);
         statusTv = (TextView) findViewById(R.id.task_info_status);
         contentTv = (TextView) findViewById(R.id.task_info_content);
-
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               finish();
-            }
-        });
 
         //获取传递过来的taskid
         Intent intent = getIntent();

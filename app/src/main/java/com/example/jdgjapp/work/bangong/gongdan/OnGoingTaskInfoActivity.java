@@ -33,7 +33,6 @@ import okhttp3.Response;
 public class OnGoingTaskInfoActivity extends AppCompatActivity {
 
     private static final String TAG = "OnGoingTaskInfoActivity";
-    private Button backBtn;
     private Button userReportBtn;
     private Button submitBtn;
     private Button pastBtn;
@@ -54,7 +53,6 @@ public class OnGoingTaskInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_going_task_info);
-        backBtn = (Button) findViewById(R.id.btn_back);
         userReportBtn = (Button) findViewById(R.id.task_info_user_report);
         submitBtn = (Button) findViewById(R.id.task_info_submit);
         pastBtn = (Button) findViewById(R.id.task_info_past_report);
@@ -68,12 +66,6 @@ public class OnGoingTaskInfoActivity extends AppCompatActivity {
         statusTv = (TextView) findViewById(R.id.task_info_status);
         contentTv = (TextView) findViewById(R.id.task_info_content);
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               finish();
-            }
-        });
 
         pastBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,9 +106,9 @@ public class OnGoingTaskInfoActivity extends AppCompatActivity {
         pastBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                TongBuTaskReportRequest(taskid);
-
+                Intent intent1 = new Intent(OnGoingTaskInfoActivity.this,PastTaskReportActivity.class);
+                intent1.putExtra("taskid",taskid);
+                startActivity(intent1);
             }
         });
 
@@ -164,7 +156,7 @@ public class OnGoingTaskInfoActivity extends AppCompatActivity {
                     String responseDate = response.body().string();
 
                     if (responseDate.equals("ok")) {
-//                    修改数据库中工单状态staus=3已完成
+                        //修改数据库中工单状态staus=3已完成
                         Task task = new Task();
                         task.setStatus("3");
                         task.updateAll("taskid = ?", taskid);
@@ -185,95 +177,6 @@ public class OnGoingTaskInfoActivity extends AppCompatActivity {
             }
         }).start();
         Log.d(TAG, "已发送");
-
-    }
-
-    //发送请求匹配简报数据
-    private void TongBuTaskReportRequest(final String workid) {
-        //设置ProgressDialog
-        final ProgressDialog pro = new ProgressDialog(OnGoingTaskInfoActivity.this);
-        pro.setProgressStyle(ProgressDialog.STYLE_SPINNER);// 设置进度条的形式为圆形转动的进度条
-        pro.setCancelable(false);// 设置是否可以通过点击Back键取消
-        pro.setCanceledOnTouchOutside(false);// 设置在点击Dialog外是否取消Dialog进度条
-        pro.setMessage("正在同步工单简报...");
-        pro.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                // TODO Auto-generated method stub
-            }
-        });
-        pro.show();
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    OkHttpClient client = new OkHttpClient();
-                    RequestBody requestBody = new FormBody.Builder()
-                            .add("workid",workid)
-                            .build();
-                    Request request = new Request.Builder()
-                            .url("http://106.14.145.208:8080/KQ/sendOrdReportToApp")
-                            .post(requestBody)
-                            .build();
-                    Response response = client.newCall(request).execute();
-                    String responseData = response.body().string();
-
-//                    showResponse(responseDate);
-                    TongBuTaskReportparseJSON(responseData);
-
-                } catch (Exception e){
-                    e.printStackTrace();
-                } finally {
-                    pro.dismiss();
-                    Intent intent1 = new Intent(OnGoingTaskInfoActivity.this,PastTaskReportActivity.class);
-                    intent1.putExtra("taskid",taskid);
-//                intent1.putExtra("id",1);
-                    startActivity(intent1);
-                }
-            }
-        }).start();
-        Log.d(TAG, "已发送");
-    }
-
-    private void TongBuTaskReportparseJSON(String jsonData) {
-        Gson gson = new Gson();
-        List<TaskReport> taskReportList = gson.fromJson(jsonData, new TypeToken<List<TaskReport>>() {
-        }.getType());
-        for (TaskReport taskReport : taskReportList) {
-            Log.d(TAG, "taskid is " + taskReport.getTaskid());
-            Log.d(TAG, "sendtime is " + taskReport.getSendtime());
-            Log.d(TAG, "content is " + taskReport.getContent());
-            Log.d(TAG, "picpath is" + taskReport.getPicpath());
-
-            //查询本地数据库，如果没有则添加
-            List<TaskReport> taskReports = DataSupport.where("taskid = ? and sendtime = ?",taskReport.getTaskid(),taskReport.getSendtime()).find(TaskReport.class);
-            if (taskReports.isEmpty()) {
-                TaskReport taskReport1 = new TaskReport();
-                taskReport1.setTaskid(taskReport.getTaskid());
-                taskReport1.setSendtime(taskReport.getSendtime());
-                taskReport1.setContent(taskReport.getContent());
-                taskReport1.setPicpath(taskReport.getPicpath());
-                taskReport1.save();
-                Log.d(TAG, "已添加工单简报" + taskReport.getTaskid());
-            }
-        }
-
-        //将本地数据与接收的数据对比，多的删除
-        List<TaskReport> bdtaskreport = DataSupport.where("taskid = ?",taskid).find(TaskReport.class);
-        for (TaskReport taskReport : bdtaskreport) {
-            Log.d(TAG, "bdtaskid is " + taskReport.getTaskid());
-            Log.d(TAG, "bdsendtime is " + taskReport.getSendtime());
-            Log.d(TAG, "bdcontent is " + taskReport.getContent());
-            Log.d(TAG, "bdpicpath is" + taskReport.getPicpath());
-            int num=0;
-            for (TaskReport taskReport2 : taskReportList) {
-                if(taskReport2.getSendtime()==taskReport.getSendtime()) num++;
-            }
-            if(num!=1) {
-                DataSupport.deleteAll(TaskReport.class,"sendtime",taskReport.getSendtime());
-            }
-        }
 
     }
 

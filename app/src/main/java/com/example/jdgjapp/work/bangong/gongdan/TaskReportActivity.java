@@ -32,6 +32,7 @@ import com.example.jdgjapp.Bean.TaskMaterial;
 import com.example.jdgjapp.R;
 import com.example.jdgjapp.SetIconActivity;
 import com.example.jdgjapp.Util.ReturnUsrDep;
+import com.example.jdgjapp.work.bangong.cailiao.TaskInfoOfDepterCL;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yuyh.library.imgsel.ISNav;
@@ -56,12 +57,9 @@ import okhttp3.Call;
 public class TaskReportActivity extends AppCompatActivity {
 
     private static final String TAG = "TaskReportActivity";
-
-    private String id;
     private String taskid;
     private ImageView imageView;
     private EditText despEt;
-    private Button backBtn;
     private Button sendBtn;
     private Button selectImgBtn;
     private Button selectMarBtn;
@@ -83,7 +81,6 @@ public class TaskReportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_report);
         sendBtn = (Button) findViewById(R.id.btn_send_task_report);
-        backBtn = (Button) findViewById(R.id.btn_back);
         selectImgBtn = (Button) findViewById(R.id.btn_select_photo);
         selectMarBtn = (Button) findViewById(R.id.btn_select_material);
         despEt = (EditText) findViewById(R.id.et_task_desp);
@@ -103,12 +100,6 @@ public class TaskReportActivity extends AppCompatActivity {
         IntentFilter filter = new IntentFilter(TaskMaterialActivity.action);
         registerReceiver(broadcastReceiver, filter);
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         selectImgBtn.setOnClickListener(new View.OnClickListener() {
             @Override

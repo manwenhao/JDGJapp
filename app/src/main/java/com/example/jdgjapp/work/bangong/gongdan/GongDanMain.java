@@ -196,6 +196,7 @@ public class GongDanMain extends AppCompatActivity {
         //从数据库中查询status=1待接收的数据
         List<Task> tasks = DataSupport.select("taskid","createtime","content")
                 .where("status = ?","1")
+                .order("createtime desc")
                 .find(Task.class);
         if (tasks!=null && !tasks.isEmpty()){
             for(Task task:tasks)
@@ -217,6 +218,7 @@ public class GongDanMain extends AppCompatActivity {
         //从数据库中查询status=0未开始的数据
         List<Task> tasks = DataSupport.select("taskid","createtime","content")
                 .where("status = ?","0")
+                .order("createtime desc")
                 .find(Task.class);
         if (tasks!=null && !tasks.isEmpty()){
             for(Task task:tasks)
@@ -238,6 +240,7 @@ public class GongDanMain extends AppCompatActivity {
         //从数据库中查询status=2进行中的数据
         List<Task> tasks = DataSupport.select("taskid","createtime","content")
                 .where("status = ? or status = ?","2","4")
+                .order("createtime desc")
                 .find(Task.class);
         if (tasks!=null && !tasks.isEmpty()){
             for(Task task:tasks)
@@ -258,6 +261,7 @@ public class GongDanMain extends AppCompatActivity {
         //从数据库中查询status=3已完成的数据
         List<Task> tasks = DataSupport.select("taskid","createtime","content")
                 .where("status = ? or status = ? or status = ?","3","5","6")
+                .order("createtime desc")
                 .find(Task.class);
         if (tasks!=null && !tasks.isEmpty()){
             for(Task task:tasks)

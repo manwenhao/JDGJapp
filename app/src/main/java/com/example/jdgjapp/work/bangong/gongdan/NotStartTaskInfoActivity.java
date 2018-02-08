@@ -31,7 +31,6 @@ import okhttp3.Response;
 public class NotStartTaskInfoActivity extends AppCompatActivity {
 
     private static final String TAG = "NotStartTaskInfoActivit";
-    private Button backBtn;
     private Button startBtn;
 
     private TextView idTv;
@@ -50,7 +49,6 @@ public class NotStartTaskInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_not_start_task_info);
-        backBtn = (Button) findViewById(R.id.btn_back);
         startBtn = (Button) findViewById(R.id.task_start_btn);
 
         idTv = (TextView) findViewById(R.id.task_info_id);
@@ -62,12 +60,6 @@ public class NotStartTaskInfoActivity extends AppCompatActivity {
         statusTv = (TextView) findViewById(R.id.task_info_status);
         contentTv = (TextView) findViewById(R.id.task_info_content);
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               finish();
-            }
-        });
 
         //获取传递过来的taskid
         Intent intent = getIntent();

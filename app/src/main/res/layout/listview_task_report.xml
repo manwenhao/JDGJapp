@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -35,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="75dp"
-                android:text="已发送"
+                android:text=""
                 android:textColor="#BBBBBB"
                 android:textSize="14sp"
                 android:layout_weight="0"/>

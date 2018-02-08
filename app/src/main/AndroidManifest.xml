@@ -294,7 +294,8 @@
         <activity android:name=".work.kaoqin.chuchai.CCApplying" />
         <activity android:name=".work.kaoqin.chuchai.CCApplyok" />
         <activity android:name=".work.kaoqin.chuchai.CCApplyrefuse" />
-        <activity android:name=".work.kaoqin.chuchai.CCApplyDetail"></activity>
+        <activity android:name=".work.kaoqin.chuchai.CCApplyDetail" />
+        <activity android:name=".work.bangong.cailiao.TaskInfoOfDepterCL"></activity>
     </application>
 
 </manifest>

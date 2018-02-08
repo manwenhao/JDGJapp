@@ -46,28 +46,26 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="25dp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp">
 
         <TextView
-            android:layout_width="100dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
             android:text="工单编号:"
-            android:textSize="20sp"
-            android:textColor="#000"
+            android:textSize="16sp"
             android:gravity="left"
-            android:layout_weight="0"/>
+            android:layout_marginRight="10dp"/>
 
         <TextView
             android:id="@+id/past_task_taskid"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="25dp"
             android:text="工单编号"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textColor="#000"
-            android:gravity="left"
-            android:layout_weight="1"/>
+            android:gravity="left" />
 
     </LinearLayout>
 
@@ -83,24 +81,47 @@
             android:layout_height="25dp"
             android:text="发送时间:"
             android:textSize="16sp"
-            android:layout_marginRight="5dp"/>
+            android:layout_marginRight="10dp"/>
 
         <TextView
             android:id="@+id/past_task_sendtime"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="25dp"
             android:text="发送时间"
+            android:textColor="#000"
             android:textSize="16sp" />
 
     </LinearLayout>
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:text="材料消耗:"
+            android:textSize="16sp"
+            android:layout_marginRight="10dp"/>
+
+        <TextView
+            android:id="@+id/past_task_mat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="材料消耗"
+            android:textColor="#000"
+            android:textSize="16sp" />
+
+    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="25dp"
         android:text="简报内容:"
         android:textSize="16sp"
-        android:textColor="#000"
         android:layout_marginLeft="10dp"/>
 
     <TextView
@@ -112,8 +133,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="15dp"
         android:textSize="16sp"
-        android:hint="简报的文字内容..."
-        android:gravity="top"
+        android:hint="简报的文字内容"
+        android:textColor="#000"
         android:background="@null"/>
 
     <View

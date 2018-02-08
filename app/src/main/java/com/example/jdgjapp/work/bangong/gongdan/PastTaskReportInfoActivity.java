@@ -25,11 +25,11 @@ import java.util.List;
 public class PastTaskReportInfoActivity extends AppCompatActivity {
 
     private static final String TAG = "PastTaskReportInfoActiv";
-    private Button backBtn;
     private TextView taskidTv;
-    private TextView sendtimeTv;
+    private TextView datetimeTv;
     private TextView contentTv;
-    private String sendtime;
+    private TextView matTv;
+    private String datetime;
     private GridView gv;
     private String imgpath; //存放服务器发过来的url
     private String a[]; //存放每个图片真正的url
@@ -38,34 +38,25 @@ public class PastTaskReportInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_past_task_report_info);
-        backBtn = (Button) findViewById(R.id.btn_back);
         taskidTv = (TextView) findViewById(R.id.past_task_taskid);
-        sendtimeTv = (TextView) findViewById(R.id.past_task_sendtime);
+        datetimeTv = (TextView) findViewById(R.id.past_task_sendtime);
         contentTv = (TextView) findViewById(R.id.past_task_content);
+        matTv = (TextView) findViewById(R.id.past_task_mat);
         gv = (GridView) findViewById(R.id.gridView);
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent intent = new Intent(PastTaskReportInfoActivity.this,PastTaskReportActivity.class);
-//                startActivity(intent);
-                finish();
-            }
-        });
 
-        //获取传递过来的sendtime
+        //获取传递过来的datetime
         Intent intent = getIntent();
-        sendtime = intent.getStringExtra("sendtime");
-        Log.d(TAG, "传递过来的sendtime = " + sendtime);
+        datetime = intent.getStringExtra("datetime");
 
-        //根据sendtime查询数据库数据并显示
-        List<TaskReport> taskReports = DataSupport.where("sendtime = ?",sendtime).find(TaskReport.class);
+        List<TaskReport> taskReports = DataSupport.where("datetime = ?",datetime).find(TaskReport.class);
 
         for (TaskReport taskReport : taskReports) {
             taskidTv.setText(taskReport.getTaskid());
-            sendtimeTv.setText(taskReport.getSendtime());
+            datetimeTv.setText(taskReport.getDatetime());
             contentTv.setText(taskReport.getContent());
-            imgpath = taskReport.getPicpath();
+            matTv.setText(taskReport.getUsematerial());
+            imgpath = taskReport.getImgpath();
         }
 
         //处理图片url
@@ -83,9 +74,6 @@ public class PastTaskReportInfoActivity extends AppCompatActivity {
             gv.setAdapter(new PastTaskReportInfoActivity.GridViewAdapter(a));
 
         }
-
-
-
 
     }
 

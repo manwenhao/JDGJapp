@@ -8,18 +8,6 @@
         android:layout_width="match_parent"
         android:layout_height="50dp">
 
-        <Button
-            android:id="@+id/btn_back"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/left"
-            android:layout_weight="0"
-            android:layout_marginRight="35dp"
-            style="?android:attr/borderlessButtonStyle"
-            />
-
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
@@ -29,7 +17,8 @@
             android:gravity="center"
             android:text="发送简报"
             android:textColor="#000"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:layout_marginLeft="70dp"/>
 
         <Button
             android:id="@+id/btn_send_task_report"
@@ -65,8 +54,8 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginTop="30dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:textSize="16sp"
         android:hint="请输入文字..."
         android:gravity="top"
@@ -87,10 +76,10 @@
         android:id="@+id/my_mat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:textSize="16sp"
         android:textColor="#000"/>
 

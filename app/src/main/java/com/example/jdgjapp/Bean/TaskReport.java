@@ -6,9 +6,10 @@ import org.litepal.crud.DataSupport;
 public class TaskReport extends DataSupport {
 
     private String taskid;
-    private String sendtime;
+    private String datetime;
     private String content;
-    private String picpath;
+    private String imgpath;
+    private String usematerial;
 
 
     public String getTaskid() {
@@ -19,12 +20,12 @@ public class TaskReport extends DataSupport {
         this.taskid = taskid;
     }
 
-    public String getSendtime() {
-        return sendtime;
+    public String getDatetime() {
+        return datetime;
     }
 
-    public void setSendtime(String sendtime) {
-        this.sendtime = sendtime;
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
     }
 
     public String getContent() {
@@ -35,11 +36,19 @@ public class TaskReport extends DataSupport {
         this.content = content;
     }
 
-    public String getPicpath() {
-        return picpath;
+    public String getImgpath() {
+        return imgpath;
     }
 
-    public void setPicpath(String picpath) {
-        this.picpath = picpath;
+    public void setImgpath(String imgpath) {
+        this.imgpath = imgpath;
+    }
+
+    public String getUsematerial(){
+        return usematerial;
+    }
+
+    public void setUsematerial(String usematerial){
+        this.usematerial = usematerial;
     }
 }

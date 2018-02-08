@@ -8,16 +8,6 @@
         android:layout_width="match_parent"
         android:layout_height="50dp">
 
-        <Button
-            android:id="@+id/btn_back"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/left"
-            android:layout_weight="0"
-            />
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -25,13 +15,7 @@
             android:gravity="center"
             android:text="历史简报"
             android:textColor="#000"
-            android:textSize="20sp"
-            android:layout_weight="1"/>
-
-        <TextView
-            android:layout_width="50dp"
-            android:layout_height="20dp"
-            android:layout_weight="0"/>
+            android:textSize="20sp" />
 
     </LinearLayout>
 
@@ -46,6 +30,14 @@
         android:layout_height="wrap_content">
 
     </ListView>
+
+    <TextView
+        android:id="@+id/tv_nodata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text=""
+        android:layout_marginTop="25dp"/>
 
 </LinearLayout>
 
