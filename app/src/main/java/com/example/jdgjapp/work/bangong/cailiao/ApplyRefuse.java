@@ -37,11 +37,13 @@ public class ApplyRefuse extends AppCompatActivity {
     private ResponseWholeAdapter adapter;
     private IntentFilter intentFilter;
     private Myreceiver myreceiver;
+    private String newsid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apply_refuse);
         listView=(ListView)findViewById(R.id.apply_cailiao_refuse_listview);
+        newsid=getIntent().getStringExtra("newsid");
         initdate();
         intentFilter=new IntentFilter();
         intentFilter.addAction("clapplyrefuse");
@@ -97,9 +99,17 @@ public class ApplyRefuse extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
+                                        final String flag="clapplyrefuse";
+                                        if (newsid!=null){
+                                            Intent intent=new Intent(MyApplication.getContext(),ListOfOneResponse.class);
+                                            intent.putExtra("flag",flag);
+                                            intent.putExtra("sign",newsid);
+                                            startActivity(intent);
+                                           // finish();
+                                        }
                                          adapter=new ResponseWholeAdapter(list,MyApplication.getContext());
                                         listView.setAdapter(adapter);
-                                       final String flag="clapplyrefuse";
+
                                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                             @Override
                                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

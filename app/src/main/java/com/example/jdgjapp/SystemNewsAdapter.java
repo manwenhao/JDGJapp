@@ -1,6 +1,7 @@
 package com.example.jdgjapp;
 
 import android.content.Context;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,9 @@ import android.widget.TextView;
 
 import com.example.jdgjapp.Bean.SystemNews;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -53,7 +57,23 @@ public class SystemNewsAdapter extends BaseAdapter {
             vh=(ViewHolder)view.getTag();
         }
         String type=list.get(i).getType();
-        vh.time.setText(list.get(i).getTime());
+        String time=list.get(i).getTime();
+        SimpleDateFormat sfd=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sf2=new SimpleDateFormat("HH:mm:ss");
+
+        try{
+            Date datetime=sfd.parse(time);
+            if (isSameDay(new Date(),datetime)){
+                //是同一天
+                vh.time.setText(sf2.format(datetime));
+            }else{
+                vh.time.setText(sf.format(datetime));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         if (type.equals("1")){
             vh.title.setText("工单管理通知");
             vh.content.setText("你有一条新工单，请点击查看");
@@ -93,4 +113,17 @@ public class SystemNewsAdapter extends BaseAdapter {
         TextView content;
         TextView time;
     }
+    public static boolean isSameDay(Date date1, Date date2) {
+        Calendar calDateA = Calendar.getInstance();
+        calDateA.setTime(date1);
+
+        Calendar calDateB = Calendar.getInstance();
+        calDateB.setTime(date2);
+
+        return calDateA.get(Calendar.YEAR) == calDateB.get(Calendar.YEAR)
+                && calDateA.get(Calendar.MONTH) == calDateB.get(Calendar.MONTH)
+                && calDateA.get(Calendar.DAY_OF_MONTH) == calDateB
+                .get(Calendar.DAY_OF_MONTH);
+    }
+
 }

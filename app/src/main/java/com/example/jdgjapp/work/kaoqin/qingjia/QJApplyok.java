@@ -32,6 +32,7 @@ public class QJApplyok extends AppCompatActivity {
     private QJAdapter adapter;
     private IntentFilter intentFilter;
     private Myreceiver myreceiver;
+    private String newsid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +41,7 @@ public class QJApplyok extends AppCompatActivity {
         intentFilter=new IntentFilter();
         myreceiver=new Myreceiver();
         intentFilter.addAction("qjapplyok");
-        registerReceiver(myreceiver,intentFilter);
+        newsid=getIntent().getStringExtra("newsid");
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -74,6 +75,19 @@ public class QJApplyok extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
+                                        if (newsid!=null){
+                                            QJApplyRes res=new QJApplyRes();
+                                            for (QJApplyRes e:list){
+                                                if (e.getId().equals(newsid)){
+                                                    res=e;
+                                                    break;
+                                                }
+                                            }
+                                            Intent intent=new Intent(MyApplication.getContext(),QJApplyDetail.class);
+                                            intent.putExtra("bean",res);
+                                            startActivity(intent);
+                                            //finish();
+                                        }
                                         adapter=new QJAdapter(list,MyApplication.getContext());
                                         listView.setAdapter(adapter);
                                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -91,6 +105,7 @@ public class QJApplyok extends AppCompatActivity {
                         });
             }
         }).start();
+        registerReceiver(myreceiver,intentFilter);
     }
     class Myreceiver extends BroadcastReceiver{
         @Override

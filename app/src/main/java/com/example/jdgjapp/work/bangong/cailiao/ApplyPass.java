@@ -37,12 +37,15 @@ public class ApplyPass extends AppCompatActivity {
     private ResponseWholeAdapter adapter;
     private IntentFilter intentFilter;
     private Myreceiver myreceiver;
+    private String newsid;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apply_pass);
         listView=(ListView)findViewById(R.id.apply_cailiao_pass_listview);
+        newsid=getIntent().getStringExtra("newsid");
         intentFilter=new IntentFilter();
         intentFilter.addAction("clapplypass");
         myreceiver=new Myreceiver();
@@ -98,9 +101,25 @@ public class ApplyPass extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                         adapter=new ResponseWholeAdapter(list,MyApplication.getContext());
+                                        final String flag="clapplypass";
+                                        String newsisget="0";
+                                        if (newsid!=null){
+                                            for (CaiLiaoResponse e:list){
+                                                if (e.getSign().equals(newsid)){
+                                                    newsisget=e.getLeadstatus();
+                                                    break;
+
+                                                }
+                                            }
+                                            Intent intent=new Intent(MyApplication.getContext(),ListOfOneResponse.class);
+                                            intent.putExtra("flag",flag);
+                                            intent.putExtra("sign",newsid);
+                                            intent.putExtra("isget",newsisget);
+                                            startActivity(intent);
+                                            //finish();
+                                        }
+                                        adapter=new ResponseWholeAdapter(list,MyApplication.getContext());
                                         listView.setAdapter(adapter);
-                                       final String flag="clapplypass";
                                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                             @Override
                                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
