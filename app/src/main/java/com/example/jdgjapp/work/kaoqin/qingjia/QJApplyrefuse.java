@@ -86,7 +86,7 @@ public class QJApplyrefuse extends AppCompatActivity {
                                             Intent intent=new Intent(MyApplication.getContext(),QJApplyDetail.class);
                                             intent.putExtra("bean",res);
                                             startActivity(intent);
-                                            //finish();
+                                            finish();
                                         }
                                         adapter=new QJAdapter(list,MyApplication.getContext());
                                         listView.setAdapter(adapter);

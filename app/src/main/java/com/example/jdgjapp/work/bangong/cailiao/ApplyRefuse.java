@@ -105,7 +105,7 @@ public class ApplyRefuse extends AppCompatActivity {
                                             intent.putExtra("flag",flag);
                                             intent.putExtra("sign",newsid);
                                             startActivity(intent);
-                                           // finish();
+                                            finish();
                                         }
                                          adapter=new ResponseWholeAdapter(list,MyApplication.getContext());
                                         listView.setAdapter(adapter);

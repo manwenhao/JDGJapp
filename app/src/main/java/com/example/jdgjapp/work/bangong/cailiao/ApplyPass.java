@@ -116,7 +116,7 @@ public class ApplyPass extends AppCompatActivity {
                                             intent.putExtra("sign",newsid);
                                             intent.putExtra("isget",newsisget);
                                             startActivity(intent);
-                                            //finish();
+                                            finish();
                                         }
                                         adapter=new ResponseWholeAdapter(list,MyApplication.getContext());
                                         listView.setAdapter(adapter);

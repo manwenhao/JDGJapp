@@ -89,7 +89,7 @@ public class CCApplyrefuse extends AppCompatActivity {
                                             Intent intent=new Intent(MyApplication.getContext(),CCApplyDetail.class);
                                             intent.putExtra("bean",res);
                                             startActivity(intent);
-                                           // finish();
+                                           finish();
                                         }
                                         adapter=new CCAdapter(list,MyApplication.getContext());
                                         listView.setAdapter(adapter);
