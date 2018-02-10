@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jdgjapp.Bean.TaskMaterial;
@@ -43,7 +45,7 @@ public class TaskMaterialActivity extends AppCompatActivity {
     public static final String action = "taskmat.action";
     private ListView lv;
     private Button ok;
-    private String taskid;
+    private TextView warnTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,7 @@ public class TaskMaterialActivity extends AppCompatActivity {
 
         lv = (ListView) findViewById(R.id.lv_material);
         ok = (Button) findViewById(R.id.btn_ok);
+        warnTv = (TextView) findViewById(R.id.tv_nodata);
 
         sendMaterialRequest(ReturnUsrDep.returnUsr().getUsr_deptId());
 
@@ -115,11 +118,15 @@ public class TaskMaterialActivity extends AppCompatActivity {
                                 public void onError(Call call, Exception e, int id) {
                                     DataSupport.deleteAll(TaskMaterial.class);
                                     Log.d(TAG, "工单材料加载失败"+e.toString());
+                                    showWarning("工单材料加载失败");
                                 }
 
                                 @Override
                                 public void onResponse(String response, int id) {
                                     Log.d(TAG, "工单材料加载成功"+response);
+                                    if ("[]".equals(response) || TextUtils.isEmpty(response)){
+                                        showWarning("暂无材料");
+                                    }else {
                                     Gson gson = new Gson();
                                     List<TaskMaterial> taskMaterialList = gson.fromJson(response, new TypeToken<List<TaskMaterial>>(){}.getType());
                                     DataSupport.deleteAll(TaskMaterial.class);
@@ -135,21 +142,14 @@ public class TaskMaterialActivity extends AppCompatActivity {
                                         taskMaterial0.setMat_num(taskMaterial.getMat_num());
                                         taskMaterial0.save();
                                     }
+                                    showMaterial();
+                                    }
                                 }
                             });
 
+
                 }catch (Exception e){
                     e.printStackTrace();
-                }finally {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            List<Map<String, Object>> list = getData();
-                            final TaskMaterial_ListViewAdapter adapter = new TaskMaterial_ListViewAdapter(TaskMaterialActivity.this,list);
-                            lv.setAdapter(adapter);
-                        }
-                    });
-
                 }
             }
         }).start();
@@ -161,18 +161,35 @@ public class TaskMaterialActivity extends AppCompatActivity {
 
         List<TaskMaterial> taskMaterialList = DataSupport.findAll(TaskMaterial.class);
 
-        if (taskMaterialList==null || taskMaterialList.size()==0){
-            Toast.makeText(TaskMaterialActivity.this,"暂无材料！",Toast.LENGTH_SHORT).show();
-        }else {
-            for (int i=0; i<taskMaterialList.size(); i++){
-                Map<String, Object> map = new HashMap<String, Object>();
-                map.put("name", taskMaterialList.get(i).getMat_name());
-                map.put("num",Integer.parseInt(taskMaterialList.get(i).getMat_num()));
-                list.add(map);
-            }
+        for (int i=0; i<taskMaterialList.size(); i++){
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("name", taskMaterialList.get(i).getMat_name());
+            map.put("num",Integer.parseInt(taskMaterialList.get(i).getMat_num()));
+            list.add(map);
         }
-
         return list;
+    }
+
+    private void showWarning(final String word){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                warnTv.setVisibility(View.VISIBLE);
+                ok.setVisibility(View.INVISIBLE);
+                warnTv.setText(word);
+            }
+        });
+    }
+
+    private void showMaterial(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                List<Map<String, Object>> list = getData();
+                final TaskMaterial_ListViewAdapter adapter = new TaskMaterial_ListViewAdapter(TaskMaterialActivity.this,list);
+                lv.setAdapter(adapter);
+            }
+        });
     }
 
 }
