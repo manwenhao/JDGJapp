@@ -35,6 +35,7 @@ public class CCApplyrefuse extends AppCompatActivity {
     private CCAdapter adapter;
     private IntentFilter intentFilter;
     private Myreceiver myreceiver;
+    private String newsid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +44,7 @@ public class CCApplyrefuse extends AppCompatActivity {
         intentFilter=new IntentFilter();
         intentFilter.addAction("ccapplyrefuse");
         myreceiver=new Myreceiver();
-        registerReceiver(myreceiver,intentFilter);
+        newsid=getIntent().getStringExtra("newsid");
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -77,6 +78,19 @@ public class CCApplyrefuse extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
+                                        if (newsid!=null){
+                                            CCApplyRes res=new CCApplyRes();
+                                            for (CCApplyRes e :list){
+                                                if (e.getId().equals(newsid)){
+                                                    res=e;
+                                                    break;
+                                                }
+                                            }
+                                            Intent intent=new Intent(MyApplication.getContext(),CCApplyDetail.class);
+                                            intent.putExtra("bean",res);
+                                            startActivity(intent);
+                                           finish();
+                                        }
                                         adapter=new CCAdapter(list,MyApplication.getContext());
                                         listView.setAdapter(adapter);
                                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -94,6 +108,7 @@ public class CCApplyrefuse extends AppCompatActivity {
                         });
             }
         }).start();
+        registerReceiver(myreceiver,intentFilter);
     }
     class Myreceiver extends BroadcastReceiver{
         @Override

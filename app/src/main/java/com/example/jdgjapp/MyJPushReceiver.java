@@ -25,11 +25,14 @@ import com.example.jdgjapp.work.kaoqin.chuchai.CCApplyrefuse;
 import com.example.jdgjapp.work.kaoqin.qingjia.QJApplying;
 import com.example.jdgjapp.work.kaoqin.qingjia.QJApplyok;
 import com.example.jdgjapp.work.kaoqin.qingjia.QJApplyrefuse;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -59,8 +62,10 @@ public class MyJPushReceiver extends BroadcastReceiver {
     public static String sign;
     //请假结果
     public static String qjanswer;
+    public static String qjid;
     //出差结果
     public static String ccanswer;
+    public static String ccid;
 
 
 
@@ -72,8 +77,11 @@ public class MyJPushReceiver extends BroadcastReceiver {
                 String extras=bundle.getString(JPushInterface.EXTRA_EXTRA);
                 JSONObject object=new JSONObject(extras);
                 type=object.getString("type");
-                SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+                SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String datastring=sf.format(new Date());
+                ACache aCache=ACache.get(MyApplication.getContext(),MyApplication.getid());
+                String newsstring=aCache.getAsString("systemnews");
+                Type newstype=new TypeToken<List<SystemNews>>(){}.getType();
                 switch (type){
                     case "1":  //收到的是一个工单
                         String taskid = bundle.getString(JPushInterface.EXTRA_TITLE);
@@ -99,7 +107,15 @@ public class MyJPushReceiver extends BroadcastReceiver {
                         news.setType("1");
                         news.setContent(taskid);
                         news.setTime(datastring);
-                        NewsFragment.list.add(news);
+                        if (newsstring==null){
+                            List<SystemNews> newslist1=new ArrayList<SystemNews>();
+                            newslist1.add(news);
+                            aCache.put("systemnews",new Gson().toJson(newslist1));
+                        }else {
+                            List<SystemNews> newslist1=new Gson().fromJson(newsstring,newstype);
+                            newslist1.add(0,news);
+                            aCache.put("systemnews",new Gson().toJson(newslist1));
+                        }
                         Intent intent1news=new Intent("systemnews");
                         MyApplication.getContext().sendBroadcast(intent1news);
                         Log.d(TAG, "JPush工单taskid is     " + taskid);
@@ -137,7 +153,15 @@ public class MyJPushReceiver extends BroadcastReceiver {
                         news1.setTime(datastring);
                         news1.setTitle(sendername);
                         news1.setContent(chanel);
-                        NewsFragment.list.add(news1);
+                        if (newsstring==null){
+                            List<SystemNews> newslist1=new ArrayList<SystemNews>();
+                            newslist1.add(news1);
+                            aCache.put("systemnews",new Gson().toJson(newslist1));
+                        }else {
+                            List<SystemNews> newslist1=new Gson().fromJson(newsstring,newstype);
+                            newslist1.add(0,news1);
+                            aCache.put("systemnews",new Gson().toJson(newslist1));
+                        }
                         Intent intent3news=new Intent("systemnews");
                         MyApplication.getContext().sendBroadcast(intent3news);
                         //如果是在前台，就直接运行
@@ -169,7 +193,16 @@ public class MyJPushReceiver extends BroadcastReceiver {
                         news2.setType("2");
                         news2.setTime(datastring);
                         news2.setContent(answer);
-                        NewsFragment.list.add(news2);
+                        news2.setTitle(sign);
+                        if (newsstring==null){
+                            List<SystemNews> newslist1=new ArrayList<SystemNews>();
+                            newslist1.add(news2);
+                            aCache.put("systemnews",new Gson().toJson(newslist1));
+                        }else {
+                            List<SystemNews> newslist1=new Gson().fromJson(newsstring,newstype);
+                            newslist1.add(0,news2);
+                            aCache.put("systemnews",new Gson().toJson(newslist1));
+                        }
                         Intent intent2news=new Intent("systemnews");
                         MyApplication.getContext().sendBroadcast(intent2news);
                         ActivityManager activityManager = (ActivityManager)MyApplication.getContext().getSystemService(ACTIVITY_SERVICE);
@@ -193,6 +226,7 @@ public class MyJPushReceiver extends BroadcastReceiver {
                         break;
                     case "4":
                         qjanswer=object.getString("answer");
+                        qjid=object.getString("id");
                         JPushLocalNotification ln4 = new JPushLocalNotification();
                         ln4.setBuilderId(0);
                         ln4.setTitle("请假审批结果");
@@ -206,8 +240,17 @@ public class MyJPushReceiver extends BroadcastReceiver {
                         SystemNews news3=new SystemNews();
                         news3.setType("4");
                         news3.setTime(datastring);
+                        news3.setTitle(qjid);
                         news3.setContent(qjanswer);
-                        NewsFragment.list.add(news3);
+                        if (newsstring==null){
+                            List<SystemNews> newslist1=new ArrayList<SystemNews>();
+                            newslist1.add(news3);
+                            aCache.put("systemnews",new Gson().toJson(newslist1));
+                        }else {
+                            List<SystemNews> newslist1=new Gson().fromJson(newsstring,newstype);
+                            newslist1.add(0,news3);
+                            aCache.put("systemnews",new Gson().toJson(newslist1));
+                        }
                         Intent intent4news=new Intent("systemnews");
                         MyApplication.getContext().sendBroadcast(intent4news);
                         ActivityManager activityManager4 = (ActivityManager)MyApplication.getContext().getSystemService(ACTIVITY_SERVICE);
@@ -229,6 +272,7 @@ public class MyJPushReceiver extends BroadcastReceiver {
                         break;
                     case "5":
                         ccanswer=object.getString("answer");
+                        ccid=object.getString("id");
                         JPushLocalNotification ln5 = new JPushLocalNotification();
                         ln5.setBuilderId(0);
                         ln5.setTitle("出差申请审批结果");
@@ -242,8 +286,17 @@ public class MyJPushReceiver extends BroadcastReceiver {
                         SystemNews news4=new SystemNews();
                         news4.setType("5");
                         news4.setTime(datastring);
+                        news4.setTitle(ccid);
                         news4.setContent(ccanswer);
-                        NewsFragment.list.add(news4);
+                        if (newsstring==null){
+                            List<SystemNews> newslist1=new ArrayList<SystemNews>();
+                            newslist1.add(news4);
+                            aCache.put("systemnews",new Gson().toJson(newslist1));
+                        }else {
+                            List<SystemNews> newslist1=new Gson().fromJson(newsstring,newstype);
+                            newslist1.add(0,news4);
+                            aCache.put("systemnews",new Gson().toJson(newslist1));
+                        }
                         Intent intent5news=new Intent("systemnews");
                         MyApplication.getContext().sendBroadcast(intent5news);
                         ActivityManager activityManager5 = (ActivityManager)MyApplication.getContext().getSystemService(ACTIVITY_SERVICE);
