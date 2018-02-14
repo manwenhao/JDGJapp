@@ -14,6 +14,8 @@
     <color name="text_color">#434343</color>
     <color name="black_half">#50000000</color>
     <color name="agora_blue">#FF00A0EB</color>
+    <color name="unread">#b1bdfc</color>
+    <color name="read">#a7a7a0</color>
 
 
     <color name="lightColorAccent">#30FF4081</color>

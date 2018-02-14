@@ -11,10 +11,13 @@ import android.util.Log;
 import com.example.jdgjapp.Bean.SystemNews;
 import com.example.jdgjapp.Bean.Task;
 import com.example.jdgjapp.Util.ACache;
+import com.example.jdgjapp.work.bangong.baoxiao.BaoXiaoMain;
 import com.example.jdgjapp.work.bangong.cailiao.ApplyIng;
 import com.example.jdgjapp.work.bangong.cailiao.ApplyPass;
 import com.example.jdgjapp.work.bangong.cailiao.ApplyRefuse;
 import com.example.jdgjapp.work.bangong.gongdan.GongDanMain;
+import com.example.jdgjapp.work.bangong.shenpi.BXNo;
+import com.example.jdgjapp.work.bangong.shenpi.QJNo;
 import com.example.jdgjapp.work.bangong.shipin.StartShiPin;
 import com.example.jdgjapp.work.bangong.shipin.agora.openvcall.model.ConstantApp;
 import com.example.jdgjapp.work.bangong.shipin.agora.openvcall.ui.ChatActivity;
@@ -66,7 +69,15 @@ public class MyJPushReceiver extends BroadcastReceiver {
     //出差结果
     public static String ccanswer;
     public static String ccid;
-
+    //报销结果
+    public static String bxid;
+    public static String bxanswer;
+    //审批报销请求
+    public static String acc_id;
+    public static String acc_kind;
+    //请假请求
+    public static String qjapplykind;
+    public static String qjapplyid;
 
 
     @Override
@@ -107,6 +118,7 @@ public class MyJPushReceiver extends BroadcastReceiver {
                         news.setType("1");
                         news.setContent(taskid);
                         news.setTime(datastring);
+                        news.setStatus("0");
                         if (newsstring==null){
                             List<SystemNews> newslist1=new ArrayList<SystemNews>();
                             newslist1.add(news);
@@ -152,6 +164,7 @@ public class MyJPushReceiver extends BroadcastReceiver {
                         news1.setType("3");
                         news1.setTime(datastring);
                         news1.setTitle(sendername);
+                        news1.setStatus("0");
                         news1.setContent(chanel);
                         if (newsstring==null){
                             List<SystemNews> newslist1=new ArrayList<SystemNews>();
@@ -193,6 +206,7 @@ public class MyJPushReceiver extends BroadcastReceiver {
                         news2.setType("2");
                         news2.setTime(datastring);
                         news2.setContent(answer);
+                        news2.setStatus("0");
                         news2.setTitle(sign);
                         if (newsstring==null){
                             List<SystemNews> newslist1=new ArrayList<SystemNews>();
@@ -240,6 +254,7 @@ public class MyJPushReceiver extends BroadcastReceiver {
                         SystemNews news3=new SystemNews();
                         news3.setType("4");
                         news3.setTime(datastring);
+                        news3.setStatus("0");
                         news3.setTitle(qjid);
                         news3.setContent(qjanswer);
                         if (newsstring==null){
@@ -287,6 +302,7 @@ public class MyJPushReceiver extends BroadcastReceiver {
                         news4.setType("5");
                         news4.setTime(datastring);
                         news4.setTitle(ccid);
+                        news4.setStatus("0");
                         news4.setContent(ccanswer);
                         if (newsstring==null){
                             List<SystemNews> newslist1=new ArrayList<SystemNews>();
@@ -313,6 +329,114 @@ public class MyJPushReceiver extends BroadcastReceiver {
                                 Intent intent1=new Intent("ccapplyrefuse");
                                 MyApplication.getContext().sendBroadcast(intent1);
                             }
+                        }
+
+                        break;
+                    case "6":
+                        bxanswer=object.getString("answer");
+                        bxid=object.getString("id");
+                        JPushLocalNotification ln6 = new JPushLocalNotification();
+                        ln6.setBuilderId(0);
+                        ln6.setTitle("报销申请审批结果");
+                        if (bxanswer.equals("1")){
+                            ln6.setContent("您有一个报销申请通过审核");
+                        }else {
+                            ln6.setContent("您有一个报销申请未通过审核");
+                        }
+                        ln6.setNotificationId(11111111) ;
+                        JPushInterface.addLocalNotification(context, ln6);
+                        SystemNews news5=new SystemNews();
+                        news5.setType("6");
+                        news5.setContent(bxanswer);
+                        news5.setTitle(bxid);
+                        news5.setStatus("0");
+                        news5.setTime(datastring);
+                        if (newsstring==null){
+                            List<SystemNews> newslist1=new ArrayList<SystemNews>();
+                            newslist1.add(news5);
+                            aCache.put("systemnews",new Gson().toJson(newslist1));
+                        }else {
+                            List<SystemNews> newslist1=new Gson().fromJson(newsstring,newstype);
+                            newslist1.add(0,news5);
+                            aCache.put("systemnews",new Gson().toJson(newslist1));
+                        }
+                        Intent intent6news=new Intent("systemnews");
+                        MyApplication.getContext().sendBroadcast(intent6news);
+                        ActivityManager activityManager6 = (ActivityManager)MyApplication.getContext().getSystemService(ACTIVITY_SERVICE);
+                        ComponentName componentName6 = activityManager6.getRunningTasks(1).get(0).topActivity;
+                        String classname6=componentName6.getClassName();
+                        Log.d("当前活动名",classname6);
+                        if (classname6.equals(BaoXiaoMain.class.getName())){
+                            Intent intent1=new Intent("baoxiaoapply");
+                            MyApplication.getContext().sendBroadcast(intent1);
+                        }
+                        break;
+                    case "7":
+                        acc_id=object.getString("acc_id");
+                        acc_kind=object.getString("acc_kind");
+                        JPushLocalNotification ln7 = new JPushLocalNotification();
+                        ln7.setBuilderId(0);
+                        ln7.setTitle("一个新的报销申请");
+                        ln7.setContent("您有一个"+acc_kind+"报销申请");
+                        ln7.setNotificationId(11111111) ;
+                        JPushInterface.addLocalNotification(context, ln7);
+                        SystemNews news6=new SystemNews();
+                        news6.setType("7");
+                        news6.setContent(acc_id);
+                        news6.setTitle(acc_kind);
+                        news6.setTime(datastring);
+                        if (newsstring==null){
+                            List<SystemNews> newslist1=new ArrayList<SystemNews>();
+                            newslist1.add(news6);
+                            aCache.put("systemnews",new Gson().toJson(newslist1));
+                        }else {
+                            List<SystemNews> newslist1=new Gson().fromJson(newsstring,newstype);
+                            newslist1.add(0,news6);
+                            aCache.put("systemnews",new Gson().toJson(newslist1));
+                        }
+                        Intent intent7news=new Intent("systemnews");
+                        MyApplication.getContext().sendBroadcast(intent7news);
+                        ActivityManager activityManager7 = (ActivityManager)MyApplication.getContext().getSystemService(ACTIVITY_SERVICE);
+                        ComponentName componentName7 = activityManager7.getRunningTasks(1).get(0).topActivity;
+                        String classname7=componentName7.getClassName();
+                        Log.d("当前活动名",classname7);
+                        if (classname7.equals(BXNo.class.getName())){
+                            Intent intent1=new Intent("newbx");
+                            MyApplication.getContext().sendBroadcast(intent1);
+                        }
+                        break;
+                    case "9":
+                        qjapplyid=object.getString("id");
+                        qjapplykind=object.getString("kind");
+                        JPushLocalNotification ln9 = new JPushLocalNotification();
+                        ln9.setBuilderId(0);
+                        ln9.setTitle("一个新的请假申请");
+                        ln9.setContent("您有一个"+qjapplykind+"请假申请");
+                        ln9.setNotificationId(11111111) ;
+                        JPushInterface.addLocalNotification(context, ln9);
+                        SystemNews news7=new SystemNews();
+                        news7.setType("9");
+                        news7.setContent(qjapplyid);
+                        news7.setTitle(qjapplykind);
+                        news7.setTime(datastring);
+                        if (newsstring==null){
+                            List<SystemNews> newslist1=new ArrayList<SystemNews>();
+                            newslist1.add(news7);
+                            aCache.put("systemnews",new Gson().toJson(newslist1));
+                        }else {
+                            List<SystemNews> newslist1=new Gson().fromJson(newsstring,newstype);
+                            newslist1.add(0,news7);
+                            aCache.put("systemnews",new Gson().toJson(newslist1));
+                        }
+                        Intent intent9news=new Intent("systemnews");
+                        MyApplication.getContext().sendBroadcast(intent9news);
+                        ActivityManager activityManager9 = (ActivityManager)MyApplication.getContext().getSystemService(ACTIVITY_SERVICE);
+                        ComponentName componentName9 = activityManager9.getRunningTasks(1).get(0).topActivity;
+                        String classname9=componentName9.getClassName();
+                        Log.d("当前活动名",classname9);
+                        if (classname9.equals(QJNo.class.getName())){
+                            Intent intent1=new Intent("newqj");
+                            MyApplication.getContext().sendBroadcast(intent1);
                         }
 
                         break;
@@ -405,6 +529,28 @@ public class MyJPushReceiver extends BroadcastReceiver {
                                 intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 context.startActivity(intent1);
                             }
+                        }
+                    }
+                }else if (type.equals("6")){
+                    ActivityManager activityManager = (ActivityManager)MyApplication.getContext().getSystemService(ACTIVITY_SERVICE);
+                    ComponentName componentName = activityManager.getRunningTasks(1).get(0).topActivity;
+                    String classname=componentName.getClassName();
+                    if (MyApplication.count>0){
+                        if (!classname.equals(BaoXiaoMain.class.getName())){
+                            Intent intent1=new Intent(MyApplication.getContext(),BaoXiaoMain.class);
+                            intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            context.startActivity(intent1);
+                        }
+                    }
+                }else if (type.equals("7")){
+                    ActivityManager activityManager = (ActivityManager)MyApplication.getContext().getSystemService(ACTIVITY_SERVICE);
+                    ComponentName componentName = activityManager.getRunningTasks(1).get(0).topActivity;
+                    String classname=componentName.getClassName();
+                    if (MyApplication.count>0){
+                        if (!classname.equals(BXNo.class.getName())){
+                            Intent intent1=new Intent(MyApplication.getContext(),BXNo.class);
+                            intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            context.startActivity(intent1);
                         }
                     }
                 }

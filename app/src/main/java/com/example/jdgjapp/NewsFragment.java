@@ -109,7 +109,7 @@ public class NewsFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        final ACache aCache=ACache.get(MyApplication.getContext(),MyApplication.getid());
+         final ACache aCache=ACache.get(MyApplication.getContext(),MyApplication.getid());
         String datastring=aCache.getAsString("systemnews");
         Type type=new TypeToken<List<SystemNews>>(){}.getType();
         if (datastring!=null){
@@ -127,6 +127,19 @@ public class NewsFragment extends Fragment {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     SystemNews e=list.get(i);
+                    if (e.getStatus()==null){
+                        e.setStatus("1");
+                        list.remove(i);
+                        list.add(i,e);
+                        adapter.notifyDataSetChanged();
+                        aCache.put("systemnews",new Gson().toJson(list));
+                    }else if (e.getStatus().equals("0")){
+                        e.setStatus("1");
+                        list.remove(i);
+                        list.add(i,e);
+                        adapter.notifyDataSetChanged();
+                        aCache.put("systemnews",new Gson().toJson(list));
+                    }
                     if (e.getType().equals("1")){
                         Intent intent=new Intent(getActivity(), TaskInfoOfCL.class);
                         intent.putExtra("task_id",e.getContent());
@@ -167,6 +180,7 @@ public class NewsFragment extends Fragment {
                             getActivity().startActivity(intent);
                         }
                     }
+                    //adapter.notifyDataSetChanged();
                 }
             });
         listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
@@ -176,6 +190,19 @@ public class NewsFragment extends Fragment {
                     case 0:
                         // open
                         SystemNews e=list.get(i);
+                        if (e.getStatus()==null){
+                            e.setStatus("1");
+                            list.remove(i);
+                            list.add(i,e);
+                            adapter.notifyDataSetChanged();
+                            aCache.put("systemnews",new Gson().toJson(list));
+                        }else if (e.getStatus().equals("0")){
+                            e.setStatus("1");
+                            list.remove(i);
+                            list.add(i,e);
+                            adapter.notifyDataSetChanged();
+                            aCache.put("systemnews",new Gson().toJson(list));
+                        }
                         if (e.getType().equals("1")){
                             Intent intent=new Intent(getActivity(), TaskInfoOfCL.class);
                             intent.putExtra("task_id",e.getContent());
@@ -217,6 +244,7 @@ public class NewsFragment extends Fragment {
                             }
                         }
 
+
                         break;
                     case 1:
                         // delete
@@ -226,7 +254,8 @@ public class NewsFragment extends Fragment {
                             text.setVisibility(View.VISIBLE);
                         }
                         String da=new Gson().toJson(list);
-                        aCache.put("systemnews",da);
+                        ACache aCache1=ACache.get(MyApplication.getContext(),MyApplication.getid());
+                        aCache1.put("systemnews",da);
                         adapter.setDate(list);
                         adapter.notifyDataSetChanged();
                         break;
@@ -241,6 +270,17 @@ public class NewsFragment extends Fragment {
         myreceiver=new Myreceiver();
         getActivity().registerReceiver(myreceiver,intentFilter);
 
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//        ACache aCache=ACache.get(MyApplication.getContext(),MyApplication.getid());
+//        Type type=new TypeToken<List<SystemNews>>(){}.getType();
+//        list=new Gson().fromJson(aCache.getAsString("systemnews"),type);
+//        adapter.setDate(list);
+//        adapter.notifyDataSetChanged();
 
     }
 

@@ -131,7 +131,6 @@
         <activity android:name=".Friends.MyDeptMent" />
         <activity android:name=".Friends.DeptMember" />
 
-
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
@@ -296,16 +295,33 @@
         <activity android:name=".work.kaoqin.chuchai.CCApplyok" />
         <activity android:name=".work.kaoqin.chuchai.CCApplyrefuse" />
         <activity android:name=".work.kaoqin.chuchai.CCApplyDetail" />
-
-        <activity android:name=".work.bangong.cailiao.TaskInfoOfDepterCL"/>
+        <activity android:name=".work.bangong.cailiao.TaskInfoOfDepterCL" />
         <activity android:name=".work.bangong.cheliang.MydeptOfCar" />
         <activity android:name=".work.bangong.cheliang.CarWholeOfDept" />
         <activity android:name=".work.bangong.cheliang.DetailofCar" />
         <activity android:name=".work.bangong.cheliang.CarRepair" />
         <activity android:name=".work.bangong.cheliang.DetailOfCarRepair" />
-        <activity android:name=".work.bangong.cheliang.CarOfDepter"/>
-        <activity android:name=".work.bangong.cailiao.TaskInfoOfCL"/>
-
+        <activity android:name=".work.bangong.cheliang.CarOfDepter" />
+        <activity android:name=".work.bangong.cailiao.TaskInfoOfCL" />
+        <activity android:name=".work.bangong.baoxiao.MyDeptOfBx" />
+        <activity android:name=".work.bangong.baoxiao.BaoXiaoWholeOfDept" />
+        <activity
+            android:name=".work.bangong.baoxiao.BXApply"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".work.bangong.baoxiao.BaoXiaoDetail" />
+        <activity android:name=".work.bangong.baoxiao.DepterBaoXiao" />
+        <activity android:name=".work.bangong.shenpi.ShenPiView" />
+        <activity android:name=".work.bangong.shenpi.BXNo" />
+        <activity android:name=".work.bangong.shenpi.BXOk" />
+        <activity android:name=".work.bangong.shenpi.BXDetail" />
+        <activity
+            android:name=".work.bangong.shenpi.BXSPReturn"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".work.bangong.shenpi.QJOk" />
+        <activity android:name=".work.bangong.shenpi.QJNo" />
+        <activity android:name=".work.bangong.shenpi.QJSPDetail" />
+        <activity android:name=".work.bangong.shenpi.QJReturn"
+            android:windowSoftInputMode="adjustPan"></activity>
     </application>
 
 </manifest>
