@@ -5,134 +5,137 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.jdgjapp.work.bangong.cailiao.DatailOfApply">
+    tools:context="com.example.jdgjapp.work.bangong.baoxiao.BaoXiaoDetail">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#3C3C3C"
         android:gravity="center"
-        android:text="申请详情"
+        android:text="报销详情"
         android:textColor="#FFFFFF"
         android:textSize="20sp" />
-
     <TextView
-        android:id="@+id/detail_cl_res_userid"
+        android:id="@+id/bx_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="申请列表"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:textColor="#000"
-        android:textSize="15sp" />
+        android:textSize="18sp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/workborder"/>
     <TextView
-        android:id="@+id/detail_cl_res_username"
+        android:id="@+id/bx_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="申请列表"
         android:gravity="center_vertical"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
         android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:textColor="#000"
-        android:textSize="15sp" />
+        android:textSize="18sp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/workborder"/>
     <TextView
-        android:id="@+id/detail_cl_res_name"
+        android:id="@+id/bx_cont"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="申请列表"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:textColor="#000"
-        android:textSize="15sp" />
+        android:textSize="18sp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/workborder"/>
     <TextView
-        android:id="@+id/detail_cl_res_num"
+        android:id="@+id/bx_money"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
         android:text="申请列表"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:textColor="#000"
-        android:textSize="15sp" />
+        android:textSize="18sp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/workborder"/>
     <TextView
-        android:id="@+id/detail_cl_res_time"
+        android:id="@+id/bx_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
         android:text="申请列表"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:textColor="#000"
-        android:textSize="15sp" />
+        android:textSize="18sp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/workborder"/>
     <TextView
-        android:id="@+id/detail_cl_res_reason"
+        android:id="@+id/bx_res"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
         android:text="申请列表"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:textColor="#000"
-        android:textSize="15sp" />
+        android:textSize="18sp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/workborder"/>
     <TextView
-        android:id="@+id/detail_cl_res_status"
+        android:id="@+id/bx_passmoney"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
         android:text="申请列表"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:textColor="#000"
-        android:textSize="15sp" />
+        android:textSize="18sp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/workborder"/>
     <TextView
-        android:id="@+id/detail_cl_res_response"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:text="申请列表"
-        android:gravity="center_vertical"
-        android:paddingLeft="10dp"
         android:textColor="#000"
-        android:textSize="15sp" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/workborder"/>
+        android:textSize="18sp"
+        android:layout_marginLeft="10dp"
+        android:text="报销图片"/>
+    <GridView
+        android:id="@+id/detail_gridView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:numColumns="3"
+        android:verticalSpacing="10dp"
+        android:horizontalSpacing="10dp"
+        android:stretchMode="columnWidth"
+        android:gravity="center"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"/>
 </LinearLayout>

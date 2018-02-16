@@ -17,4 +17,14 @@
         <item>技术援助</item>
         <item>活动交流</item>
     </string-array>
+    <string-array name="bx_type">
+        <item>材料采购费用</item>
+        <item>差旅费</item>
+        <item>交通费</item>
+        <item>车管费</item>
+        <item>通讯费用</item>
+        <item>业务招待费</item>
+        <item>办公费用</item>
+        <item>会务费</item>
+    </string-array>
 </resources>

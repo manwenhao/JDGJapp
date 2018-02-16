@@ -42,9 +42,12 @@ public class CheLiangMain extends AppCompatActivity {
         mydept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (user.getUsr_bossId()==null||user.getUsr_bossId().equals(MyApplication.bossid)){
+                if (user.getUsr_bossId()==null){
                     startActivity(new Intent(CheLiangMain.this,MydeptOfCar.class));
-                }else {
+                }else if (user.getUsr_bossId().equals(MyApplication.bossid)){
+                    startActivity(new Intent(CheLiangMain.this,MydeptOfCar.class));
+                }
+                else {
                     Toast.makeText(CheLiangMain.this, "您的权限不足，无法查看部门材料信息", Toast.LENGTH_SHORT).show();
                 }
             }

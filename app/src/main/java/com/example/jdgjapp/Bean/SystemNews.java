@@ -9,15 +9,17 @@ public class SystemNews {
     private String content;
     private String time;
     private String type;
+    private String status;   //0 -> 未读 1 -> 已读
 
     public SystemNews() {
     }
 
-    public SystemNews(String title, String content, String time, String type) {
+    public SystemNews(String title, String content, String time, String type, String status) {
         this.title = title;
         this.content = content;
         this.time = time;
         this.type = type;
+        this.status = status;
     }
 
     public String getTitle() {
@@ -52,6 +54,14 @@ public class SystemNews {
         this.type = type;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "SystemNews{" +
@@ -59,6 +69,7 @@ public class SystemNews {
                 ", content='" + content + '\'' +
                 ", time='" + time + '\'' +
                 ", type='" + type + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 }

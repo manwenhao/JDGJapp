@@ -311,7 +311,28 @@
         <activity android:name=".work.bangong.cheliang.DetailOfCarRepair" />
         <activity android:name=".work.bangong.cheliang.CarOfDepter" />
         <activity android:name=".work.bangong.cailiao.TaskInfoOfCL" />
-        <activity android:name=".work.kaoqin.qiandao.GuiJiMain"></activity>
+
+        <activity android:name=".work.kaoqin.qiandao.GuiJiMain"/>
+        <activity android:name=".work.bangong.baoxiao.MyDeptOfBx" />
+        <activity android:name=".work.bangong.baoxiao.BaoXiaoWholeOfDept" />
+        <activity
+            android:name=".work.bangong.baoxiao.BXApply"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".work.bangong.baoxiao.BaoXiaoDetail" />
+        <activity android:name=".work.bangong.baoxiao.DepterBaoXiao" />
+        <activity android:name=".work.bangong.shenpi.ShenPiView" />
+        <activity android:name=".work.bangong.shenpi.BXNo" />
+        <activity android:name=".work.bangong.shenpi.BXOk" />
+        <activity android:name=".work.bangong.shenpi.BXDetail" />
+        <activity
+            android:name=".work.bangong.shenpi.BXSPReturn"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".work.bangong.shenpi.QJOk" />
+        <activity android:name=".work.bangong.shenpi.QJNo" />
+        <activity android:name=".work.bangong.shenpi.QJSPDetail" />
+        <activity android:name=".work.bangong.shenpi.QJReturn"
+            android:windowSoftInputMode="adjustPan"/>
+
     </application>
 
 </manifest>

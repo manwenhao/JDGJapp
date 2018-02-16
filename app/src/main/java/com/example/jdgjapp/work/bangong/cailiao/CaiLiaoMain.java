@@ -51,19 +51,25 @@ public class CaiLiaoMain extends AppCompatActivity {
         mydept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (user.getUsr_bossId()==null||user.getUsr_bossId().equals(MyApplication.bossid)){
+                if (user.getUsr_bossId()==null){
+                    startActivity(new Intent(CaiLiaoMain.this,MyDeptOfCaiLiao.class));
+                }else if (user.getUsr_bossId().equals(MyApplication.bossid)){
                     startActivity(new Intent(CaiLiaoMain.this,MyDeptOfCaiLiao.class));
                 }else {
-                    Toast.makeText(CaiLiaoMain.this, "您的权限不足，无法查看部门材料信息", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CaiLiaoMain.this, "您的权限不足，无法查看部门材料信息", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
+
         });
         apply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (user.getUsr_bossId()==null||user.getUsr_bossId().equals(MyApplication.bossid)){
+                if (user.getUsr_bossId()==null){
                     startActivity(new Intent(CaiLiaoMain.this,CaiLiaoApply.class));
-                }else {
+                }else if(user.getUsr_bossId().equals(MyApplication.bossid)){
+                    startActivity(new Intent(CaiLiaoMain.this,CaiLiaoApply.class));
+                }
+                else {
                     Toast.makeText(CaiLiaoMain.this, "您的权限不足，无法查看部门材料信息", Toast.LENGTH_SHORT).show();
                 }
             }

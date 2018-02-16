@@ -1,9 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.jdgjapp.work.bangong.shenpi.ShenPiMain">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#3C3C3C">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:textSize="20sp"
+            android:text="申请审批"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/sp_baoxiao"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="20sp"
+        android:textColor="#000"
+        android:text="报销申请"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="5dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"/>
+    <TextView
+        android:id="@+id/sp_cailiao"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="20sp"
+        android:textColor="#000"
+        android:text="材料申请"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="5dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"/>
+    <TextView
+        android:id="@+id/sp_chuchai"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="20sp"
+        android:textColor="#000"
+        android:text="出差申请"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="5dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"/>
+    <TextView
+        android:id="@+id/sp_qingjia"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="20sp"
+        android:textColor="#000"
+        android:text="请假申请"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="5dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"/>
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

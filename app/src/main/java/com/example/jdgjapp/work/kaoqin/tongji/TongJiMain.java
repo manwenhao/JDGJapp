@@ -30,7 +30,6 @@ public class TongJiMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tong_ji_main);
         dateBtn = (Button) findViewById(R.id.btn_select_date);
-
         dateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -1,6 +1,7 @@
 package com.example.jdgjapp;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,7 +74,13 @@ public class SystemNewsAdapter extends BaseAdapter {
         }catch (Exception e){
             e.printStackTrace();
         }
-
+        if (list.get(i).getStatus()==null){
+            view.setBackgroundColor(MyApplication.getContext().getResources().getColor(R.color.unread));
+        }else if (list.get(i).getStatus().equals("0")){   //未读
+            view.setBackgroundColor(MyApplication.getContext().getResources().getColor(R.color.unread));
+        }else {
+            view.setBackgroundColor(MyApplication.getContext().getResources().getColor(R.color.read));
+        }
         if (type.equals("1")){
             vh.title.setText("工单管理通知");
             vh.content.setText("你有一条新工单，请点击查看");
@@ -100,6 +107,13 @@ public class SystemNewsAdapter extends BaseAdapter {
                 vh.content.setText("你有出差申请通过审核，请点击查看");
             }else {
                 vh.content.setText("你有出差申请未通过审核，请点击查看");
+            }
+        }else if (type.equals("6")){
+            vh.title.setText("报销申请通知");
+            if (list.get(i).getContent().equals("1")){
+                vh.content.setText("你有报销申请通过审核，请点击查看");
+            }else {
+                vh.content.setText("你有报销申请未通过审核，请点击查看");
             }
         }
         return view;
