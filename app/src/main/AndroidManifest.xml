@@ -330,8 +330,12 @@
         <activity android:name=".work.bangong.shenpi.QJOk" />
         <activity android:name=".work.bangong.shenpi.QJNo" />
         <activity android:name=".work.bangong.shenpi.QJSPDetail" />
+
         <activity android:name=".work.bangong.shenpi.QJReturn"
             android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".work.bangong.shenpi.SPCCOK" />
+        <activity android:name=".work.bangong.shenpi.SPCCNO" />
+        <activity android:name=".work.bangong.shenpi.SPCCDetail"></activity>
 
     </application>
 

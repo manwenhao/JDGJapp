@@ -150,7 +150,7 @@ public class WorkFragment extends Fragment {
     private List<Map<String,Object>> getdate(){
         List<Map<String, Object>> items = new ArrayList<Map<String, Object>>();
         int [] listImg=new int[]{R.mipmap.kaoqin,R.mipmap.tongji,R.mipmap.qingjia,R.mipmap.chuchai,R.mipmap.qiandao,R.mipmap.nothing};
-        String [] listName=new String[]{"考勤打卡","考勤统计","请假申请","出差申请","签到"," "};
+        String [] listName=new String[]{"考勤打卡","考勤统计","请假申请","出差申请","员工定位"," "};
         for (int i = 0; i < listImg.length; i++) {
             Map<String, Object> item = new HashMap<String, Object>();
             item.put("itemImage", listImg[i]);

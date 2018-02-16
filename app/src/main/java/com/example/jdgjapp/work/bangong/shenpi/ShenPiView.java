@@ -46,6 +46,19 @@ public class ShenPiView extends AppCompatActivity {
                     startActivity(new Intent(ShenPiView.this,QJOk.class));
                 }
             });
+        }else if (flag.equals("cc")){
+            no.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(ShenPiView.this,SPCCNO.class));
+                }
+            });
+            ok.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(ShenPiView.this,SPCCOK.class));
+                }
+            });
         }
 
     }
