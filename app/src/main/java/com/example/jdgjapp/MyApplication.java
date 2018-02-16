@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.example.jdgjapp.work.bangong.shipin.agora.openvcall.model.CurrentUserSettings;
 import com.example.jdgjapp.work.bangong.shipin.agora.openvcall.model.WorkerThread;
 import com.mob.MobApplication;
@@ -34,7 +35,7 @@ public class MyApplication extends MobApplication {
         JPushInterface.init(this);
         mActivityLifecycleCallbacksImpl=new ActivityLifecycleCallbacksImpl();
         this.registerActivityLifecycleCallbacks(mActivityLifecycleCallbacksImpl);
-
+        SDKInitializer.initialize(context);
     }
     public static void setid(String id) {
         userid = id;

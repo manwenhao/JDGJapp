@@ -182,6 +182,10 @@ public class DaKaMain extends AppCompatActivity {
                 permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
             permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
+        if (ContextCompat.checkSelfPermission(this, Manifest.
+                permission.ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
+            permissionList.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+        }
         if (!permissionList.isEmpty()){
             String [] permissions = permissionList.toArray(new String[permissionList.size()]);
             ActivityCompat.requestPermissions(this, permissions , 1);
@@ -199,6 +203,7 @@ public class DaKaMain extends AppCompatActivity {
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
         option.setIsNeedAddress(true);
+        option.setCoorType("bd09ll");
         nLocationClient.setLocOption(option);
     }
 

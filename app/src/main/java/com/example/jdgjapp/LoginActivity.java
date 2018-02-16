@@ -132,6 +132,7 @@ public class LoginActivity extends AppCompatActivity {
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseDate = response.body().string();
+                    Log.d(TAG, "logindata"+responseDate);
 
                     //解析数据
                     parseJSON(responseDate);

@@ -58,6 +58,7 @@ public class DingWeiService extends Service {
         option.setScanSpan(300000);
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
         option.setIsNeedAddress(true);
+        option.setCoorType("bd09ll");
         nLocationClient.setLocOption(option);
     }
 

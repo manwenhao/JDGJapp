@@ -21,6 +21,7 @@ import com.example.jdgjapp.work.bangong.shenpi.ShenPiMain;
 import com.example.jdgjapp.work.bangong.shipin.ShiPin;
 import com.example.jdgjapp.work.kaoqin.chuchai.ChuChaiMain;
 import com.example.jdgjapp.work.kaoqin.daka.DaKaMain;
+import com.example.jdgjapp.work.kaoqin.qiandao.GuiJiMain;
 import com.example.jdgjapp.work.kaoqin.qiandao.QianDaoMain;
 import com.example.jdgjapp.work.kaoqin.qingjia.QingJiaMain;
 import com.example.jdgjapp.work.kaoqin.tongji.TongJiMain;

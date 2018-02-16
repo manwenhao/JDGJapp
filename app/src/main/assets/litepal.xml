@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <litepal>
     <dbname value = "JDGJ"></dbname>
-    <version value = "12"></version>
+    <version value = "17"></version>
 
     <list>
         <mapping class= "com.example.jdgjapp.Bean.User"></mapping>
@@ -11,6 +11,8 @@
         <mapping class= "com.example.jdgjapp.Bean.TaskReport"></mapping>
         <mapping class= "com.example.jdgjapp.Bean.Leave"></mapping>
         <mapping class= "com.example.jdgjapp.Bean.Travel"></mapping>
+        <mapping class= "com.example.jdgjapp.Bean.BaiduMakerInfo"></mapping>
+        <mapping class= "com.example.jdgjapp.Bean.BaiduGJInfo"></mapping>
 
     </list>
 </litepal>
