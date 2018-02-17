@@ -76,7 +76,13 @@ public class GuiJiMain extends AppCompatActivity {
         String username = intent.getStringExtra("username");
         title.setText(username+"的轨迹");
 
-        drawGJ();
+        List<BaiduGJInfo> baiduGJInfoList = DataSupport.findAll(BaiduGJInfo.class);
+        if (baiduGJInfoList.size()==1){
+            drawMaker();
+        }else {
+            drawGJ();
+            drawMaker();
+        }
 
     }
 
@@ -122,6 +128,21 @@ public class GuiJiMain extends AppCompatActivity {
         mPolyline = (Polyline) mBaiduMap.addOverlay(ooPolyline);
         mPolyline.setZIndex(9);
 
+    }
+
+    private void drawMaker(){
+        //地图点击事件
+        mBaiduMap.setOnMapClickListener(new BaiduMap.OnMapClickListener() {
+            @Override
+            public boolean onMapPoiClick(MapPoi arg0) {
+                return false;
+            }
+            @Override
+            public void onMapClick(LatLng arg0) {
+                mBaiduMap.hideInfoWindow();
+            }
+        });
+        List<BaiduGJInfo> baiduGJInfoList = DataSupport.findAll(BaiduGJInfo.class);
         //画轨迹上的Marker
         BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.marker);
         BitmapDescriptor bitmap1 = BitmapDescriptorFactory.fromResource(R.drawable.start);
@@ -167,43 +188,41 @@ public class GuiJiMain extends AppCompatActivity {
                 marker.setExtraInfo(bundle);
             }
         }
-            //将地图显示在起点的位置
-            MapStatusUpdate msu = MapStatusUpdateFactory.newLatLng(startLatLng);
-            mBaiduMap.setMapStatus(msu);
+        //将地图显示在起点的位置
+        MapStatusUpdate msu = MapStatusUpdateFactory.newLatLng(startLatLng);
+        mBaiduMap.setMapStatus(msu);
 
-            mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
-                @Override
-                public boolean onMarkerClick(Marker marker) {
-                    //从marker中获取info信息
-                    Bundle bundle = marker.getExtraInfo();
-                    final BaiduGJInfo infoUtil = (BaiduGJInfo) bundle.getSerializable("infoGJ");
-                    //infowindow位置
-                    Double posx = Double.parseDouble(infoUtil.getPosx());
-                    Double posy = Double.parseDouble(infoUtil.getPosy());
-                    LatLng latLng = new LatLng(posy, posx);
-                    //infowindow中的布局
-                    tv = new TextView(GuiJiMain.this);
-                    tv.setBackgroundResource(R.drawable.baidumap_marker);
-                    tv.setPadding(20, 10, 20, 20);
-                    tv.setGravity(Gravity.LEFT);
-                    tv.setTextColor(getResources().getColor(R.color.black_1));
-                    String info = "时间："+infoUtil.getDatime();
-                    tv.setText(info);
-                    bitmapDescriptor = BitmapDescriptorFactory.fromView(tv);
-                    //infowindow监听
-                    InfoWindow.OnInfoWindowClickListener listener = new InfoWindow.OnInfoWindowClickListener() {
-                        @Override
-                        public void onInfoWindowClick() {
-                            mBaiduMap.hideInfoWindow();
-                        }
-                    };
-                    InfoWindow infoWindow = new InfoWindow(bitmapDescriptor, latLng, -47, listener);
-                    mBaiduMap.showInfoWindow(infoWindow);
-                    return true;
-                }
-            });
-
-
+        mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                //从marker中获取info信息
+                Bundle bundle = marker.getExtraInfo();
+                final BaiduGJInfo infoUtil = (BaiduGJInfo) bundle.getSerializable("infoGJ");
+                //infowindow位置
+                Double posx = Double.parseDouble(infoUtil.getPosx());
+                Double posy = Double.parseDouble(infoUtil.getPosy());
+                LatLng latLng = new LatLng(posy, posx);
+                //infowindow中的布局
+                tv = new TextView(GuiJiMain.this);
+                tv.setBackgroundResource(R.drawable.baidumap_marker);
+                tv.setPadding(20, 10, 20, 20);
+                tv.setGravity(Gravity.LEFT);
+                tv.setTextColor(getResources().getColor(R.color.black_1));
+                String info = "时间："+infoUtil.getDatime();
+                tv.setText(info);
+                bitmapDescriptor = BitmapDescriptorFactory.fromView(tv);
+                //infowindow监听
+                InfoWindow.OnInfoWindowClickListener listener = new InfoWindow.OnInfoWindowClickListener() {
+                    @Override
+                    public void onInfoWindowClick() {
+                        mBaiduMap.hideInfoWindow();
+                    }
+                };
+                InfoWindow infoWindow = new InfoWindow(bitmapDescriptor, latLng, -47, listener);
+                mBaiduMap.showInfoWindow(infoWindow);
+                return true;
+            }
+        });
     }
 
     private void latlngToAddress(LatLng latlng) {
