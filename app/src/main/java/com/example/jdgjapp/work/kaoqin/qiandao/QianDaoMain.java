@@ -42,6 +42,7 @@ import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.Polyline;
 import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.utils.DistanceUtil;
 import com.example.jdgjapp.Bean.BaiduGJInfo;
 import com.example.jdgjapp.Bean.BaiduMakerInfo;
 import com.example.jdgjapp.MyApplication;
@@ -131,6 +132,7 @@ public class QianDaoMain extends AppCompatActivity {
                                     parseJsonNewLoc(response);
                                     List<BaiduMakerInfo> list = DataSupport.findAll(BaiduMakerInfo.class);
                                     addOverlay(list);
+                                    setPOI();
                                 }
 
                             }
@@ -153,6 +155,7 @@ public class QianDaoMain extends AppCompatActivity {
             baiduMakerInfo0.setPosy(baiduMakerInfo.getPosy());
             baiduMakerInfo0.setDep_id(baiduMakerInfo.getDep_id());
             baiduMakerInfo0.setDep_name(baiduMakerInfo.getDep_name());
+            baiduMakerInfo0.setAddrstr(baiduMakerInfo.getAddrstr());
             baiduMakerInfo0.save();
         }
     }
@@ -287,7 +290,8 @@ public class QianDaoMain extends AppCompatActivity {
                 +"姓名："+infoUtil.getUser_name()+"\n"
                 +"时间："+infoUtil.getDatime()+"\n"
                 +"部门编号："+infoUtil.getDep_id()+"\n"
-                +"部门："+infoUtil.getDep_name();
+                +"部门："+infoUtil.getDep_name()+"\n"
+                +"地址："+infoUtil.getAddrstr();
         tv.setText(infos);
 
         btn.setOnClickListener(new View.OnClickListener() {
@@ -360,8 +364,48 @@ public class QianDaoMain extends AppCompatActivity {
             baiduGJInfo1.setPosx(baiduGJInfo.getPosx());
             baiduGJInfo1.setPosy(baiduGJInfo.getPosy());
             baiduGJInfo1.setDatime(baiduGJInfo.getDatime());
+            baiduGJInfo1.setAddrstr(baiduGJInfo.getAddrstr());
             baiduGJInfo1.save();
         }
+    }
+
+    //调整地图比例尺
+    private void setPOI(){
+        //经度范围-180到180，纬度范围-90到90，对所有的轨迹中的经纬度进行比较，找到最大和最小的经度，最大和最小的维度
+        double minLongitude=180 ,maxLongitude=-180,minlatitude=90,maxlatitude=-90;
+        List<BaiduMakerInfo> baiduMakerInfoList = DataSupport.findAll(BaiduMakerInfo.class);
+        for (BaiduMakerInfo baiduMakerInfo : baiduMakerInfoList){
+            Double posx = Double.parseDouble(baiduMakerInfo.getPosx());
+            Double posy = Double.parseDouble(baiduMakerInfo.getPosy());
+            if(minlatitude > posy) minlatitude=posy;
+            if(maxlatitude < posy) maxlatitude = posy;
+            if(minLongitude > posx) minLongitude = posx;
+            if(maxLongitude < posx) maxLongitude = posx;
+        }
+        //对角线的距离，单位m
+        double maxdis= DistanceUtil.getDistance(new LatLng(minlatitude,minLongitude),new LatLng(maxlatitude,maxLongitude));
+
+        int [] zoomSize={10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 25000, 50000, 100000, 200000, 500000, 1000000, 2000000};
+        int [] zoomlevel={20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3};
+        //将轨迹显示在地图上，正好是标准尺的9倍。
+        double mapWidth = maxdis/9;
+        int dx=0;
+        //找到合适的单位距离，就是稍微大一点的那个单位
+        for(int i=0;i<zoomSize.length;i++){
+            if(mapWidth < zoomSize[i]) {
+                dx = i;
+                break;
+            }
+        }
+
+        MapStatus.Builder builder = new MapStatus.Builder();
+        //地图中心移动到轨迹中间的地方
+        builder.target(new LatLng((minlatitude+maxlatitude)/2,(minLongitude+maxLongitude)/2));
+        //设置缩放级别
+        builder.zoom(zoomlevel[dx]);
+        //刷新地图
+        mBaiduMap.setMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
+
     }
 
     @Override
@@ -381,5 +425,18 @@ public class QianDaoMain extends AppCompatActivity {
     protected void onResume() {
         mapView.onResume();
         super.onResume();
+    }
+
+    public static String ToDBC(String input) {
+        char[] c = input.toCharArray();
+        for (int i = 0; i < c.length; i++) {
+            if (c[i] == 12288) {
+                c[i] = (char) 32;
+                continue;
+            }
+            if (c[i] > 65280 && c[i] < 65375)
+                c[i] = (char) (c[i] - 65248);
+        }
+        return new String(c);
     }
 }

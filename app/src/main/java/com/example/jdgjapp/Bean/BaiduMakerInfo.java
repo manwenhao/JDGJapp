@@ -16,7 +16,7 @@ public class BaiduMakerInfo extends DataSupport implements Serializable{
     private String datime;
     private String dep_id;
     private String dep_name;
-
+    private String addrstr;
 
     public String getUser_id(){
         return user_id;
@@ -72,5 +72,13 @@ public class BaiduMakerInfo extends DataSupport implements Serializable{
 
     public void setDep_name(String dep_name){
         this.dep_name = dep_name;
+    }
+
+    public String getAddrstr(){
+        return addrstr;
+    }
+
+    public void setAddrstr(String addrstr){
+        this.addrstr = addrstr;
     }
 }

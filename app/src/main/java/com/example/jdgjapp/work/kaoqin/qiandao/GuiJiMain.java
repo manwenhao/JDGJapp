@@ -31,6 +31,12 @@ import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
+import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
+import com.baidu.mapapi.search.poi.PoiDetailResult;
+import com.baidu.mapapi.search.poi.PoiIndoorResult;
+import com.baidu.mapapi.search.poi.PoiResult;
+import com.baidu.mapapi.search.poi.PoiSearch;
+import com.baidu.mapapi.utils.DistanceUtil;
 import com.example.jdgjapp.Bean.BaiduGJInfo;
 import com.example.jdgjapp.R;
 import com.google.gson.Gson;
@@ -62,6 +68,7 @@ public class GuiJiMain extends AppCompatActivity {
     LatLng target;
     Polyline mPolyline;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +89,7 @@ public class GuiJiMain extends AppCompatActivity {
         }else {
             drawGJ();
             drawMaker();
+            setPOI();
         }
 
     }
@@ -208,7 +216,7 @@ public class GuiJiMain extends AppCompatActivity {
                 tv.setPadding(20, 10, 20, 20);
                 tv.setGravity(Gravity.LEFT);
                 tv.setTextColor(getResources().getColor(R.color.black_1));
-                String info = "时间："+infoUtil.getDatime();
+                String info = "时间："+infoUtil.getDatime()+"\n"+"地址："+infoUtil.getAddrstr();
                 tv.setText(info);
                 bitmapDescriptor = BitmapDescriptorFactory.fromView(tv);
                 //infowindow监听
@@ -223,6 +231,45 @@ public class GuiJiMain extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    //调整地图比例尺
+    private void setPOI(){
+        //经度范围-180到180，纬度范围-90到90，对所有的轨迹中的经纬度进行比较，找到最大和最小的经度，最大和最小的维度
+        double minLongitude=180 ,maxLongitude=-180,minlatitude=90,maxlatitude=-90;
+        List<BaiduGJInfo> baiduGJInfoList = DataSupport.findAll(BaiduGJInfo.class);
+        for (BaiduGJInfo baiduGJInfo : baiduGJInfoList){
+            Double posx = Double.parseDouble(baiduGJInfo.getPosx());
+            Double posy = Double.parseDouble(baiduGJInfo.getPosy());
+            if(minlatitude > posy) minlatitude=posy;
+            if(maxlatitude < posy) maxlatitude = posy;
+            if(minLongitude > posx) minLongitude = posx;
+            if(maxLongitude < posx) maxLongitude = posx;
+        }
+        //对角线的距离，单位m
+        double maxdis=DistanceUtil.getDistance(new LatLng(minlatitude,minLongitude),new LatLng(maxlatitude,maxLongitude));
+
+        int [] zoomSize={10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 25000, 50000, 100000, 200000, 500000, 1000000, 2000000};
+        int [] zoomlevel={20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3};
+        //将轨迹显示在地图上，正好是标准尺的9倍。
+        double mapWidth = maxdis/9;
+        int dx=0;
+        //找到合适的单位距离，就是稍微大一点的那个单位
+        for(int i=0;i<zoomSize.length;i++){
+            if(mapWidth < zoomSize[i]) {
+                dx = i;
+                break;
+            }
+        }
+
+        MapStatus.Builder builder = new MapStatus.Builder();
+        //地图中心移动到轨迹中间的地方
+        builder.target(new LatLng((minlatitude+maxlatitude)/2,(minLongitude+maxLongitude)/2));
+        //设置缩放级别
+        builder.zoom(zoomlevel[dx]);
+        //刷新地图
+        mBaiduMap.setMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
+
     }
 
     private void latlngToAddress(LatLng latlng) {
@@ -273,4 +320,5 @@ public class GuiJiMain extends AppCompatActivity {
         mMapView.onResume();
         super.onResume();
     }
+
 }

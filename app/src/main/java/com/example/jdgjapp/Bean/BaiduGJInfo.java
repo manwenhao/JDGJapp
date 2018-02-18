@@ -12,7 +12,7 @@ public class BaiduGJInfo extends DataSupport implements Serializable {
     private String posx;
     private String posy;
     private String datime;
-    private String addr;
+    private String addrstr;
 
     public String getPosx(){
         return posx;
@@ -38,11 +38,11 @@ public class BaiduGJInfo extends DataSupport implements Serializable {
         this.datime = datime;
     }
 
-    public String getAddr(){
-        return addr;
+    public String getAddrstr(){
+        return addrstr;
     }
 
-    public void setAddr(String addr){
-        this.addr = addr;
+    public void setAddrstr(String addrstr){
+        this.addrstr = addrstr;
     }
 }
