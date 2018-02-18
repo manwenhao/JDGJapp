@@ -59,8 +59,6 @@ public class GuiJiMain extends AppCompatActivity {
     private TextView title;
     private GeoCoder geoCoder;
     private TextView tv;
-    private String addr;
-    private int flag;
 
     private LatLng startLatLng;//轨迹起点
     private BitmapDescriptor bitmapDescriptor;
@@ -269,35 +267,6 @@ public class GuiJiMain extends AppCompatActivity {
         builder.zoom(zoomlevel[dx]);
         //刷新地图
         mBaiduMap.setMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
-
-    }
-
-    private void latlngToAddress(LatLng latlng) {
-        flag=1;
-        // 设置反地理经纬度坐标,请求位置时,需要一个经纬度
-        geoCoder.reverseGeoCode(new ReverseGeoCodeOption().location(latlng));
-        //设置地址或经纬度反编译后的监听,这里有两个回调方法,
-        geoCoder.setOnGetGeoCodeResultListener(new OnGetGeoCoderResultListener() {
-            //经纬度转换成地址
-            @Override
-            public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
-                if (flag==1){
-                if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
-                }else {
-                    addr = result.getAddress();
-                    flag=0;
-                }
-                }
-                Log.d(TAG, "addris0"+addr);
-            }
-
-            //把地址转换成经纬度
-            @Override
-            public void onGetGeoCodeResult(GeoCodeResult result) {
-                // 详细地址转换在经纬度
-                String address=result.getAddress();
-            }
-        });
 
     }
 
