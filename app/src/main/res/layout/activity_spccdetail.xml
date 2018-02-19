@@ -6,5 +6,134 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.jdgjapp.work.bangong.shenpi.SPCCDetail">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#3C3C3C">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="#fff"
+            android:layout_centerInParent="true"
+            android:text="出差申请详情"/>
+        <TextView
+            android:id="@+id/sp_cc_no_into"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="#fff"
+            android:background="@color/blue"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="审批"
+            android:padding="5dp"
+            android:layout_marginRight="30dp"/>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/cc_no_userid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="申请列表"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textColor="#000"
+        android:textSize="18sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"/>
+    <TextView
+        android:id="@+id/cc_no_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="申请列表"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textColor="#000"
+        android:textSize="18sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"/>
+    <TextView
+        android:id="@+id/cc_no_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="申请列表"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textColor="#000"
+        android:textSize="18sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"/>
+    <TextView
+        android:id="@+id/cc_no_reason"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="申请列表"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textColor="#000"
+        android:textSize="18sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"/>
+    <TextView
+        android:id="@+id/cc_no_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="申请列表"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textColor="#000"
+        android:textSize="18sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"/>
+    <TextView
+        android:id="@+id/cc_no_starttime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="申请列表"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textColor="#000"
+        android:textSize="18sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"/>
+    <TextView
+        android:id="@+id/cc_no_endtime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="申请列表"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textColor="#000"
+        android:textSize="18sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"/>
 
 </LinearLayout>
