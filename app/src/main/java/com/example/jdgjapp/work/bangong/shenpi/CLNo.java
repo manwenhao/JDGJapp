@@ -1,7 +1,9 @@
 package com.example.jdgjapp.work.bangong.shenpi;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,6 +37,8 @@ public class CLNo extends AppCompatActivity {
     private ListView listView;
     private List<CLITEM> list;
     private Myadapter myadapter;
+    private IntentFilter intentFilter;
+    private Myreceiver myreceiver;
 
 
     @Override
@@ -43,6 +47,9 @@ public class CLNo extends AppCompatActivity {
         setContentView(R.layout.activity_clno);
         ActivityUtils.getInstance().addActivity(CLNo.class.getName(),this);
         listView=(ListView)findViewById(R.id.sp_cl_no_listview);
+        intentFilter=new IntentFilter();
+        intentFilter.addAction("newcl");
+        myreceiver=new Myreceiver();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -69,7 +76,7 @@ public class CLNo extends AppCompatActivity {
                                 for (CLSPNO e:datalist){
                                     boolean flag=true;
                                     for (CLITEM a:list){
-                                        if (a.getSign().equals(e.getMatid())){
+                                        if (a.getSign().equals(e.getSign())){
                                             flag=false;
                                             break;
                                         }
@@ -77,7 +84,7 @@ public class CLNo extends AppCompatActivity {
                                     if (flag){
                                         CLITEM clitem=new CLITEM();
                                         clitem.setTime(e.getDatetime());
-                                        clitem.setSign(e.getMatid());
+                                        clitem.setSign(e.getSign());
                                         clitem.setName(e.getUsername());
                                         clitem.setId(e.getUserid());
                                         list.add(clitem);
@@ -104,6 +111,7 @@ public class CLNo extends AppCompatActivity {
 
             }
         }).start();
+        registerReceiver(myreceiver,intentFilter);
 
     }
     class Myadapter extends BaseAdapter {
@@ -161,6 +169,63 @@ public class CLNo extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        unregisterReceiver(myreceiver);
         ActivityUtils.getInstance().delActivity(CLNo.class.getName());
+    }
+    class Myreceiver extends BroadcastReceiver{
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    User user= ReturnUsrDep.returnUsr();
+                    OkHttpUtils.post()
+                            .url("http://106.14.145.208:8080/JDGJ/BackManagerMaterialNoReply")
+                            .addParams("user_id", MyApplication.getid())
+                            .addParams("dep_id",user.getUsr_deptId())
+                            .build()
+                            .execute(new StringCallback() {
+                                @Override
+                                public void onError(Call call, Exception e, int id) {
+                                    e.printStackTrace();
+                                }
+
+                                @Override
+                                public void onResponse(String response, int id) {
+                                    Log.d(CLNo.class.getName(),response);
+                                    ACache aCache=ACache.get(MyApplication.getContext(),MyApplication.getid());
+                                    aCache.put("clspnodata",response);
+                                    Type type=new TypeToken<List<CLSPNO>>(){}.getType();
+                                    List<CLSPNO> datalist=new Gson().fromJson(response,type);
+                                    list=new ArrayList<CLITEM>();
+                                    for (CLSPNO e:datalist){
+                                        boolean flag=true;
+                                        for (CLITEM a:list){
+                                            if (a.getSign().equals(e.getSign())){
+                                                flag=false;
+                                                break;
+                                            }
+                                        }
+                                        if (flag){
+                                            CLITEM clitem=new CLITEM();
+                                            clitem.setTime(e.getDatetime());
+                                            clitem.setSign(e.getSign());
+                                            clitem.setName(e.getUsername());
+                                            clitem.setId(e.getUserid());
+                                            list.add(clitem);
+                                        }
+                                    }
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            myadapter.setdate(list);
+                                            myadapter.notifyDataSetChanged();
+                                        }
+                                    });
+                                }
+                            });
+                }
+            }).start();
+        }
     }
 }

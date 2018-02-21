@@ -46,7 +46,7 @@ public class CLNOList extends AppCompatActivity {
         List<CLSPNO> datalist=new Gson().fromJson(aCache.getAsString("clspnodata"),type);
         list=new ArrayList<CLSPNO>();
         for (CLSPNO e:datalist){
-            if (e.getMatid().equals(sign)){
+            if (e.getSign().equals(sign)){
                 list.add(e);
             }
         }

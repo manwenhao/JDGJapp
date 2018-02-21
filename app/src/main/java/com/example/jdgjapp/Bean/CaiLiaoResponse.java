@@ -42,6 +42,7 @@ public class CaiLiaoResponse implements Serializable{
         this.user_id=o.getUserid();
         this.user_name=o.getUsername();
         this.reason=o.getReason();
+        this.sign=o.getSign();
         this.rmat_status="0";
     }
 

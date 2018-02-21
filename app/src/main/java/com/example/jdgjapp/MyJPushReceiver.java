@@ -17,7 +17,9 @@ import com.example.jdgjapp.work.bangong.cailiao.ApplyPass;
 import com.example.jdgjapp.work.bangong.cailiao.ApplyRefuse;
 import com.example.jdgjapp.work.bangong.gongdan.GongDanMain;
 import com.example.jdgjapp.work.bangong.shenpi.BXNo;
+import com.example.jdgjapp.work.bangong.shenpi.CLNo;
 import com.example.jdgjapp.work.bangong.shenpi.QJNo;
+import com.example.jdgjapp.work.bangong.shenpi.SPCCNO;
 import com.example.jdgjapp.work.bangong.shipin.StartShiPin;
 import com.example.jdgjapp.work.bangong.shipin.agora.openvcall.model.ConstantApp;
 import com.example.jdgjapp.work.bangong.shipin.agora.openvcall.ui.ChatActivity;
@@ -75,9 +77,38 @@ public class MyJPushReceiver extends BroadcastReceiver {
     //审批报销请求
     public static String acc_id;
     public static String acc_kind;
+    public static String acc_userid;
+    public static String acc_cont;
+    public static String acc_date;
+    public static String acc_backmoney;
+    public static String acc_img;
+
     //请假请求
     public static String qjapplykind;
     public static String qjapplyid;
+    public static String qjman_id;
+    public static String qjdatime;
+    public static String qjstart;
+    public static String qjreason;
+    public static String qjend;
+    //出差请求
+    public static String ccapplyid;
+    public static String ccapplykind;
+    public static String ccman_id;
+    public static String ccdatime;
+    public static String ccstart;
+    public static String ccreason;
+    public static String ccend;
+
+    //材料请求
+    public static String clapplysign;
+    public static String clman_id;
+    public static String cldatime;
+    public static String clreason;
+    public static String clmaterials;
+
+
+
 
 
     @Override
@@ -374,6 +405,11 @@ public class MyJPushReceiver extends BroadcastReceiver {
                     case "7":
                         acc_id=object.getString("acc_id");
                         acc_kind=object.getString("acc_kind");
+                        acc_userid=object.getString("acc_userid");
+                        acc_cont=object.getString("acc_cont");
+                        acc_date=object.getString("date");
+                        acc_backmoney=object.getString("backmoney");
+                        acc_img=object.getString("acc_img");
                         JPushLocalNotification ln7 = new JPushLocalNotification();
                         ln7.setBuilderId(0);
                         ln7.setTitle("一个新的报销申请");
@@ -382,7 +418,7 @@ public class MyJPushReceiver extends BroadcastReceiver {
                         JPushInterface.addLocalNotification(context, ln7);
                         SystemNews news6=new SystemNews();
                         news6.setType("7");
-                        news6.setContent(acc_id);
+                        news6.setContent(acc_id+"@#$"+acc_kind+"@#$"+acc_userid+"@#$"+acc_cont+"@#$"+acc_date+"@#$"+acc_backmoney+"@#$"+acc_img);
                         news6.setTitle(acc_kind);
                         news6.setTime(datastring);
                         if (newsstring==null){
@@ -408,6 +444,11 @@ public class MyJPushReceiver extends BroadcastReceiver {
                     case "9":
                         qjapplyid=object.getString("id");
                         qjapplykind=object.getString("kind");
+                        qjman_id=object.getString("man_id");
+                        qjdatime=object.getString("datime");
+                        qjstart=object.getString("startDate");
+                        qjend=object.getString("endDate");
+                        qjreason=object.getString("reason");
                         JPushLocalNotification ln9 = new JPushLocalNotification();
                         ln9.setBuilderId(0);
                         ln9.setTitle("一个新的请假申请");
@@ -416,7 +457,7 @@ public class MyJPushReceiver extends BroadcastReceiver {
                         JPushInterface.addLocalNotification(context, ln9);
                         SystemNews news7=new SystemNews();
                         news7.setType("9");
-                        news7.setContent(qjapplyid);
+                        news7.setContent(qjapplyid+"@#$"+qjapplykind+"@#$"+qjman_id+"@#$"+qjdatime+"@#$"+qjstart+"@#$"+qjend+"@#$"+qjreason);
                         news7.setTitle(qjapplykind);
                         news7.setTime(datastring);
                         if (newsstring==null){
@@ -439,6 +480,82 @@ public class MyJPushReceiver extends BroadcastReceiver {
                             MyApplication.getContext().sendBroadcast(intent1);
                         }
 
+                        break;
+                    case "8":
+                        ccapplyid=object.getString("id");
+                        ccapplykind=object.getString("kind");
+                        ccman_id=object.getString("man_id");
+                        ccdatime=object.getString("datime");
+                        ccstart=object.getString("startDate");
+                        ccend=object.getString("endDate");
+                        ccreason=object.getString("reason");
+                        JPushLocalNotification ln8 = new JPushLocalNotification();
+                        ln8.setBuilderId(0);
+                        ln8.setTitle("一个新的出差申请");
+                        ln8.setContent("您有一个"+ccapplykind+"出差申请");
+                        ln8.setNotificationId(11111111) ;
+                        JPushInterface.addLocalNotification(context, ln8);
+                        SystemNews news8=new SystemNews();
+                        news8.setType("8");
+                        news8.setContent(ccapplyid+"@#$"+ccapplykind+"@#$"+ccman_id+"@#$"+ccdatime+"@#$"+ccstart+"@#$"+ccend+"@#$"+ccreason);
+                        news8.setTitle(ccapplykind);
+                        news8.setTime(datastring);
+                        if (newsstring==null){
+                            List<SystemNews> newslist1=new ArrayList<SystemNews>();
+                            newslist1.add(news8);
+                            aCache.put("systemnews",new Gson().toJson(newslist1));
+                        }else {
+                            List<SystemNews> newslist1=new Gson().fromJson(newsstring,newstype);
+                            newslist1.add(0,news8);
+                            aCache.put("systemnews",new Gson().toJson(newslist1));
+                        }
+                        Intent intent10news=new Intent("systemnews");
+                        MyApplication.getContext().sendBroadcast(intent10news);
+                        ActivityManager activityManagerx = (ActivityManager)MyApplication.getContext().getSystemService(ACTIVITY_SERVICE);
+                        ComponentName componentNamex= activityManagerx.getRunningTasks(1).get(0).topActivity;
+                        String classnamex=componentNamex.getClassName();
+                        Log.d("当前活动名",classnamex);
+                        if (classnamex.equals(SPCCNO.class.getName())){
+                            Intent intent1=new Intent("newcc");
+                            MyApplication.getContext().sendBroadcast(intent1);
+                        }
+                        break;
+                    case "10":
+                        clapplysign=object.getString("sign");
+                        clman_id=object.getString("man_id");
+                        cldatime=object.getString("datime");
+                        clreason=object.getString("reason");
+                        clmaterials=object.getString("materials");
+                        JPushLocalNotification ln10 = new JPushLocalNotification();
+                        ln10.setBuilderId(0);
+                        ln10.setTitle("一个新的材料申请");
+                        ln10.setContent("您有一个新的部门材料申请");
+                        ln10.setNotificationId(11111111) ;
+                        JPushInterface.addLocalNotification(context, ln10);
+                        SystemNews news9=new SystemNews();
+                        news9.setType("10");
+                        news9.setContent(clapplysign+"@#$"+clman_id+"@#$"+cldatime+"@#$"+clreason+"@#$"+clmaterials);
+                        news9.setTitle(clman_id);
+                        news9.setTime(datastring);
+                        if (newsstring==null){
+                            List<SystemNews> newslist1=new ArrayList<SystemNews>();
+                            newslist1.add(news9);
+                            aCache.put("systemnews",new Gson().toJson(newslist1));
+                        }else {
+                            List<SystemNews> newslist1=new Gson().fromJson(newsstring,newstype);
+                            newslist1.add(0,news9);
+                            aCache.put("systemnews",new Gson().toJson(newslist1));
+                        }
+                        Intent intent11news=new Intent("systemnews");
+                        MyApplication.getContext().sendBroadcast(intent11news);
+                        ActivityManager activityManagerxi = (ActivityManager)MyApplication.getContext().getSystemService(ACTIVITY_SERVICE);
+                        ComponentName componentNamexi= activityManagerxi.getRunningTasks(1).get(0).topActivity;
+                        String classnamexi=componentNamexi.getClassName();
+                        Log.d("当前活动名",classnamexi);
+                        if (classnamexi.equals(CLNo.class.getName())){
+                            Intent intent1=new Intent("newcl");
+                            MyApplication.getContext().sendBroadcast(intent1);
+                        }
                         break;
 
                     default:

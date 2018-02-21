@@ -14,11 +14,12 @@ public class CLSPNO implements Serializable {
     private String userid;
     private String datetime;
     private String reason;
+    private String sign;
 
     public CLSPNO() {
     }
 
-    public CLSPNO(String matid, String matname, String matnum, String username, String userid, String datetime, String reason) {
+    public CLSPNO(String matid, String matname, String matnum, String username, String userid, String datetime, String reason, String sign) {
         this.matid = matid;
         this.matname = matname;
         this.matnum = matnum;
@@ -26,6 +27,7 @@ public class CLSPNO implements Serializable {
         this.userid = userid;
         this.datetime = datetime;
         this.reason = reason;
+        this.sign = sign;
     }
 
     public String getMatid() {
@@ -84,6 +86,14 @@ public class CLSPNO implements Serializable {
         this.reason = reason;
     }
 
+    public String getSign() {
+        return sign;
+    }
+
+    public void setSign(String sign) {
+        this.sign = sign;
+    }
+
     @Override
     public String toString() {
         return "CLSPNO{" +
@@ -94,6 +104,7 @@ public class CLSPNO implements Serializable {
                 ", userid='" + userid + '\'' +
                 ", datetime='" + datetime + '\'' +
                 ", reason='" + reason + '\'' +
+                ", sign='" + sign + '\'' +
                 '}';
     }
 }

@@ -1,7 +1,9 @@
 package com.example.jdgjapp.work.bangong.shenpi;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,6 +34,8 @@ public class SPCCNO extends AppCompatActivity {
     private ListView listView;
     private Myadapter myadapter;
     private List<com.example.jdgjapp.Bean.SPCCNO> list;
+    private IntentFilter intentFilter;
+    private Myreceiver myreceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,9 @@ public class SPCCNO extends AppCompatActivity {
         setContentView(R.layout.activity_spccno);
         ActivityUtils.getInstance().addActivity(SPCCNO.class.getName(),this);
         listView=(ListView)findViewById(R.id.sp_cc_no_list);
+        intentFilter=new IntentFilter();
+        intentFilter.addAction("newcc");
+        myreceiver=new Myreceiver();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -79,6 +86,7 @@ public class SPCCNO extends AppCompatActivity {
                         });
             }
         }).start();
+        registerReceiver(myreceiver,intentFilter);
 
     }
     class Myadapter extends BaseAdapter {
@@ -136,6 +144,43 @@ public class SPCCNO extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        unregisterReceiver(myreceiver);
         ActivityUtils.getInstance().delActivity(SPCCNO.class.getName());
+    }
+    class Myreceiver extends BroadcastReceiver{
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    User user= ReturnUsrDep.returnUsr();
+                    OkHttpUtils.post()
+                            .url("http://106.14.145.208:8080/JDGJ/BackManagerTravelNoReply")
+                            .addParams("user_id",user.getUsr_id())
+                            .addParams("dep_id",user.getUsr_deptId())
+                            .build()
+                            .execute(new StringCallback() {
+                                @Override
+                                public void onError(Call call, Exception e, int id) {
+                                    e.printStackTrace();
+                                }
+
+                                @Override
+                                public void onResponse(final String response, int id) {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Log.d(SPCCNO.class.getName(),response);
+                                            Type type=new TypeToken<List<com.example.jdgjapp.Bean.SPCCNO>>(){}.getType();
+                                            list=new Gson().fromJson(response,type);
+                                            myadapter.setdate(list);
+                                            myadapter.notifyDataSetChanged();
+                                        }
+                                    });
+                                }
+                            });
+                }
+            }).start();
+        }
     }
 }

@@ -73,6 +73,7 @@ public class CLReturn extends AppCompatActivity {
                                         @Override
                                         public void onResponse(final String response, int id) {
                                             Log.d(CLReturn.class.getName(),response);
+                                            Log.d("======",sign+" "+userid+" "+answer+" "+ansreason);
                                             runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
