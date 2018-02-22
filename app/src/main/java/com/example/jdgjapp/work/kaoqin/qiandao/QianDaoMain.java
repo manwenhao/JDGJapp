@@ -426,5 +426,5 @@ public class QianDaoMain extends AppCompatActivity {
         mapView.onResume();
         super.onResume();
     }
-    
+
 }

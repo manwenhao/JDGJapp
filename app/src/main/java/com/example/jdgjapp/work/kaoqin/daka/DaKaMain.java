@@ -1,6 +1,7 @@
 package com.example.jdgjapp.work.kaoqin.daka;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,6 +16,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -35,6 +37,7 @@ import com.example.jdgjapp.MyApplication;
 import com.example.jdgjapp.R;
 import com.example.jdgjapp.Util.ACache;
 import com.example.jdgjapp.Util.ReturnUsrDep;
+import com.example.jdgjapp.work.bangong.gongdan.TaskReportActivity;
 
 import org.litepal.crud.DataSupport;
 import org.w3c.dom.Text;
@@ -73,6 +76,9 @@ public class DaKaMain extends AppCompatActivity {
     public static final int UPDATE_BUTTON_xiaban = 2;
     public static final int ADD_INFO_shangban = 3;
     public static final int ADD_INFO_xiaban = 4;
+    public static final int ADD_INFO_siaban_old = 5;
+    public static final int ADD_INFO_sxban_old = 6;
+    private String str[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -278,6 +284,21 @@ public class DaKaMain extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                //设置ProgressDialog
+                ProgressDialog pro = new ProgressDialog(DaKaMain.this);
+                pro.setProgressStyle(ProgressDialog.STYLE_SPINNER);// 设置进度条的形式为圆形转动的进度条
+                pro.setCancelable(false);// 设置是否可以通过点击Back键取消
+                pro.setCanceledOnTouchOutside(false);// 设置在点击Dialog外是否取消Dialog进度条
+                pro.setMessage("打卡中，请稍等...");
+                pro.setOnCancelListener(new DialogInterface.OnCancelListener() {
+
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        // TODO Auto-generated method stub
+                    }
+
+                });
+                pro.show();
                 try{
                         OkHttpClient client = new OkHttpClient();
                         RequestBody requestBody = new FormBody.Builder()
@@ -293,7 +314,7 @@ public class DaKaMain extends AppCompatActivity {
                                 .build();
                         Response response = client.newCall(request).execute();
                         String responseDate = response.body().string();
-                        //showResponse(responseDate);
+                        Log.d(TAG, "dakaold"+responseDate);
 
                         if (responseDate.equals("ok")){
                             if (type.equals("1")){        //上班打卡成功
@@ -330,13 +351,39 @@ public class DaKaMain extends AppCompatActivity {
                                 editor.putInt("dkflag",2);
                                 editor.apply();
                             }
-                        }else {
+                        }else if(responseDate.equals("error") || responseDate.equals("[]") || TextUtils.isEmpty(responseDate)){
                             if (type.equals("1")){
                                 showResponse("上班打卡失败！");
                             }else if(type.equals("2")){
                                 showResponse("下班打卡失败！");
                             }
+                        }else {   //打过卡无缓存
+                            str = responseDate.split("[;]");
+                            if (str.length==2){  //上班打卡已完成
+                                //更新按钮上的内容
+                                updateUI(UPDATE_BUTTON_xiaban);
+                                //显示已打完的上班信息
+                                updateUI(ADD_INFO_siaban_old);
+                                //flag=1
+                                SharedPreferences.Editor editor = getSharedPreferences(ReturnUsrDep.returnUsr().getUsr_id(),
+                                        MODE_PRIVATE).edit();
+                                editor.putInt("dkflag",1);
+                                editor.apply();
+                                showResponse("更新打卡成功，请继续打卡！");
+                            }else if (str.length==4){  //上下班打卡均完成
+                                //更新按钮上的内容
+                                updateUI(UPDATE_BUTTON_shangban);
+                                //显示已打完的上下班信息
+                                updateUI(ADD_INFO_sxban_old);
+                                //flag=2
+                                SharedPreferences.Editor editor = getSharedPreferences(ReturnUsrDep.returnUsr().getUsr_id(),
+                                        MODE_PRIVATE).edit();
+                                editor.putInt("dkflag",2);
+                                editor.apply();
+                                showResponse("更新打卡成功！");
+                            }
                         }
+                        pro.cancel();
 
                 } catch (Exception e){
                     e.printStackTrace();
@@ -424,6 +471,35 @@ public class DaKaMain extends AppCompatActivity {
                     editor2.putString("xbaddr",currentaddr);
                     editor2.apply();
                     break;
+                case ADD_INFO_siaban_old:
+                    String current3 = "上班打卡时间";
+                    String currenttime3 = current3.concat(str[0]);
+                    time1Tv.setText(currenttime3);
+                    addr1Tv.setText(str[1]);
+                    //保存打卡数据
+                    SharedPreferences.Editor editor3 = getSharedPreferences(ReturnUsrDep.returnUsr().getUsr_id(),
+                            MODE_PRIVATE).edit();
+                    editor3.putString("sbtime",currenttime3);
+                    editor3.putString("sbaddr",str[1]);
+                    editor3.apply();
+                    break;
+                case ADD_INFO_sxban_old:
+                    String current4 = "上班打卡时间";
+                    String current5 = "下班打卡时间";
+                    String currenttime4 = current4.concat(str[0]);
+                    String currenttime5 = current5.concat(str[2]);
+                    time1Tv.setText(currenttime4);
+                    addr1Tv.setText(str[1]);
+                    time2Tv.setText(currenttime5);
+                    addr2Tv.setText(str[3]);
+                    //保存打卡数据
+                    SharedPreferences.Editor editor4 = getSharedPreferences(ReturnUsrDep.returnUsr().getUsr_id(),
+                            MODE_PRIVATE).edit();
+                    editor4.putString("sbtime",currenttime4);
+                    editor4.putString("sbaddr",str[1]);
+                    editor4.putString("xbtime",currenttime5);
+                    editor4.putString("xbaddr",str[3]);
+                    editor4.apply();
 
                 default:
                     break;

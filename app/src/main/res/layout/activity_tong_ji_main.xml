@@ -112,14 +112,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="出勤天数"
+                    android:text="出勤"
                     android:textSize="18sp"
                     android:textColor="#000"
                     android:layout_marginLeft="17dp"
                     android:layout_gravity="center_vertical"/>
 
                 <Button
-                    android:id="@+id/btn_attendence_daynum"
+                    android:id="@+id/chuqin"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="0"
@@ -134,42 +134,6 @@
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#969696"
-                android:layout_marginLeft="20dp"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="#fff"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="加班天数"
-                    android:textSize="18sp"
-                    android:textColor="#000"
-                    android:layout_marginLeft="17dp"
-                    android:layout_gravity="center_vertical"/>
-
-                <Button
-                    android:id="@+id/btn_overtime_daynum"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="0"
-                    android:textSize="18sp"
-                    android:textColor="#BFBFBF"
-                    android:background="#fff"
-                    android:gravity="right|center_vertical"
-                    android:drawableRight="@drawable/down"
-                    android:drawablePadding="15dp"
-                    android:layout_marginRight="15dp"
-                    style="?android:attr/borderlessButtonStyle"/>
-
-            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -188,12 +152,12 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="17dp"
-                    android:text="请假天数"
+                    android:text="请假"
                     android:textColor="#000"
                     android:textSize="18sp" />
 
                 <Button
-                    android:id="@+id/btn_leave_daynum"
+                    android:id="@+id/qingjia"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="0"
@@ -208,42 +172,6 @@
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#969696"
-                android:layout_marginLeft="20dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="#fff"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="休息天数"
-                    android:textSize="18sp"
-                    android:textColor="#000"
-                    android:layout_marginLeft="17dp"
-                    android:layout_gravity="center_vertical"/>
-
-                <Button
-                    android:id="@+id/btn_rest_daynum"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="0"
-                    android:textSize="18sp"
-                    android:textColor="#BFBFBF"
-                    android:background="#fff"
-                    android:gravity="right|center_vertical"
-                    android:drawableRight="@drawable/down"
-                    android:drawablePadding="15dp"
-                    android:layout_marginRight="15dp"
-                    style="?android:attr/borderlessButtonStyle"/>
-
-            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -267,7 +195,7 @@
                     android:textSize="18sp" />
 
                 <Button
-                    android:id="@+id/btn_travel_daynum"
+                    android:id="@+id/chuchai"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="0"
@@ -304,7 +232,7 @@
                     android:layout_gravity="center_vertical"/>
 
                 <Button
-                    android:id="@+id/btn_delay_daynum"
+                    android:id="@+id/chidao"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="0"
@@ -341,44 +269,7 @@
                     android:layout_gravity="center_vertical"/>
 
                 <Button
-                    android:id="@+id/btn_early_daynum"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="0"
-                    android:textSize="18sp"
-                    android:textColor="#BFBFBF"
-                    android:background="#fff"
-                    android:gravity="right|center_vertical"
-                    android:drawableRight="@drawable/down"
-                    android:drawablePadding="15dp"
-                    android:layout_marginRight="15dp"
-                    style="?android:attr/borderlessButtonStyle"/>
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#969696"
-                android:layout_marginLeft="20dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="#fff"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="17dp"
-                    android:text="旷工"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
-
-                <Button
-                    android:id="@+id/btn_absent_daynum"
+                    android:id="@+id/zaotui"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="0"

@@ -71,6 +71,9 @@ public class DingWeiService extends Service {
             Double position2 = bdLocation.getLongitude();
             String position3 = position1.toString();
             String position4 = position2.toString();
+            //校验地址
+            boolean iscontain1 = position3.contains("E");
+            boolean iscontain2 = position4.contains("E");
 
             Log.d(TAG, "实时定位经度" + position4);
             Log.d(TAG, "实时定位纬度" + position3);
@@ -82,7 +85,10 @@ public class DingWeiService extends Service {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             String currenttime = format.format(calendar.getTime());
             //上传数据
-            sendRequestPosition(user.getUsr_id(),position3,position4,currenttime);
+            if (!iscontain1&&!iscontain2){
+                sendRequestPosition(user.getUsr_id(),position3,position4,currenttime);
+            }
+
         }
     }
 

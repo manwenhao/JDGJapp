@@ -93,7 +93,6 @@ public class GuiJiMain extends AppCompatActivity {
     }
 
 
-
     //画轨迹
     private void drawGJ(){
         //清空地图
