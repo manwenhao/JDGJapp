@@ -138,8 +138,7 @@
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote">
-        </service>
+            android:process=":remote"></service>
 
         <activity
             android:name="cn.jpush.android.ui.PopWinActivity"
@@ -336,7 +335,10 @@
         <activity android:name=".work.bangong.shenpi.CLOk" />
         <activity android:name=".work.bangong.shenpi.CLNo" />
         <activity android:name=".work.bangong.shenpi.CLNOList" />
-        <activity android:name=".work.bangong.shenpi.CLReturn"></activity>
+        <activity android:name=".work.bangong.shenpi.CLReturn" />
+        <activity android:name=".NewsBXDetail" />
+        <activity android:name=".NewsQJAndCC" />
+        <activity android:name=".NewsCL"></activity>
     </application>
 
 </manifest>

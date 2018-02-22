@@ -1,10 +1,12 @@
 package com.example.jdgjapp.Bean;
 
+import java.io.Serializable;
+
 /**
  * Created by xuxuxiao on 2018/2/7.
  */
 
-public class SystemNews {
+public class SystemNews implements Serializable{
     private String title;
     private String content;
     private String time;
