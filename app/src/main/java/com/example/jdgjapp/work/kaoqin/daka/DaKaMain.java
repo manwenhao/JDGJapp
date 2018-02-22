@@ -79,6 +79,7 @@ public class DaKaMain extends AppCompatActivity {
     public static final int ADD_INFO_siaban_old = 5;
     public static final int ADD_INFO_sxban_old = 6;
     private String str[];
+    ProgressDialog pro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,6 +136,21 @@ public class DaKaMain extends AppCompatActivity {
     private class OnClick implements View.OnClickListener{
         @Override
         public void onClick(View view) {
+            //设置ProgressDialog
+            pro = new ProgressDialog(DaKaMain.this);
+            pro.setProgressStyle(ProgressDialog.STYLE_SPINNER);// 设置进度条的形式为圆形转动的进度条
+            pro.setCancelable(true);// 设置是否可以通过点击Back键取消
+            pro.setCanceledOnTouchOutside(false);// 设置在点击Dialog外是否取消Dialog进度条
+            pro.setMessage("打卡中，请稍后...");
+            pro.setOnCancelListener(new DialogInterface.OnCancelListener() {
+
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    // TODO Auto-generated method stub
+                }
+
+            });
+            pro.show();
             switch (view.getId()){
                 case R.id.btn_daka:
                     //读取当前flag
@@ -162,8 +178,12 @@ public class DaKaMain extends AppCompatActivity {
                         //发送定位
                         startLocation();
                     }else {
-                        if (flag==2) showResponse("请勿重复打卡！");
-                        else startLocation();
+                        if (flag==2) {
+                            pro.cancel();
+                            showResponse("请勿重复打卡！");
+                        } else {
+                            startLocation();
+                        }
                     }
 
                     break;
@@ -273,7 +293,10 @@ public class DaKaMain extends AppCompatActivity {
                         } else if (flag == 1) {  //下班打卡
                             sendRequestPosition(ReturnUsrDep.returnUsr().getUsr_id(), position3, position4, currenttime, "2");
                         }
-                    }else showResponse("无法定位，打卡失败！");
+                    }else{
+                        pro.cancel();
+                        showResponse("无法定位，打卡失败！");
+                    }
 
                 }
             });
@@ -281,24 +304,10 @@ public class DaKaMain extends AppCompatActivity {
     }
 
     private void sendRequestPosition(final String id, final String Position1, final String Position2, final String datetime, final String type) {
+
         new Thread(new Runnable() {
             @Override
             public void run() {
-                //设置ProgressDialog
-                ProgressDialog pro = new ProgressDialog(DaKaMain.this);
-                pro.setProgressStyle(ProgressDialog.STYLE_SPINNER);// 设置进度条的形式为圆形转动的进度条
-                pro.setCancelable(false);// 设置是否可以通过点击Back键取消
-                pro.setCanceledOnTouchOutside(false);// 设置在点击Dialog外是否取消Dialog进度条
-                pro.setMessage("打卡中，请稍等...");
-                pro.setOnCancelListener(new DialogInterface.OnCancelListener() {
-
-                    @Override
-                    public void onCancel(DialogInterface dialog) {
-                        // TODO Auto-generated method stub
-                    }
-
-                });
-                pro.show();
                 try{
                         OkHttpClient client = new OkHttpClient();
                         RequestBody requestBody = new FormBody.Builder()
@@ -383,11 +392,12 @@ public class DaKaMain extends AppCompatActivity {
                                 showResponse("更新打卡成功！");
                             }
                         }
-                        pro.cancel();
+
 
                 } catch (Exception e){
                     e.printStackTrace();
                 } finally {
+                    pro.cancel();
                     //读取当前日期并保存
                     Calendar calendar = Calendar.getInstance();
                     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");

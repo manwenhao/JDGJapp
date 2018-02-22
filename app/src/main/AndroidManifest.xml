@@ -308,8 +308,7 @@
         <activity android:name=".work.bangong.cheliang.DetailOfCarRepair" />
         <activity android:name=".work.bangong.cheliang.CarOfDepter" />
         <activity android:name=".work.bangong.cailiao.TaskInfoOfCL" />
-
-        <activity android:name=".work.kaoqin.qiandao.GuiJiMain"/>
+        <activity android:name=".work.kaoqin.qiandao.GuiJiMain" />
         <activity android:name=".work.bangong.baoxiao.MyDeptOfBx" />
         <activity android:name=".work.bangong.baoxiao.BaoXiaoWholeOfDept" />
         <activity
@@ -327,13 +326,17 @@
         <activity android:name=".work.bangong.shenpi.QJOk" />
         <activity android:name=".work.bangong.shenpi.QJNo" />
         <activity android:name=".work.bangong.shenpi.QJSPDetail" />
-
-        <activity android:name=".work.bangong.shenpi.QJReturn"
-            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".work.bangong.shenpi.QJReturn"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".work.bangong.shenpi.SPCCOK" />
         <activity android:name=".work.bangong.shenpi.SPCCNO" />
-        <activity android:name=".work.bangong.shenpi.SPCCDetail"></activity>
-
+        <activity android:name=".work.bangong.shenpi.SPCCDetail" />
+        <activity android:name=".work.bangong.shenpi.CCReturn" />
+        <activity android:name=".work.bangong.shenpi.CLOk" />
+        <activity android:name=".work.bangong.shenpi.CLNo" />
+        <activity android:name=".work.bangong.shenpi.CLNOList" />
+        <activity android:name=".work.bangong.shenpi.CLReturn"></activity>
     </application>
 
 </manifest>

@@ -73,26 +73,31 @@ public class QJReturn extends AppCompatActivity {
                                        }
 
                                        @Override
-                                       public void onResponse(String response, int id) {
+                                       public void onResponse(final String response, int id) {
                                            Log.d(QJReturn.class.getName(),response);
-                                           if (response.equals("1")){
-                                               Toast.makeText(QJReturn.this, "批复成功", Toast.LENGTH_SHORT).show();
-                                               ActivityUtils.getInstance().delActivity(QJNo.class.getName());
-                                               ActivityUtils.getInstance().delActivity(QJSPDetail.class.getName());
-                                               finish();
-                                           }else if (response.equals("0")){
-                                               Toast.makeText(QJReturn.this, "已被批复", Toast.LENGTH_SHORT).show();
-                                               ActivityUtils.getInstance().delActivity(QJNo.class.getName());
-                                               ActivityUtils.getInstance().delActivity(QJSPDetail.class.getName());
-                                               finish();
-                                           }else if (response.equals("2")){
-                                               Toast.makeText(QJReturn.this, "无此记录", Toast.LENGTH_SHORT).show();
-                                               ActivityUtils.getInstance().delActivity(QJNo.class.getName());
-                                               ActivityUtils.getInstance().delActivity(QJSPDetail.class.getName());
-                                               finish();
-                                           }else if (response.equals("error")){
-                                               Toast.makeText(QJReturn.this, "批复失败，请重试", Toast.LENGTH_SHORT).show();
-                                           }
+                                           runOnUiThread(new Runnable() {
+                                               @Override
+                                               public void run() {
+                                                   if (response.equals("1")){
+                                                       Toast.makeText(QJReturn.this, "批复成功", Toast.LENGTH_SHORT).show();
+                                                       ActivityUtils.getInstance().delActivity(QJNo.class.getName());
+                                                       ActivityUtils.getInstance().delActivity(QJSPDetail.class.getName());
+                                                       finish();
+                                                   }else if (response.equals("0")){
+                                                       Toast.makeText(QJReturn.this, "已被批复", Toast.LENGTH_SHORT).show();
+                                                       ActivityUtils.getInstance().delActivity(QJNo.class.getName());
+                                                       ActivityUtils.getInstance().delActivity(QJSPDetail.class.getName());
+                                                       finish();
+                                                   }else if (response.equals("2")){
+                                                       Toast.makeText(QJReturn.this, "无此记录", Toast.LENGTH_SHORT).show();
+                                                       ActivityUtils.getInstance().delActivity(QJNo.class.getName());
+                                                       ActivityUtils.getInstance().delActivity(QJSPDetail.class.getName());
+                                                       finish();
+                                                   }else if (response.equals("error")){
+                                                       Toast.makeText(QJReturn.this, "批复失败，请重试", Toast.LENGTH_SHORT).show();
+                                                   }
+                                               }
+                                           });
                                        }
                                    });
                        }

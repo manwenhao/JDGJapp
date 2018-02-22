@@ -212,6 +212,7 @@ public class GuiJiMain extends AppCompatActivity {
                 tv.setBackgroundResource(R.drawable.baidumap_marker);
                 tv.setPadding(20, 10, 20, 20);
                 tv.setGravity(Gravity.LEFT);
+                tv.setMaxEms(12);
                 tv.setTextColor(getResources().getColor(R.color.black_1));
                 String info = "时间："+infoUtil.getDatime()+"\n"+"地址："+infoUtil.getAddrstr();
                 tv.setText(info);

@@ -15,9 +15,11 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.jdgjapp.Bean.*;
+import com.example.jdgjapp.Bean.CLSPNO;
+import com.example.jdgjapp.Bean.User;
 import com.example.jdgjapp.MyApplication;
 import com.example.jdgjapp.R;
+import com.example.jdgjapp.Util.ACache;
 import com.example.jdgjapp.Util.ActivityUtils;
 import com.example.jdgjapp.Util.ReturnUsrDep;
 import com.google.gson.Gson;
@@ -26,33 +28,35 @@ import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Call;
 
-public class SPCCNO extends AppCompatActivity {
+public class CLNo extends AppCompatActivity {
     private ListView listView;
+    private List<CLITEM> list;
     private Myadapter myadapter;
-    private List<com.example.jdgjapp.Bean.SPCCNO> list;
     private IntentFilter intentFilter;
     private Myreceiver myreceiver;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_spccno);
-        ActivityUtils.getInstance().addActivity(SPCCNO.class.getName(),this);
-        listView=(ListView)findViewById(R.id.sp_cc_no_list);
+        setContentView(R.layout.activity_clno);
+        ActivityUtils.getInstance().addActivity(CLNo.class.getName(),this);
+        listView=(ListView)findViewById(R.id.sp_cl_no_listview);
         intentFilter=new IntentFilter();
-        intentFilter.addAction("newcc");
+        intentFilter.addAction("newcl");
         myreceiver=new Myreceiver();
         new Thread(new Runnable() {
             @Override
             public void run() {
                 User user= ReturnUsrDep.returnUsr();
                 OkHttpUtils.post()
-                        .url("http://106.14.145.208:8080/JDGJ/BackManagerTravelNoReply")
-                        .addParams("user_id",user.getUsr_id())
+                        .url("http://106.14.145.208:8080/JDGJ/BackManagerMaterialNoReply")
+                        .addParams("user_id", MyApplication.getid())
                         .addParams("dep_id",user.getUsr_deptId())
                         .build()
                         .execute(new StringCallback() {
@@ -63,20 +67,40 @@ public class SPCCNO extends AppCompatActivity {
 
                             @Override
                             public void onResponse(String response, int id) {
-                                Log.d(SPCCNO.class.getName(),response);
-                                Type type=new TypeToken<List<com.example.jdgjapp.Bean.SPCCNO>>(){}.getType();
-                                list=new Gson().fromJson(response,type);
+                                Log.d(CLNo.class.getName(),response);
+                                ACache aCache=ACache.get(MyApplication.getContext(),MyApplication.getid());
+                                aCache.put("clspnodata",response);
+                                Type type=new TypeToken<List<CLSPNO>>(){}.getType();
+                                List<CLSPNO> datalist=new Gson().fromJson(response,type);
+                               list=new ArrayList<CLITEM>();
+                                for (CLSPNO e:datalist){
+                                    boolean flag=true;
+                                    for (CLITEM a:list){
+                                        if (a.getSign().equals(e.getSign())){
+                                            flag=false;
+                                            break;
+                                        }
+                                    }
+                                    if (flag){
+                                        CLITEM clitem=new CLITEM();
+                                        clitem.setTime(e.getDatetime());
+                                        clitem.setSign(e.getSign());
+                                        clitem.setName(e.getUsername());
+                                        clitem.setId(e.getUserid());
+                                        list.add(clitem);
+                                    }
+                                }
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        myadapter=new Myadapter(list, MyApplication.getContext());
+                                        myadapter=new Myadapter(list,MyApplication.getContext());
                                         listView.setAdapter(myadapter);
                                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                             @Override
                                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                                com.example.jdgjapp.Bean.SPCCNO e=list.get(i);
-                                                Intent intent=new Intent(MyApplication.getContext(),SPCCDetail.class);
-                                                intent.putExtra("bean",e);
+                                                Intent intent=new Intent(MyApplication.getContext(),CLNOList.class);
+                                                intent.putExtra("sign",list.get(i).getSign());
+                                                intent.putExtra("userid",list.get(i).getId());
                                                 startActivity(intent);
                                             }
                                         });
@@ -84,15 +108,16 @@ public class SPCCNO extends AppCompatActivity {
                                 });
                             }
                         });
+
             }
         }).start();
         registerReceiver(myreceiver,intentFilter);
 
     }
     class Myadapter extends BaseAdapter {
-        private List<com.example.jdgjapp.Bean.SPCCNO> list;
+        private List<CLITEM> list;
         private LayoutInflater inflater;
-        public Myadapter(List<com.example.jdgjapp.Bean.SPCCNO> list, Context context) {
+        public Myadapter(List<CLITEM> list, Context context) {
             this.list=list;
             inflater=LayoutInflater.from(context);
         }
@@ -117,21 +142,21 @@ public class SPCCNO extends AppCompatActivity {
             ViewHolder vh;
             if (view==null){
                 vh=new ViewHolder();
-                view=inflater.inflate(R.layout.sp_cc_item,viewGroup,false);
-                vh.name=(TextView)view.findViewById(R.id.sp_cc_item_name);
-                vh.id=(TextView)view.findViewById(R.id.sp_cc_item_id);
-                vh.time=(TextView)view.findViewById(R.id.sp_cc_item_time);
+                view=inflater.inflate(R.layout.sp_cl_item,viewGroup,false);
+                vh.name=(TextView)view.findViewById(R.id.sp_cl_item_name);
+                vh.id=(TextView)view.findViewById(R.id.sp_cl_item_id);
+                vh.time=(TextView)view.findViewById(R.id.sp_cl_item_time);
                 view.setTag(vh);
             }else {
                 vh=(ViewHolder)view.getTag();
             }
-            vh.time.setText("时间："+list.get(i).getDatime());
-            vh.name.setText("姓名："+list.get(i).getUsr_name());
-            vh.id.setText("工号："+list.get(i).getMan_id());
+            vh.time.setText("时间："+list.get(i).getTime());
+            vh.name.setText("姓名："+list.get(i).getName());
+            vh.id.setText("工号："+list.get(i).getId());
             return view;
 
         }
-        public void setdate(List<com.example.jdgjapp.Bean.SPCCNO> list){
+        public void setdate(List<CLITEM> list){
             this.list=list;
         }
         class ViewHolder{
@@ -145,7 +170,7 @@ public class SPCCNO extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(myreceiver);
-        ActivityUtils.getInstance().delActivity(SPCCNO.class.getName());
+        ActivityUtils.getInstance().delActivity(CLNo.class.getName());
     }
     class Myreceiver extends BroadcastReceiver{
         @Override
@@ -155,8 +180,8 @@ public class SPCCNO extends AppCompatActivity {
                 public void run() {
                     User user= ReturnUsrDep.returnUsr();
                     OkHttpUtils.post()
-                            .url("http://106.14.145.208:8080/JDGJ/BackManagerTravelNoReply")
-                            .addParams("user_id",user.getUsr_id())
+                            .url("http://106.14.145.208:8080/JDGJ/BackManagerMaterialNoReply")
+                            .addParams("user_id", MyApplication.getid())
                             .addParams("dep_id",user.getUsr_deptId())
                             .build()
                             .execute(new StringCallback() {
@@ -166,13 +191,33 @@ public class SPCCNO extends AppCompatActivity {
                                 }
 
                                 @Override
-                                public void onResponse(final String response, int id) {
+                                public void onResponse(String response, int id) {
+                                    Log.d(CLNo.class.getName(),response);
+                                    ACache aCache=ACache.get(MyApplication.getContext(),MyApplication.getid());
+                                    aCache.put("clspnodata",response);
+                                    Type type=new TypeToken<List<CLSPNO>>(){}.getType();
+                                    List<CLSPNO> datalist=new Gson().fromJson(response,type);
+                                    list=new ArrayList<CLITEM>();
+                                    for (CLSPNO e:datalist){
+                                        boolean flag=true;
+                                        for (CLITEM a:list){
+                                            if (a.getSign().equals(e.getSign())){
+                                                flag=false;
+                                                break;
+                                            }
+                                        }
+                                        if (flag){
+                                            CLITEM clitem=new CLITEM();
+                                            clitem.setTime(e.getDatetime());
+                                            clitem.setSign(e.getSign());
+                                            clitem.setName(e.getUsername());
+                                            clitem.setId(e.getUserid());
+                                            list.add(clitem);
+                                        }
+                                    }
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            Log.d(SPCCNO.class.getName(),response);
-                                            Type type=new TypeToken<List<com.example.jdgjapp.Bean.SPCCNO>>(){}.getType();
-                                            list=new Gson().fromJson(response,type);
                                             myadapter.setdate(list);
                                             myadapter.notifyDataSetChanged();
                                         }

@@ -21,6 +21,30 @@ public class CaiLiaoResponse implements Serializable{
 
     public CaiLiaoResponse() {
     }
+    public CaiLiaoResponse(CLSPOK e){
+        this.mat_id=e.getMatid();
+        this.mat_name=e.getMatname();
+        this.mat_num=e.getMatnum();
+        this.datetime=e.getDatetime();
+        this.user_id=e.getUserid();
+        this.user_name=e.getUsername();
+        this.reason=e.getReason();
+        this.rmat_status=e.getAnswer();
+        this.resp=e.getAnswercont();
+        this.sign=e.getRmat_sign();
+        this.leadstatus=e.getLeadststus();
+    }
+    public CaiLiaoResponse(CLSPNO o){
+        this.mat_id=o.getMatid();
+        this.mat_name=o.getMatname();
+        this.mat_num=o.getMatnum();
+        this.datetime=o.getDatetime();
+        this.user_id=o.getUserid();
+        this.user_name=o.getUsername();
+        this.reason=o.getReason();
+        this.sign=o.getSign();
+        this.rmat_status="0";
+    }
 
     public CaiLiaoResponse(String mat_id, String mat_name, String mat_num, String datetime, String user_id, String user_name, String reason, String rmat_status, String resp, String sign, String leadstatus) {
         this.mat_id = mat_id;

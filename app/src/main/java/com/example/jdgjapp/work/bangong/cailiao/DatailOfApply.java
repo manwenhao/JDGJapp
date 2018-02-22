@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.example.jdgjapp.Bean.CaiLiaoResponse;
 import com.example.jdgjapp.R;
+import com.example.jdgjapp.Util.ActivityUtils;
 
 public class DatailOfApply extends AppCompatActivity {
     private TextView userid,username,name,num,time,reason,status,resp;
@@ -14,6 +15,7 @@ public class DatailOfApply extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_datail_of_apply);
+        ActivityUtils.getInstance().addActivity(DatailOfApply.class.getName(),this);
         CaiLiaoResponse bean=(CaiLiaoResponse)getIntent().getSerializableExtra("bean");
         userid=(TextView)findViewById(R.id.detail_cl_res_userid);
         username=(TextView)findViewById(R.id.detail_cl_res_username);
@@ -41,5 +43,11 @@ public class DatailOfApply extends AppCompatActivity {
         }
 
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityUtils.getInstance().delActivity(DatailOfApply.class.getName());
     }
 }
