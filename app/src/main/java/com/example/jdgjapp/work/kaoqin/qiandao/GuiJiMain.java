@@ -36,6 +36,16 @@ import com.baidu.mapapi.search.poi.PoiDetailResult;
 import com.baidu.mapapi.search.poi.PoiIndoorResult;
 import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
+import com.baidu.mapapi.search.route.BikingRouteResult;
+import com.baidu.mapapi.search.route.DrivingRoutePlanOption;
+import com.baidu.mapapi.search.route.DrivingRouteResult;
+import com.baidu.mapapi.search.route.IndoorRouteResult;
+import com.baidu.mapapi.search.route.MassTransitRouteResult;
+import com.baidu.mapapi.search.route.OnGetRoutePlanResultListener;
+import com.baidu.mapapi.search.route.PlanNode;
+import com.baidu.mapapi.search.route.RoutePlanSearch;
+import com.baidu.mapapi.search.route.TransitRouteResult;
+import com.baidu.mapapi.search.route.WalkingRouteResult;
 import com.baidu.mapapi.utils.DistanceUtil;
 import com.example.jdgjapp.Bean.BaiduGJInfo;
 import com.example.jdgjapp.R;
@@ -85,13 +95,13 @@ public class GuiJiMain extends AppCompatActivity {
         if (baiduGJInfoList.size()==1){
             drawMaker();
         }else {
-            drawGJ();
+            //drawGJ();
+            drawGuiJi();
             drawMaker();
             setPOI();
         }
 
     }
-
 
     //画轨迹
     private void drawGJ(){
@@ -128,11 +138,10 @@ public class GuiJiMain extends AppCompatActivity {
         builder.target(target).zoom(15f);
         //地图设置缩放状态
         mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
-        OverlayOptions ooPolyline = new PolylineOptions().width(13).color(0xAAFF0000).points(latLngs);
+        OverlayOptions ooPolyline = new PolylineOptions().width(12).color(0xAAFF0000).points(latLngs);
         //在地图上画出线条图层，mPolyline：线条图层
         mPolyline = (Polyline) mBaiduMap.addOverlay(ooPolyline);
         mPolyline.setZIndex(9);
-
     }
 
     private void drawMaker(){
@@ -202,30 +211,34 @@ public class GuiJiMain extends AppCompatActivity {
             public boolean onMarkerClick(Marker marker) {
                 //从marker中获取info信息
                 Bundle bundle = marker.getExtraInfo();
-                final BaiduGJInfo infoUtil = (BaiduGJInfo) bundle.getSerializable("infoGJ");
-                //infowindow位置
-                Double posx = Double.parseDouble(infoUtil.getPosx());
-                Double posy = Double.parseDouble(infoUtil.getPosy());
-                LatLng latLng = new LatLng(posy, posx);
-                //infowindow中的布局
-                tv = new TextView(GuiJiMain.this);
-                tv.setBackgroundResource(R.drawable.baidumap_marker);
-                tv.setPadding(20, 10, 20, 20);
-                tv.setGravity(Gravity.LEFT);
-                tv.setMaxEms(12);
-                tv.setTextColor(getResources().getColor(R.color.black_1));
-                String info = "时间："+infoUtil.getDatime()+"\n"+"地址："+infoUtil.getAddrstr();
-                tv.setText(info);
-                bitmapDescriptor = BitmapDescriptorFactory.fromView(tv);
-                //infowindow监听
-                InfoWindow.OnInfoWindowClickListener listener = new InfoWindow.OnInfoWindowClickListener() {
-                    @Override
-                    public void onInfoWindowClick() {
-                        mBaiduMap.hideInfoWindow();
+                if (bundle!=null){
+                    final BaiduGJInfo infoUtil = (BaiduGJInfo) bundle.getSerializable("infoGJ");
+                    if (infoUtil!=null) {
+                        //infowindow位置
+                        Double posx = Double.parseDouble(infoUtil.getPosx());
+                        Double posy = Double.parseDouble(infoUtil.getPosy());
+                        LatLng latLng = new LatLng(posy, posx);
+                        //infowindow中的布局
+                        tv = new TextView(GuiJiMain.this);
+                        tv.setBackgroundResource(R.drawable.baidumap_marker);
+                        tv.setPadding(20, 10, 20, 20);
+                        tv.setGravity(Gravity.LEFT);
+                        tv.setMaxEms(12);
+                        tv.setTextColor(getResources().getColor(R.color.black_1));
+                        String info = "时间："+infoUtil.getDatime()+"\n"+"地址："+infoUtil.getAddrstr();
+                        tv.setText(info);
+                        bitmapDescriptor = BitmapDescriptorFactory.fromView(tv);
+                        //infowindow监听
+                        InfoWindow.OnInfoWindowClickListener listener = new InfoWindow.OnInfoWindowClickListener() {
+                            @Override
+                            public void onInfoWindowClick() {
+                                mBaiduMap.hideInfoWindow();
+                            }
+                        };
+                        InfoWindow infoWindow = new InfoWindow(bitmapDescriptor, latLng, -47, listener);
+                        mBaiduMap.showInfoWindow(infoWindow);
                     }
-                };
-                InfoWindow infoWindow = new InfoWindow(bitmapDescriptor, latLng, -47, listener);
-                mBaiduMap.showInfoWindow(infoWindow);
+                }
                 return true;
             }
         });
@@ -288,6 +301,152 @@ public class GuiJiMain extends AppCompatActivity {
     protected void onResume() {
         mMapView.onResume();
         super.onResume();
+    }
+
+    private void drawGuiJi(){
+        List<BaiduGJInfo> baiduGJInfoList = DataSupport.findAll(BaiduGJInfo.class);
+        for (int i=0; i<baiduGJInfoList.size()-1; i++){
+            String startx = baiduGJInfoList.get(i).getPosx();
+            String starty = baiduGJInfoList.get(i).getPosy();
+            String endx = baiduGJInfoList.get(i+1).getPosx();
+            String endy = baiduGJInfoList.get(i+1).getPosy();
+            Double dist = getDistance(starty,startx,endy,endx);
+            if (dist<=200){   //画直线
+                Log.d(TAG, "距离小于200");
+                drawZX(starty,startx,endy,endx);
+            }else {   //画行车路线
+                driving(starty,startx,endy,endx);
+            }
+
+        }
+    }
+
+    //两点之间画直线
+    private void drawZX(String startLat,String startLon,String endLat,String endLon){
+        Double starty = Double.valueOf(startLat);
+        Double startx = Double.valueOf(startLon);
+        Double endy = Double.valueOf(endLat);
+        Double endx = Double.valueOf(endLon);
+
+        LatLng start = new LatLng(starty,startx);
+        LatLng end = new LatLng(endy,endx);
+
+        List<LatLng> points = new ArrayList<LatLng>();
+        points.add(start);
+        points.add(end);
+
+        //绘制折线
+        OverlayOptions ooPolyline = new PolylineOptions().width(12)
+                .color(0xAAFF0000).points(points);
+        mPolyline = (Polyline) mBaiduMap.addOverlay(ooPolyline);
+    }
+
+    //两点之间画行车路线
+    private void driving(String startLat,String startLon,String endLat,String endLon){
+       //其中startLat startLon 是起点的经纬度  endlat endlon是终点的经纬度
+        RoutePlanSearch newInstance = RoutePlanSearch.newInstance();
+        newInstance.setOnGetRoutePlanResultListener(new MyListener());
+
+        //驾车路线
+        DrivingRoutePlanOption drivingOption = new DrivingRoutePlanOption();
+        PlanNode from = PlanNode.withLocation(new LatLng(Double.valueOf(startLat), Double.valueOf(startLon)));  //设置起点世界之窗
+        PlanNode to = PlanNode.withLocation(new LatLng(Double.valueOf(endLat),Double.valueOf(endLon)));
+        drivingOption.from(from);
+        drivingOption.to(to);
+        drivingOption.policy(DrivingRoutePlanOption.DrivingPolicy.ECAR_DIS_FIRST); //方案:最短距离 这个自己设置 比如时间短之类的
+        newInstance.drivingSearch(drivingOption);
+    }
+
+    class MyDrivingOverlay extends DrivingRouteOverlay{
+
+        public MyDrivingOverlay(BaiduMap baiduMap) {
+            super(baiduMap);
+        }
+
+        @Override
+        public BitmapDescriptor getStartMarker() {
+            return null;
+        }
+
+        @Override
+        public BitmapDescriptor getTerminalMarker() {
+            return null;
+        }
+    }
+
+    class MyListener implements OnGetRoutePlanResultListener {
+
+        @Override
+        public void onGetDrivingRouteResult(DrivingRouteResult result) {
+            //驾车
+            if(result == null || SearchResult.ERRORNO.RESULT_NOT_FOUND == result.error){
+                Toast.makeText(getApplicationContext(), "未搜索到结果", Toast.LENGTH_LONG).show();
+                return;
+            }
+            //开始处理结果了
+            DrivingRouteOverlay overlay = new MyDrivingOverlay(mBaiduMap);
+            mBaiduMap.setOnMarkerClickListener(overlay);// 把事件传递给overlay
+            overlay.setData(result.getRouteLines().get(0));// 设置线路为第一条
+            overlay.addToMap();
+            overlay.zoomToSpan();
+        }
+
+        @Override
+        public void onGetIndoorRouteResult(IndoorRouteResult indoorRouteResult) {
+
+        }
+
+        @Override
+        public void onGetBikingRouteResult(BikingRouteResult bikingRouteResult) {
+
+        }
+
+        @Override
+        public void onGetTransitRouteResult(TransitRouteResult result) {
+            // 公交换乘
+
+        }
+
+        @Override
+        public void onGetMassTransitRouteResult(MassTransitRouteResult massTransitRouteResult) {
+
+        }
+
+        @Override
+        public void onGetWalkingRouteResult(WalkingRouteResult result) {
+            // 步行
+
+        }
+
+    }
+
+    /**
+     * 计算两点之间距离
+     * @return 米
+     */
+    public double getDistance(String startLat,String startLon,String endLat,String endLon){
+
+        Double starty = Double.valueOf(startLat);
+        Double startx = Double.valueOf(startLon);
+        Double endy = Double.valueOf(endLat);
+        Double endx = Double.valueOf(endLon);
+
+        LatLng start = new LatLng(starty,startx);
+        LatLng end = new LatLng(endy,endx);
+
+        double lat1 = (Math.PI/180)*start.latitude;
+        double lat2 = (Math.PI/180)*end.latitude;
+
+        double lon1 = (Math.PI/180)*start.longitude;
+        double lon2 = (Math.PI/180)*end.longitude;
+
+        //地球半径
+        double R = 6371;
+
+        //两点间距离 km
+        double d =  Math.acos(Math.sin(lat1)*Math.sin(lat2)+Math.cos(lat1)*Math.cos(lat2)*Math.cos(lon2-lon1))*R;
+
+        return d*1000;
     }
 
 }
