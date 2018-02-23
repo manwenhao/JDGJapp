@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,9 +24,11 @@ import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.jdgjapp.Bean.SystemNews;
 import com.example.jdgjapp.Util.ACache;
+import com.example.jdgjapp.work.bangong.baoxiao.BaoXiaoMain;
 import com.example.jdgjapp.work.bangong.cailiao.ApplyPass;
 import com.example.jdgjapp.work.bangong.cailiao.ApplyRefuse;
 import com.example.jdgjapp.work.bangong.cailiao.TaskInfoOfCL;
+import com.example.jdgjapp.work.bangong.cailiao.TaskInfoOfDepterCL;
 import com.example.jdgjapp.work.bangong.shipin.agora.openvcall.model.ConstantApp;
 import com.example.jdgjapp.work.bangong.shipin.agora.openvcall.ui.ChatActivity;
 import com.example.jdgjapp.work.kaoqin.chuchai.CCApplyok;
@@ -126,6 +129,7 @@ public class NewsFragment extends Fragment {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Log.d("=======",list.get(i).toString());
                     SystemNews e=list.get(i);
                     if (e.getStatus()==null){
                         e.setStatus("1");
@@ -141,7 +145,7 @@ public class NewsFragment extends Fragment {
                         aCache.put("systemnews",new Gson().toJson(list));
                     }
                     if (e.getType().equals("1")){
-                        Intent intent=new Intent(getActivity(), TaskInfoOfCL.class);
+                        Intent intent=new Intent(getActivity(), TaskInfoOfDepterCL.class);
                         intent.putExtra("task_id",e.getContent());
                         getActivity().startActivity(intent);
                     }else if (e.getType().equals("2")){
@@ -179,6 +183,22 @@ public class NewsFragment extends Fragment {
                             intent.putExtra("newsid",e.getTitle());
                             getActivity().startActivity(intent);
                         }
+                    }else if (e.getType().equals("6")){
+                        Intent intent=new Intent(getActivity(), BaoXiaoMain.class);
+                        intent.putExtra("newsid",e.getTitle());
+                        getActivity().startActivity(intent);
+                    }else if (e.getType().equals("7")){
+                        Intent intent=new Intent(getActivity(),NewsBXDetail.class);
+                        intent.putExtra("bean",e);
+                        getActivity().startActivity(intent);
+                    }else if (e.getType().equals("8")||e.getType().equals("9")){
+                        Intent intent=new Intent(getActivity(),NewsQJAndCC.class);
+                        intent.putExtra("bean",e);
+                        getActivity().startActivity(intent);
+                    }else if (e.getType().equals("10")){
+                        Intent intent=new Intent(getActivity(),NewsCL.class);
+                        intent.putExtra("bean",e);
+                        getActivity().startActivity(intent);
                     }
                     //adapter.notifyDataSetChanged();
                 }
@@ -186,7 +206,9 @@ public class NewsFragment extends Fragment {
         listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(int i, SwipeMenu menu, int index) {
+                Log.d("=======",list.get(i).toString());
                 switch (index) {
+
                     case 0:
                         // open
                         SystemNews e=list.get(i);
@@ -242,6 +264,22 @@ public class NewsFragment extends Fragment {
                                 intent.putExtra("newsid",e.getTitle());
                                 getActivity().startActivity(intent);
                             }
+                        }else if (e.getType().equals("6")){
+                           Intent intent=new Intent(getActivity(), BaoXiaoMain.class);
+                           intent.putExtra("newsid",e.getTitle());
+                           getActivity().startActivity(intent);
+                        }else if (e.getType().equals("7")){
+                            Intent intent=new Intent(getActivity(),NewsBXDetail.class);
+                            intent.putExtra("bean",e);
+                            getActivity().startActivity(intent);
+                        }else if (e.getType().equals("8")||e.getType().equals("9")){
+                            Intent intent=new Intent(getActivity(),NewsQJAndCC.class);
+                            intent.putExtra("bean",e);
+                            getActivity().startActivity(intent);
+                        }else if (e.getType().equals("10")){
+                            Intent intent=new Intent(getActivity(),NewsCL.class);
+                            intent.putExtra("bean",e);
+                            getActivity().startActivity(intent);
                         }
 
 

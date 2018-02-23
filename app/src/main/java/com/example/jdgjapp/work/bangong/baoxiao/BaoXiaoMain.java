@@ -38,6 +38,7 @@ public class BaoXiaoMain extends AppCompatActivity {
     private List<BaoXiaoPerson> list;
     private IntentFilter intentFilter;
     private Myreceiver myreceiver;
+    private String bxid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class BaoXiaoMain extends AppCompatActivity {
         mydept=(RelativeLayout)findViewById(R.id.bx_main_dept);
         listView=(ListView)findViewById(R.id.bx_main_mylist);
         final User user= ReturnUsrDep.returnUsr();
+        bxid=getIntent().getStringExtra("newsid");
         mydept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,6 +93,19 @@ public class BaoXiaoMain extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
+                                        if (bxid!=null){
+                                            Intent intent=new Intent(MyApplication.getContext(),BaoXiaoDetail.class);
+                                            BaoXiaoPerson b=new BaoXiaoPerson();
+                                            for (BaoXiaoPerson e:list){
+                                                if (e.getAcc_id().equals(bxid)){
+                                                    b=e;
+                                                    break;
+                                                }
+                                            }
+                                            intent.putExtra("bean",b);
+                                            startActivity(intent);
+                                            finish();
+                                        }
                                         adapter=new BaoXiaoItemAdapter(list,MyApplication.getContext());
                                         listView.setAdapter(adapter);
                                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
