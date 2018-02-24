@@ -51,7 +51,7 @@ public class SPCCNO extends AppCompatActivity {
             public void run() {
                 User user= ReturnUsrDep.returnUsr();
                 OkHttpUtils.post()
-                        .url("http://106.14.145.208:8080/JDGJ/BackManagerTravelNoReply")
+                        .url("http://106.14.145.208:80/JDGJ/BackManagerTravelNoReply")
                         .addParams("user_id",user.getUsr_id())
                         .addParams("dep_id",user.getUsr_deptId())
                         .build()
@@ -155,7 +155,7 @@ public class SPCCNO extends AppCompatActivity {
                 public void run() {
                     User user= ReturnUsrDep.returnUsr();
                     OkHttpUtils.post()
-                            .url("http://106.14.145.208:8080/JDGJ/BackManagerTravelNoReply")
+                            .url("http://106.14.145.208:80/JDGJ/BackManagerTravelNoReply")
                             .addParams("user_id",user.getUsr_id())
                             .addParams("dep_id",user.getUsr_deptId())
                             .build()

@@ -91,7 +91,7 @@ public class QJApply extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     OkHttpUtils.post()
-                                            .url("http://106.14.145.208:8080/JDGJ/ReceiveAppLeaveReq")
+                                            .url("http://106.14.145.208:80/JDGJ/ReceiveAppLeaveReq")
                                             .addParams("id",id)
                                             .addParams("user_id",MyApplication.getid())
                                             .addParams("startDate",starttime)

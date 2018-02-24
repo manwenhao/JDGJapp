@@ -56,7 +56,7 @@ public class CheLiangMain extends AppCompatActivity {
             @Override
             public void run() {
                 OkHttpUtils.post()
-                        .url("http://106.14.145.208:8080/JDGJ/BackAppSelfCar")
+                        .url("http://106.14.145.208:80/JDGJ/BackAppSelfCar")
                         .addParams("user_id",MyApplication.getid())
                         .build()
                         .execute(new StringCallback() {

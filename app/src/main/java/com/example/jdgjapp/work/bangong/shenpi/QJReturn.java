@@ -59,7 +59,7 @@ public class QJReturn extends AppCompatActivity {
                        @Override
                        public void run() {
                            OkHttpUtils.post()
-                                   .url("http://106.14.145.208:8080/JDGJ/ReceiveAppRespToLeaveReq")
+                                   .url("http://106.14.145.208:80/JDGJ/ReceiveAppRespToLeaveReq")
                                    .addParams("id",id)
                                    .addParams("user_id", MyApplication.getid())
                                    .addParams("req_id",req_id)

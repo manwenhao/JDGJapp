@@ -117,7 +117,7 @@ public class NotStartTaskInfoActivity extends AppCompatActivity {
                             .add("user_id",userid)
                             .build();
                     Request request = new Request.Builder()
-                            .url("http://106.14.145.208:8080/JDGJ/ReceiveOrderStartSign")
+                            .url("http://106.14.145.208:80/JDGJ/ReceiveOrderStartSign")
                             .post(requestBody)
                             .build();
                     Response response = client.newCall(request).execute();

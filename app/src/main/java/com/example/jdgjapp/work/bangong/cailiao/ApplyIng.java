@@ -55,7 +55,7 @@ public class ApplyIng extends AppCompatActivity {
             public void run() {
                 User u= ReturnUsrDep.returnUsr();
                 OkHttpUtils.post()
-                        .url("http://106.14.145.208:8080/JDGJ/BackDeptLeadMaterRecord")
+                        .url("http://106.14.145.208:80/JDGJ/BackDeptLeadMaterRecord")
                         .addParams("dep_id",u.getUsr_deptId())
                         .build()
                         .execute(new StringCallback() {
@@ -126,7 +126,7 @@ public class ApplyIng extends AppCompatActivity {
                 public void run() {
                     User u= ReturnUsrDep.returnUsr();
                     OkHttpUtils.post()
-                            .url("http://106.14.145.208:8080/JDGJ/BackDeptLeadMaterRecord")
+                            .url("http://106.14.145.208:80/JDGJ/BackDeptLeadMaterRecord")
                             .addParams("dep_id",u.getUsr_deptId())
                             .build()
                             .execute(new StringCallback() {

@@ -67,7 +67,7 @@ public class PastTaskReportInfoActivity extends AppCompatActivity {
             //将图片url分割后放入a[]
             a = imgpath.split(";");
             for (int i = 0; i < a.length; i++) {
-                String http = "http://106.14.145.208:8080";
+                String http = "http://106.14.145.208:80";
                 a[i] = http + a[i];
                 Log.d(TAG, "图片url【" +i+ "】=" + a[i]);
             }

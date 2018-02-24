@@ -78,7 +78,7 @@ public class BXSPReturn extends AppCompatActivity {
                             Log.d("======",answerreason);
                             Log.d("======",backmoney);
                             OkHttpUtils.post()
-                                    .url("http://106.14.145.208:8080/JDGJ/ReceiveAppRsepToAccoutReq")
+                                    .url("http://106.14.145.208:80/JDGJ/ReceiveAppRsepToAccoutReq")
                                     .addParams("acc_id",acc_id)
                                     .addParams("req_id",acc_userid)
                                     .addParams("user_id", MyApplication.getid())

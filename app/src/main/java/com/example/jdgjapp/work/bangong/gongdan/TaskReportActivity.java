@@ -167,7 +167,7 @@ public class TaskReportActivity extends AppCompatActivity {
                             }
                         }
 
-                        FileUploadManager.setUrl("http://106.14.145.208:8080/JDGJ/UploadOrderReport");
+                        FileUploadManager.setUrl("http://106.14.145.208:80/JDGJ/UploadOrderReport");
                         FileUploadManager.setMylistener(new ReportListener() {
                             @Override
                             public void onError(Call call, Exception e, int id) {

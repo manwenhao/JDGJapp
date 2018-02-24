@@ -98,7 +98,7 @@ public class DeptMember extends AppCompatActivity {
                                 String sender=MyApplication.getid()+";"+u.getUsr_name();
                                 Log.d("list===",sendlist);
                                 OkHttpUtils.post()
-                                        .url("http://106.14.145.208:8080//JDGJ/SendVideoPush")
+                                        .url("http://106.14.145.208:80//JDGJ/SendVideoPush")
                                         .addParams("usr_sender",sender)
                                         .addParams("usr_ids",sendlist)
                                         .addParams("chanel",chanel)

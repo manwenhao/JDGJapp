@@ -114,7 +114,7 @@ public class BXApply extends AppCompatActivity {
                             files.put(String.valueOf(x),new File(paths.get(x)));
                         }
                     }
-                    FileUploadManager.setUrl("http://106.14.145.208:8080/JDGJ/UploadForAcout");
+                    FileUploadManager.setUrl("http://106.14.145.208:80/JDGJ/UploadForAcout");
                     FileUploadManager.setMylistener(new ReportListener() {
                         @Override
                         public void onError(Call call, Exception e, int id) {

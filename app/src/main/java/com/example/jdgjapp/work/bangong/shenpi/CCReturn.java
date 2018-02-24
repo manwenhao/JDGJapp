@@ -55,7 +55,7 @@ public class CCReturn extends AppCompatActivity {
                         @Override
                         public void run() {
                             OkHttpUtils.post()
-                                    .url("http://106.14.145.208:8080/JDGJ/ReceiveAppRespToTravelReq")
+                                    .url("http://106.14.145.208:80/JDGJ/ReceiveAppRespToTravelReq")
                                     .addParams("id",sign)
                                     .addParams("req_id",req_id)
                                     .addParams("user_id", MyApplication.getid())

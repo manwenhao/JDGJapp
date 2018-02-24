@@ -46,7 +46,7 @@ public class QJApplyrefuse extends AppCompatActivity {
             @Override
             public void run() {
                 OkHttpUtils.post()
-                        .url("http://106.14.145.208:8080/JDGJ/TongBuLeaveReq")
+                        .url("http://106.14.145.208:80/JDGJ/TongBuLeaveReq")
                         .addParams("user_id", MyApplication.getid())
                         .build()
                         .execute(new StringCallback() {
@@ -114,7 +114,7 @@ public class QJApplyrefuse extends AppCompatActivity {
                 @Override
                 public void run() {
                     OkHttpUtils.post()
-                            .url("http://106.14.145.208:8080/JDGJ/TongBuLeaveReq")
+                            .url("http://106.14.145.208:80/JDGJ/TongBuLeaveReq")
                             .addParams("user_id", MyApplication.getid())
                             .build()
                             .execute(new StringCallback() {

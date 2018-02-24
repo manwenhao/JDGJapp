@@ -51,7 +51,7 @@ public class ListOfOneResponse extends AppCompatActivity {
                             @Override
                             public void run() {
                                 OkHttpUtils.post()
-                                        .url("http://106.14.145.208:8080/JDGJ/ReceiveDeptLeadedMaterial")
+                                        .url("http://106.14.145.208:80/JDGJ/ReceiveDeptLeadedMaterial")
                                         .addParams("sign",sign)
                                         .build()
                                         .execute(new StringCallback() {

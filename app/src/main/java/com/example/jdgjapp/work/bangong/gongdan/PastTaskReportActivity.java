@@ -78,7 +78,7 @@ public class PastTaskReportActivity extends AppCompatActivity {
                 try {
                     OkHttpUtils.post()
                             .addParams("workid",workid)
-                            .url("http://106.14.145.208:8080/JDGJ/BackAppOrderReportById")
+                            .url("http://106.14.145.208:80/JDGJ/BackAppOrderReportById")
                             .build()
                             .execute(new StringCallback() {
                                 @Override

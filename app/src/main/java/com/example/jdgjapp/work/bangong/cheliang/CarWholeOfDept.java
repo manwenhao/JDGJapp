@@ -41,7 +41,7 @@ public class CarWholeOfDept extends AppCompatActivity {
             @Override
             public void run() {
                 OkHttpUtils.post()
-                        .url("http://106.14.145.208:8080/JDGJ/BackAppDeptCar")
+                        .url("http://106.14.145.208:80/JDGJ/BackAppDeptCar")
                         .addParams("dep_id",deptid)
                         .build()
                         .execute(new StringCallback() {

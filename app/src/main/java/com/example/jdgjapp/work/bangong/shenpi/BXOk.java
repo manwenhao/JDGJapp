@@ -44,7 +44,7 @@ public class BXOk extends AppCompatActivity {
             @Override
             public void run() {
                 OkHttpUtils.post()
-                        .url("http://106.14.145.208:8080/JDGJ/BackManagerAccoutReply")
+                        .url("http://106.14.145.208:80/JDGJ/BackManagerAccoutReply")
                         .addParams("user_id", MyApplication.getid())
                         .build()
                         .execute(new StringCallback() {

@@ -127,7 +127,7 @@ public class LoginActivity extends AppCompatActivity {
                             .add("password",pw)
                             .build();
                     Request request = new Request.Builder()
-                            .url("http://106.14.145.208:8080/JDGJ/JudgeAppLogin")
+                            .url("http://106.14.145.208:80/JDGJ/JudgeAppLogin")
                             .post(requestBody)
                             .build();
                     Response response = client.newCall(request).execute();
@@ -143,7 +143,7 @@ public class LoginActivity extends AppCompatActivity {
                             public void run() {
                                 OkHttpUtils.post()
                                         .addParams("user_id", MyApplication.getid())
-                                        .url("http://106.14.145.208:8080/JDGJ/BackAppFriend")
+                                        .url("http://106.14.145.208:80/JDGJ/BackAppFriend")
                                         .build()
                                         .execute(new StringCallback() {
                                             @Override
@@ -165,7 +165,7 @@ public class LoginActivity extends AppCompatActivity {
                             public void run() {
                                 User u= ReturnUsrDep.returnUsr();
                                 OkHttpUtils.post()
-                                        .url("http://106.14.145.208:8080/JDGJ/BackMangrUsrInfo")
+                                        .url("http://106.14.145.208:80/JDGJ/BackMangrUsrInfo")
                                         .addParams("user_id",u.getUsr_id())
                                         .addParams("dept_id",u.getUsr_deptId())
                                         .build()
@@ -190,8 +190,6 @@ public class LoginActivity extends AppCompatActivity {
                         //同步数据
                         TongBuTaskRequest(MyApplication.getid());
 
-                        //TongBuLeaveRequest(MyApplication.getid());
-                        //TongBuTravelRequest(MyApplication.getid());
                         Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                         startActivity(intent);
                         finish();
@@ -248,7 +246,7 @@ public class LoginActivity extends AppCompatActivity {
                     user1.setUsr_birth(user.getUsr_birth());
                     user1.setUsr_deptId(user.getUsr_deptId());
                     user1.setUsr_bossId(user.getUsr_bossId());
-                    String addr = "http://106.14.145.208:8080";
+                    String addr = "http://106.14.145.208:80";
                     String touxiang = addr + user.getTouxiang();
                     Log.d(TAG, "usrtouxiang"+touxiang);
                     user1.setTouxiang(touxiang);
@@ -308,7 +306,7 @@ public class LoginActivity extends AppCompatActivity {
                             .add("user_id",userid)
                             .build();
                     Request request = new Request.Builder()
-                            .url("http://106.14.145.208:8080/JDGJ/TongBuAppUserOrder")
+                            .url("http://106.14.145.208:80/JDGJ/TongBuAppUserOrder")
                             .post(requestBody)
                             .build();
                     Response response = client.newCall(request).execute();
@@ -409,7 +407,7 @@ public class LoginActivity extends AppCompatActivity {
                             .add("userid",userid)
                             .build();
                     Request request = new Request.Builder()
-                            .url("http://106.14.145.208:8080/KQ/tongBuAppLeaveReq")
+                            .url("http://106.14.145.208:80/KQ/tongBuAppLeaveReq")
                             .post(requestBody)
                             .build();
                     Response response = client.newCall(request).execute();
@@ -496,7 +494,7 @@ public class LoginActivity extends AppCompatActivity {
                             .add("userid",userid)
                             .build();
                     Request request = new Request.Builder()
-                            .url("http://106.14.145.208:8080/KQ/tongBuAppTravelReq")
+                            .url("http://106.14.145.208:80/KQ/tongBuAppTravelReq")
                             .post(requestBody)
                             .build();
                     Response response = client.newCall(request).execute();

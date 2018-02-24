@@ -85,7 +85,7 @@ public class CaiLiaoMain extends AppCompatActivity {
             @Override
             public void run() {
                 OkHttpUtils.post()
-                        .url("http://106.14.145.208:8080/JDGJ/BackAppselfMaterialUses")
+                        .url("http://106.14.145.208:80/JDGJ/BackAppselfMaterialUses")
                         .addParams("user_id",MyApplication.getid())
                         .build()
                         .execute(new StringCallback() {
@@ -124,7 +124,7 @@ public class CaiLiaoMain extends AppCompatActivity {
             public void run() {
                 final User user= ReturnUsrDep.returnUsr();
                 OkHttpUtils.post()
-                        .url("http://106.14.145.208:8080/JDGJ/BackAppselfMatUseDatails")
+                        .url("http://106.14.145.208:80/JDGJ/BackAppselfMatUseDatails")
                         .addParams("user_id",user.getUsr_id())
                         .build()
                         .execute(new StringCallback() {
@@ -148,7 +148,7 @@ public class CaiLiaoMain extends AppCompatActivity {
                 public void run() {
                     final User user= ReturnUsrDep.returnUsr();
                     OkHttpUtils.post()
-                            .url("http://106.14.145.208:8080/JDGJ/BackAppMagDeptMatSituat")
+                            .url("http://106.14.145.208:80/JDGJ/BackAppMagDeptMatSituat")
                             .addParams("dept_id",user.getUsr_deptId())
                             .addParams("user_id",user.getUsr_id())
                             .build()
@@ -172,7 +172,7 @@ public class CaiLiaoMain extends AppCompatActivity {
                 public void run() {
                     final User user= ReturnUsrDep.returnUsr();
                     OkHttpUtils.post()
-                            .url("http://106.14.145.208:8080/JDGJ/BackAppDeptMatUseDetail")
+                            .url("http://106.14.145.208:80/JDGJ/BackAppDeptMatUseDetail")
                             .addParams("dept_id",user.getUsr_deptId())
                             .addParams("user_id",user.getUsr_id())
                             .build()

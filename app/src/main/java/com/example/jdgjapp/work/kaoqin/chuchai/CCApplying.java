@@ -50,7 +50,7 @@ public class CCApplying extends AppCompatActivity {
             @Override
             public void run() {
                 OkHttpUtils.post()
-                        .url("http://106.14.145.208:8080/JDGJ/TongBuTravelReq")
+                        .url("http://106.14.145.208:80/JDGJ/TongBuTravelReq")
                         .addParams("user_id", MyApplication.getid())
                         .build()
                         .execute(new StringCallback() {
@@ -102,7 +102,7 @@ public class CCApplying extends AppCompatActivity {
                 @Override
                 public void run() {
                     OkHttpUtils.post()
-                            .url("http://106.14.145.208:8080/JDGJ/TongBuTravelReq")
+                            .url("http://106.14.145.208:80/JDGJ/TongBuTravelReq")
                             .addParams("user_id", MyApplication.getid())
                             .build()
                             .execute(new StringCallback() {

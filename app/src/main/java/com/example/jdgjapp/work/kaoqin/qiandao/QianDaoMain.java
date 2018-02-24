@@ -101,7 +101,7 @@ public class QianDaoMain extends AppCompatActivity {
             @Override
             public void run() {
                 OkHttpUtils.post()
-                        .url("http://106.14.145.208:8080/JDGJ/BackAppDeptNewestLocate")
+                        .url("http://106.14.145.208:80/JDGJ/BackAppDeptNewestLocate")
                         .addParams("user_id",userid)
                         .addParams("dept_id",deptid)
                         .build()
@@ -316,7 +316,7 @@ public class QianDaoMain extends AppCompatActivity {
             @Override
             public void run() {
                 OkHttpUtils.post()
-                        .url("http://106.14.145.208:8080/JDGJ/BackAppUserSsPathById")
+                        .url("http://106.14.145.208:80/JDGJ/BackAppUserSsPathById")
                         .addParams("user_id",userid)
                         .build()
                         .execute(new StringCallback() {

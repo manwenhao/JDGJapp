@@ -76,7 +76,7 @@ public class SetNameActivity extends AppCompatActivity {
                             .add("value",name)
                             .build();
                     Request request = new Request.Builder()
-                            .url("http://106.14.145.208:8080/JDGJ/ModifyAppInfo")
+                            .url("http://106.14.145.208:80/JDGJ/ModifyAppInfo")
                             .post(requestBody)
                             .build();
                     Response response = client.newCall(request).execute();

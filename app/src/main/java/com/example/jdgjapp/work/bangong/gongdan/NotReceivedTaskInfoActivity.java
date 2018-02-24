@@ -154,7 +154,7 @@ public class NotReceivedTaskInfoActivity extends AppCompatActivity {
                             .add("answer",answer)
                             .build();
                     Request request = new Request.Builder()
-                            .url("http://106.14.145.208:8080/JDGJ/ReceiveUserRespToDispatchOrd")
+                            .url("http://106.14.145.208:80/JDGJ/ReceiveUserRespToDispatchOrd")
                             .post(requestBody)
                             .build();
                     Response response = client.newCall(request).execute();

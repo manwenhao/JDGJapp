@@ -130,7 +130,7 @@ public class TongJiMain extends AppCompatActivity {
                         .addParams("user_id",userid)
                         .addParams("year",year)
                         .addParams("month",month)
-                        .url("http://106.14.145.208:8080/JDGJ/BackAppKqCount")
+                        .url("http://106.14.145.208:80/JDGJ/BackAppKqCount")
                         .build()
                         .execute(new StringCallback() {
                             @Override

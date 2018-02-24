@@ -129,7 +129,7 @@ public class SetIconActivity extends AppCompatActivity {
                     RequestBody requestBody = builder.build();
 
                     Request request = new Request.Builder()
-                            .url("http://106.14.145.208:8080//JDGJ/UploadServlett")
+                            .url("http://106.14.145.208:80//JDGJ/UploadServlett")
                             .post(requestBody)
                             .build();
                     Call call = mOkHttpClent.newCall(request);

@@ -51,7 +51,7 @@ public class ApplyCL extends AppCompatActivity {
             @Override
             public void run() {
                 OkHttpUtils.post()
-                        .url("http://106.14.145.208:8080/JDGJ/BackGSMaterialleft")
+                        .url("http://106.14.145.208:80/JDGJ/BackGSMaterialleft")
                         .build()
                         .execute(new StringCallback() {
                             @Override
@@ -104,7 +104,7 @@ public class ApplyCL extends AppCompatActivity {
                             String matsign=MyApplication.getid()+time;
                             Log.d("部门材料申请","matjson: "+data+" datetime: "+time+" reason: "+reasonstring+" matsign: "+matsign);
                             OkHttpUtils.post()
-                                    .url("http://106.14.145.208:8080/JDGJ/RecordMaterialReq")
+                                    .url("http://106.14.145.208:80/JDGJ/RecordMaterialReq")
                                     .addParams("matjson",data)
                                     .addParams("datetime",time)
                                     .addParams("reason",reasonstring)

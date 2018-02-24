@@ -110,7 +110,7 @@ public class TaskMaterialActivity extends AppCompatActivity {
             public void run() {
                 try{
                     OkHttpUtils.post()
-                            .url("http://106.14.145.208:8080/JDGJ/BackDeptMaterialUsesTotal")
+                            .url("http://106.14.145.208:80/JDGJ/BackDeptMaterialUsesTotal")
                             .addParams("dep_id",DeptId)
                             .build()
                             .execute(new StringCallback() {

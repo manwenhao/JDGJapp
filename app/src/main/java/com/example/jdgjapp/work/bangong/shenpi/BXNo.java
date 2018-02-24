@@ -56,7 +56,7 @@ public class BXNo extends AppCompatActivity {
             public void run() {
                 User user= ReturnUsrDep.returnUsr();
                 OkHttpUtils.post()
-                        .url("http://106.14.145.208:8080/JDGJ/BackManagerAccoutNoReply")
+                        .url("http://106.14.145.208:80/JDGJ/BackManagerAccoutNoReply")
                         .addParams("user_id", MyApplication.getid())
                         .addParams("dep_id",user.getUsr_deptId())
                         .build()
@@ -105,7 +105,7 @@ public class BXNo extends AppCompatActivity {
                 public void run() {
                     User user= ReturnUsrDep.returnUsr();
                     OkHttpUtils.post()
-                            .url("http://106.14.145.208:8080/JDGJ/BackManagerAccoutNoReply")
+                            .url("http://106.14.145.208:80/JDGJ/BackManagerAccoutNoReply")
                             .addParams("user_id", MyApplication.getid())
                             .addParams("dep_id",user.getUsr_deptId())
                             .build()
