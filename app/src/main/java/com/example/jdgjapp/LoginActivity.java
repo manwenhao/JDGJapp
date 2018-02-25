@@ -122,11 +122,12 @@ public class LoginActivity extends AppCompatActivity {
             public void run() {
                 try{
                     OkHttpClient client = new OkHttpClient();
-                    RequestBody requestBody = new FormBody.Builder()
+                     RequestBody requestBody = new FormBody.Builder()
                             .add("name",id)
                             .add("password",pw)
                             .build();
-                    Request request = new Request.Builder()
+
+                   final  Request request = new Request.Builder()
                             .url("http://106.14.145.208:80/JDGJ/JudgeAppLogin")
                             .post(requestBody)
                             .build();
@@ -138,6 +139,34 @@ public class LoginActivity extends AppCompatActivity {
                     parseJSON(responseDate);
 
                     if (isSuccess.equals("1")){
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                OkHttpUtils.post()
+                                        .url("http://106.14.145.208:80/JDGJ/GetBackBossInfo")
+                                        .build()
+                                        .execute(new StringCallback() {
+                                            @Override
+                                            public void onError(Call call, Exception e, int id) {
+                                                e.printStackTrace();
+                                            }
+
+                                            @Override
+                                            public void onResponse(String response, int id) {
+                                                if (request.equals("error")){
+                                                    runOnUiThread(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            Toast.makeText(LoginActivity.this, "信息获取出现意外错误，请退出重试", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+                                                }else {
+                                                    MyApplication.bossid=response;
+                                                }
+                                            }
+                                        });
+                            }
+                        }).start();
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
