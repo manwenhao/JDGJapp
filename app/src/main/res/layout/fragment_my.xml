@@ -1,22 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:beyole="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/my_background">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#000" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#3C3C3C"
-        android:gravity="center"
-        android:text="我的"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp" />
 
     <com.example.jdgjapp.Util.BounceScrollView
         android:layout_width="match_parent"
@@ -26,73 +16,72 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="#F4F4F4">
+        android:background="#00000000">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="170dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:background="@drawable/fg_peronal_info">
-
-            <ImageView
-                android:id="@+id/iv_icon"
-                android:layout_width="110dp"
-                android:layout_height="110dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                />
+            android:layout_height="220dp"
+            android:background="#00000000">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="30dp"
+                android:id="@+id/xxx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="70dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="115dp"
                 android:orientation="vertical">
 
-                <TextView
+                <com.example.jdgjapp.Util.SpacingTextView
                     android:id="@+id/username"
-                    android:layout_width="120dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="35dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:text="用户名"
                     android:textColor="#000"
                     android:textSize="22sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:ellipsize="end"
+                    android:singleLine="true"/>
 
                 <TextView
                     android:id="@+id/department"
-                    android:layout_width="160dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:text="部门"
-                    android:textColor="#000"
-                    android:textSize="21sp" />
+                    android:textColor="#424242"
+                    android:textSize="17sp"
+                    android:ellipsize="end"
+                    android:singleLine="true"/>
 
             </LinearLayout>
 
-        </LinearLayout>
+            <com.example.jdgjapp.Util.RoundImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="135dp"
+                android:layout_marginRight="60dp"
+                beyole:borderRadius="20dip"
+                beyole:imageType="circle" />
+
+        </RelativeLayout>
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="45dp"
-            android:background="#fff">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#969696" />
-
-
+            android:background="#00000000"
+            android:layout_marginTop="125dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="#fff"
+                android:layout_height="48dp"
+                android:background="#00000000"
                 android:layout_marginRight="15dp">
 
                 <ImageView
@@ -100,7 +89,7 @@
                     android:layout_height="30dp"
                     android:layout_weight="0"
                     android:background="@drawable/btn_my_information"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="15dp"
                     android:gravity="center_vertical"
                     />
@@ -108,10 +97,10 @@
                 <Button
                     android:id="@+id/btn_my_infomation"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="48dp"
                     android:layout_marginLeft="16dp"
                     android:layout_weight="1"
-                    android:background="#fff"
+                    android:background="#00000000"
                     android:drawableRight="@drawable/right"
                     android:gravity="center_vertical"
                     android:text="我的资料"
@@ -123,13 +112,14 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#969696"
-                android:layout_marginLeft="55dp"/>
+                android:background="#CDC5BF"
+                android:layout_marginLeft="60dp" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="#fff"
+                android:layout_height="48dp"
+                android:background="#00000000"
                 android:layout_marginRight="15dp">
 
                 <ImageView
@@ -137,17 +127,17 @@
                     android:layout_height="30dp"
                     android:layout_weight="0"
                     android:background="@drawable/btn_reset_pw"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="15dp"
                     android:gravity="center_vertical" />
 
                 <Button
                     android:id="@+id/btn_me_reset_pw"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="48dp"
                     android:layout_marginLeft="16dp"
                     android:layout_weight="1"
-                    android:background="#fff"
+                    android:background="#00000000"
                     android:gravity="center_vertical"
                     android:text="修改密码"
                     android:textColor="#000"
@@ -156,17 +146,16 @@
 
             </LinearLayout>
 
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#969696"
-                android:layout_marginLeft="55dp"/>
+                android:background="#CDC5BF"
+                android:layout_marginLeft="60dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="#fff"
+                android:layout_height="48dp"
+                android:background="#00000000"
                 android:layout_marginRight="15dp">
 
                 <ImageView
@@ -174,7 +163,7 @@
                     android:layout_height="30dp"
                     android:layout_weight="0"
                     android:background="@drawable/btn_exit_login"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="15dp"
                     android:gravity="center_vertical"
                     />
@@ -182,10 +171,10 @@
                 <Button
                     android:id="@+id/btn_me_exit_login"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="48dp"
                     android:layout_marginLeft="16dp"
                     android:layout_weight="1"
-                    android:background="#fff"
+                    android:background="#00000000"
                     android:drawableRight="@drawable/right"
                     android:gravity="center_vertical"
                     android:text="退出登录"
@@ -197,7 +186,8 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#969696" />
+                android:background="#CDC5BF"
+                android:layout_marginLeft="60dp" />
 
 
         </LinearLayout>

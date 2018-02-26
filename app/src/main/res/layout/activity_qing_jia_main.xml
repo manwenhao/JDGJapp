@@ -11,7 +11,7 @@
         android:layout_height="50dp"
         android:background="#3C3C3C"
         android:gravity="center"
-        android:text="请假"
+        android:text="请   假"
         android:textColor="#FFFFFF"
         android:textSize="20sp" />
     <RelativeLayout

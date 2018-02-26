@@ -379,8 +379,8 @@ public class PhotoPickerActivity extends AppCompatActivity{
      * 刷新操作按钮状态
      */
     private void refreshActionStatus(){
-        if(resultList.contains("000000")){
-            resultList.remove("000000");
+        if(resultList.contains("aaaaaa")){
+            resultList.remove("aaaaaa");
         }
         String text = getString(R.string.done_with_count, resultList.size(), mDesireImageCount);
         menuDoneItem.setTitle(text);

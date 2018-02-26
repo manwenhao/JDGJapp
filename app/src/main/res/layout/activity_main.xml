@@ -22,12 +22,12 @@
     <RadioGroup
         android:id="@+id/rg_main"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="51dp"
         android:layout_alignParentBottom="true"
         android:background="#F7F7F7"
         android:orientation="horizontal"
         android:paddingTop="3dp"
-        android:layout_marginBottom="2dp">
+        android:layout_marginBottom="1dp">
 
         <RadioButton
             android:id="@+id/rb_news"
@@ -37,7 +37,7 @@
             android:background="@android:color/transparent"
             android:button="@null"
             android:checked="true"
-            android:drawablePadding="1dp"
+            android:drawablePadding="0dp"
             android:drawableTop="@drawable/rb_news"
             android:gravity="center"
             android:text="消息"
@@ -52,7 +52,7 @@
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:button="@null"
-            android:drawablePadding="1dp"
+            android:drawablePadding="0dp"
             android:drawableTop="@drawable/rb_work"
             android:gravity="center"
             android:text="工作"
@@ -66,7 +66,7 @@
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:button="@null"
-            android:drawablePadding="1dp"
+            android:drawablePadding="0dp"
             android:drawableTop="@drawable/rb_address_list"
             android:gravity="center"
             android:text="通讯录"
@@ -80,7 +80,7 @@
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:button="@null"
-            android:drawablePadding="1dp"
+            android:drawablePadding="0dp"
             android:drawableTop="@drawable/rb_my"
             android:gravity="center"
             android:text="我的"

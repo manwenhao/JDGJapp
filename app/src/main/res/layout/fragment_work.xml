@@ -9,9 +9,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#3C3C3C"
+        android:background="#63B8FF"
         android:gravity="center"
-        android:text="工作"
+        android:text="工   作"
         android:textColor="#FFFFFF"
         android:textSize="20sp" />
 

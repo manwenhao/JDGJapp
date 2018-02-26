@@ -29,7 +29,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:text="确定"
-            android:textColor="#FFFFFF"
+            android:textColor="#63B8FF"
             android:layout_marginRight="10dp"
             android:textSize="20sp" />
 

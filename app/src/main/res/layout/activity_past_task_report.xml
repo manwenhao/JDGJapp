@@ -11,18 +11,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#fff"
             android:gravity="center"
             android:text="历史简报"
-            android:textColor="#000"
+            android:textColor="#fff"
+            android:background="#3C3C3C"
             android:textSize="20sp" />
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#969696" />
 
     <ListView
         android:id="@+id/lv_task_report"

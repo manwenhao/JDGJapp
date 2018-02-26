@@ -19,7 +19,7 @@
         android:id="@+id/task_head_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="日历"
+        android:text=""
         android:textSize="25sp"
         android:background="@android:color/transparent"
         android:textColor="#5CAAF8"

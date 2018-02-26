@@ -24,6 +24,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_weight="0"
+            android:textColor="#63B8FF"
             android:text="完成"
             android:textSize="18sp"
             android:background="#fff"

@@ -312,7 +312,7 @@ public class GuiJiMain extends AppCompatActivity {
             String endy = baiduGJInfoList.get(i+1).getPosy();
             Double dist = getDistance(starty,startx,endy,endx);
             if (dist<=200){   //画直线
-                Log.d(TAG, "距离小于200");
+                Log.d(TAG, "距离小于200m");
                 drawZX(starty,startx,endy,endx);
             }else {   //画行车路线
                 driving(starty,startx,endy,endx);

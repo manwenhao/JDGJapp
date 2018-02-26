@@ -26,6 +26,7 @@
             android:layout_weight="0"
             android:text="完成"
             android:textSize="18sp"
+            android:textColor="#63B8FF"
             android:background="#fff"
             android:layout_marginRight="8dp"
             style="?android:attr/borderlessButtonStyle" />

@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -25,6 +27,8 @@ import com.bumptech.glide.signature.StringSignature;
 import com.example.jdgjapp.Bean.Depart;
 import com.example.jdgjapp.Bean.User;
 import com.example.jdgjapp.Util.ReturnUsrDep;
+import com.example.jdgjapp.Util.RoundImageView;
+import com.example.jdgjapp.Util.SpacingTextView;
 
 import org.litepal.crud.DataSupport;
 
@@ -43,8 +47,8 @@ public class MyFragment extends Fragment {
     private Button meResetpwBtn;
     private Button meExitloginBtn;
     private Button meInfoBtn;
-    private ImageView iconIv;
-    private TextView usernameTv;
+    private RoundImageView iconIv;
+    private SpacingTextView usernameTv;
     private TextView departmentTv;
 
     public MyFragment() {
@@ -65,6 +69,12 @@ public class MyFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        if (Build.VERSION.SDK_INT >= 21){
+            View decorView = getActivity().getWindow().getDecorView();
+            decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            getActivity().getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
         return inflater.inflate(R.layout.fragment_my, container, false);
 
     }
@@ -73,16 +83,17 @@ public class MyFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        usernameTv = (TextView) getActivity().findViewById(R.id.username);
+        usernameTv = (SpacingTextView) getActivity().findViewById(R.id.username);
         departmentTv = (TextView) getActivity().findViewById(R.id.department);
         meInfoBtn = (Button) getActivity().findViewById(R.id.btn_my_infomation);
         meResetpwBtn = (Button) getActivity().findViewById(R.id.btn_me_reset_pw);
         meExitloginBtn = (Button) getActivity().findViewById(R.id.btn_me_exit_login);
-        iconIv = (ImageView) getActivity().findViewById(R.id.iv_icon);
+        iconIv = (RoundImageView) getActivity().findViewById(R.id.iv_icon);
 
         //读取姓名和部门并显示
         User user = DataSupport.findFirst(User.class);
         usernameTv.setText(user.getUsr_name());
+        usernameTv.setSpacing(4);
         List<Depart> departs = DataSupport.where("dep_id = ?",user.getUsr_deptId()).find(Depart.class);
         for (Depart depart : departs){
             departmentTv.setText(depart.getDep_name());
