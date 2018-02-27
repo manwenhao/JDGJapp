@@ -18,57 +18,58 @@
         android:orientation="vertical"
         android:background="#00000000">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="220dp"
-            android:background="#00000000">
+            android:layout_height="380dp"
+            android:background="#00000000"
+            android:orientation="vertical">
+
+            <com.example.jdgjapp.Util.RoundImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="185dp"
+                android:layout_marginLeft="38dp"
+                beyole:borderRadius="20dip"
+                beyole:imageType="circle" />
 
             <LinearLayout
                 android:id="@+id/xxx"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="70dp"
+                android:layout_marginLeft="40dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="115dp"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
                 <com.example.jdgjapp.Util.SpacingTextView
                     android:id="@+id/username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:text="用户名"
                     android:textColor="#000"
                     android:textSize="22sp"
-                    android:textStyle="bold"
-                    android:ellipsize="end"
-                    android:singleLine="true"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/department"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="6dp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:text="部门"
                     android:textColor="#424242"
-                    android:textSize="17sp"
-                    android:ellipsize="end"
-                    android:singleLine="true"/>
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
-            <com.example.jdgjapp.Util.RoundImageView
-                android:id="@+id/iv_icon"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="135dp"
-                android:layout_marginRight="60dp"
-                beyole:borderRadius="20dip"
-                beyole:imageType="circle" />
 
-        </RelativeLayout>
+
+        </LinearLayout>
 
 
         <LinearLayout
@@ -76,7 +77,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="#00000000"
-            android:layout_marginTop="125dp">
+            android:layout_marginTop="5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -87,7 +88,6 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_weight="0"
                     android:background="@drawable/btn_my_information"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="15dp"
@@ -96,10 +96,9 @@
 
                 <Button
                     android:id="@+id/btn_my_infomation"
-                    android:layout_width="match_parent"
+                    android:layout_width="150dp"
                     android:layout_height="48dp"
                     android:layout_marginLeft="16dp"
-                    android:layout_weight="1"
                     android:background="#00000000"
                     android:drawableRight="@drawable/right"
                     android:gravity="center_vertical"
@@ -111,7 +110,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="0dp"
                 android:background="#CDC5BF"
                 android:layout_marginLeft="60dp" />
 
@@ -125,7 +124,6 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_weight="0"
                     android:background="@drawable/btn_reset_pw"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="15dp"
@@ -133,10 +131,9 @@
 
                 <Button
                     android:id="@+id/btn_me_reset_pw"
-                    android:layout_width="match_parent"
+                    android:layout_width="150dp"
                     android:layout_height="48dp"
                     android:layout_marginLeft="16dp"
-                    android:layout_weight="1"
                     android:background="#00000000"
                     android:gravity="center_vertical"
                     android:text="修改密码"
@@ -148,7 +145,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="0dp"
                 android:background="#CDC5BF"
                 android:layout_marginLeft="60dp" />
 
@@ -161,7 +158,6 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_weight="0"
                     android:background="@drawable/btn_exit_login"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="15dp"
@@ -170,10 +166,9 @@
 
                 <Button
                     android:id="@+id/btn_me_exit_login"
-                    android:layout_width="match_parent"
+                    android:layout_width="150dp"
                     android:layout_height="48dp"
                     android:layout_marginLeft="16dp"
-                    android:layout_weight="1"
                     android:background="#00000000"
                     android:drawableRight="@drawable/right"
                     android:gravity="center_vertical"
@@ -185,7 +180,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="0dp"
                 android:background="#CDC5BF"
                 android:layout_marginLeft="60dp" />
 

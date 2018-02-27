@@ -22,10 +22,6 @@
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#969696" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -51,7 +47,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#969696" />
+                android:background="#CDC5BF" />
 
             <RelativeLayout
                 android:id="@+id/layout_userid"
@@ -88,7 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginLeft="20dp"
-                android:background="#969696" />
+                android:background="#CDC5BF" />
 
             <RelativeLayout
                 android:id="@+id/layout_name"
@@ -133,7 +129,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginLeft="20dp"
-                android:background="#969696" />
+                android:background="#CDC5BF" />
 
             <RelativeLayout
                 android:id="@+id/layout_sex"
@@ -178,7 +174,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginLeft="20dp"
-                android:background="#969696" />
+                android:background="#CDC5BF" />
 
 
             <RelativeLayout
@@ -225,7 +221,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginLeft="20dp"
-                android:background="#969696" />
+                android:background="#CDC5BF" />
 
 
             <RelativeLayout
@@ -272,7 +268,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginLeft="20dp"
-                android:background="#969696" />
+                android:background="#CDC5BF" />
 
             <RelativeLayout
                 android:id="@+id/layout_address"
@@ -319,7 +315,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#969696" />
+                android:background="#CDC5BF" />
 
 
         </LinearLayout>
@@ -344,7 +340,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#969696" />
+                android:background="#CDC5BF" />
 
 
             <RelativeLayout
@@ -384,7 +380,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#969696" />
+                android:background="#CDC5BF" />
 
         </LinearLayout>
 
@@ -393,7 +389,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#969696" />
+        android:background="#CDC5BF" />
 
 
 </LinearLayout>
