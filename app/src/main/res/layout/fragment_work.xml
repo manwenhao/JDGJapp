@@ -49,11 +49,14 @@
         android:horizontalSpacing="1dp"
         android:numColumns="3"
         android:verticalSpacing="1dp"
-        android:background="@color/workborder"/>
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="#fff"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/workborder"/>
+        android:background="#E4E3E9"
+        android:layout_marginTop="20dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="30dp"
@@ -61,7 +64,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/workborder"/>
+        android:background="#E4E3E9"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -81,13 +84,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:horizontalSpacing="1dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:numColumns="3"
         android:verticalSpacing="1dp"
-        android:background="@color/workborder"/>
+        android:background="#fff"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/workborder"/>
+        android:layout_marginTop="20dp"
+        android:background="#E4E3E9"/>
 
 
 </LinearLayout>

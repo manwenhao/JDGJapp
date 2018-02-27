@@ -81,6 +81,7 @@ public class AddressListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_address_list, container, false);
+
         etSearch=(EditText)view.findViewById(R.id.et_search);
         ivClearText=(ImageView)view.findViewById(R.id.ivClearText);
         mListView=(ListView)view.findViewById(R.id.lv_contacts);

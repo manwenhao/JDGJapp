@@ -68,6 +68,7 @@ public class NewsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_news, container, false);
+
         text=(TextView)view.findViewById(R.id.tv_nodata);
         listView=(SwipeMenuListView)view.findViewById(R.id.main_news);
         SwipeMenuCreator creator = new SwipeMenuCreator() {

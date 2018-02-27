@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jdgjapp.Bean.SystemNews;
@@ -53,6 +54,7 @@ public class SystemNewsAdapter extends BaseAdapter {
             vh.title=(TextView)view.findViewById(R.id.system_news_item_title);
             vh.content=(TextView)view.findViewById(R.id.system_news_item_cont);
             vh.time=(TextView)view.findViewById(R.id.system_news_item_time);
+            vh.icon=(ImageView)view.findViewById(R.id.system_news_item_icon);
            view.setTag(vh);
         }else {
             vh=(ViewHolder)view.getTag();
@@ -75,11 +77,11 @@ public class SystemNewsAdapter extends BaseAdapter {
             e.printStackTrace();
         }
         if (list.get(i).getStatus()==null){
-            view.setBackgroundColor(MyApplication.getContext().getResources().getColor(R.color.unread));
+           vh.icon.setVisibility(View.VISIBLE);
         }else if (list.get(i).getStatus().equals("0")){   //未读
-            view.setBackgroundColor(MyApplication.getContext().getResources().getColor(R.color.unread));
+            vh.icon.setVisibility(View.VISIBLE);
         }else {
-            view.setBackgroundColor(MyApplication.getContext().getResources().getColor(R.color.read));
+            vh.icon.setVisibility(View.INVISIBLE);
         }
         if (type.equals("1")){
             vh.title.setText("工单管理通知");
@@ -126,6 +128,7 @@ public class SystemNewsAdapter extends BaseAdapter {
         TextView title ;
         TextView content;
         TextView time;
+        ImageView icon;
     }
     public static boolean isSameDay(Date date1, Date date2) {
         Calendar calDateA = Calendar.getInstance();

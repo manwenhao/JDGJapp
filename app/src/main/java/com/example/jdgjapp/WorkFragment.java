@@ -60,6 +60,7 @@ public class WorkFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_work, container, false);
+
         kaoqin=(GridViewForScrollView) view.findViewById(R.id.work_one_gridView);
         bangong=(GridViewForScrollView) view.findViewById(R.id.work_two_gridView);
         return view;
