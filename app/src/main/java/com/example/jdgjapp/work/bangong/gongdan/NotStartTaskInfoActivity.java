@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.jdgjapp.Bean.Task;
 import com.example.jdgjapp.R;
+import com.example.jdgjapp.Util.ActivityUtils;
 import com.example.jdgjapp.Util.ReturnUsrDep;
 
 import org.litepal.crud.DataSupport;
@@ -41,8 +42,8 @@ public class NotStartTaskInfoActivity extends AppCompatActivity {
     private TextView addrTv;
     private TextView statusTv;
     private TextView contentTv;
-
     private String taskid;
+    public static final String action = "notstart.action";
 
 
     @Override
@@ -106,7 +107,6 @@ public class NotStartTaskInfoActivity extends AppCompatActivity {
 
 
     private void sendRequest(final String workid, final String userid) {
-
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -133,8 +133,12 @@ public class NotStartTaskInfoActivity extends AppCompatActivity {
 
                         Intent intent = new Intent(NotStartTaskInfoActivity.this, GongDanMain.class);
                         startActivity(intent);
-                        GongDanMain.status = "2";
+                        //GongDanMain.status = "2";
+                        //ActivityUtils.getInstance().delActivity(GongDanMain.class.getName());
                         finish();
+                        Intent intent0 = new Intent(action);
+                        sendBroadcast(intent0);
+
                     } else {  //发送失败
                         showResponse("请求失败，请稍后再试！");
                     }

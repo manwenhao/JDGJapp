@@ -45,6 +45,7 @@ public class TransmitList extends AppCompatActivity {
     private TextView ok;
     public static String taskid;
     public static final int UPDATE = 1;
+    public static final String action1 = "transmit.action";
 
 
     @Override
@@ -99,10 +100,7 @@ public class TransmitList extends AppCompatActivity {
             Toast.makeText(MyApplication.getContext(),"只能选择一个转发对象！",Toast.LENGTH_SHORT).show();
         }else {
             String id = useridList.get(0);
-            sendRequestTransmitList(ReturnUsrDep.returnUsr().getUsr_id(),id,taskid);
-
-//            Intent intent = new Intent(context,GongDanMain.class);
-//            context.startActivity(intent);
+            sendRequestTransmitList(MyApplication.getContext(),ReturnUsrDep.returnUsr().getUsr_id(),id,taskid);
 
             ActivityUtils.getInstance().delActivity(MyDeptMent.class.getName());
             ActivityUtils.getInstance().delActivity(DeptMember.class.getName());
@@ -113,8 +111,7 @@ public class TransmitList extends AppCompatActivity {
     }
 
 
-    private static void sendRequestTransmitList(final String meid, final String youid, final String workid) {
-
+    private static void sendRequestTransmitList(final Context context,final String meid, final String youid, final String workid) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -138,11 +135,15 @@ public class TransmitList extends AppCompatActivity {
                         task.setStatus("3");
                         task.updateAll("taskid = ?",taskid);
 
-                        //GongDanMain.status = "3";
+                        NotReceivedTaskInfoActivity.instance.finish();
+
+                        Intent intent = new Intent(action1);
+                        context.sendBroadcast(intent);
 
                         Looper.prepare();
                         Toast.makeText(MyApplication.getContext(),"转发工单成功！",Toast.LENGTH_SHORT).show();
                         Looper.loop();
+
 
                     }
                     else{

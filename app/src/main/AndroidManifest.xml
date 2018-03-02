@@ -118,7 +118,7 @@
         <activity android:name=".work.bangong.baoxiao.BaoXiaoMain" />
         <activity android:name=".work.bangong.cailiao.CaiLiaoMain" />
         <activity android:name=".work.bangong.cheliang.CheLiangMain" />
-        <activity android:name=".work.bangong.gongdan.GongDanMain" />
+        <activity android:name=".work.bangong.gongdan.GongDanMain" android:launchMode="singleTask"/>
         <activity android:name=".work.bangong.shenpi.ShenPiMain" />
         <activity android:name=".work.bangong.shipin.ShiPinMain" />
         <activity android:name=".work.kaoqin.chuchai.ChuChaiMain" />

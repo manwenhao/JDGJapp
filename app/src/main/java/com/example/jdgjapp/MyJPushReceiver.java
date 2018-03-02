@@ -107,7 +107,7 @@ public class MyJPushReceiver extends BroadcastReceiver {
     public static String clreason;
     public static String clmaterials;
 
-
+    public static final String action = "jpush.gongdan.action";
 
 
 
@@ -584,6 +584,9 @@ public class MyJPushReceiver extends BroadcastReceiver {
                     Intent i = new Intent(context, GongDanMain.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(i);
+                    GongDanMain.status="1";
+                    Intent intent0 = new Intent(action);
+                    context.sendBroadcast(intent0);
                 }else if (type.equals("2")){
                     ActivityManager activityManager = (ActivityManager)MyApplication.getContext().getSystemService(ACTIVITY_SERVICE);
                     ComponentName componentName = activityManager.getRunningTasks(1).get(0).topActivity;

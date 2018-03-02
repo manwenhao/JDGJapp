@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.jdgjapp.Bean.Task;
 import com.example.jdgjapp.Bean.TaskReport;
 import com.example.jdgjapp.R;
+import com.example.jdgjapp.Util.ActivityUtils;
 import com.example.jdgjapp.Util.ReturnUsrDep;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -45,8 +46,8 @@ public class OnGoingTaskInfoActivity extends AppCompatActivity {
     private TextView addrTv;
     private TextView statusTv;
     private TextView contentTv;
-
     private String taskid;
+    public static final String action = "ongoing.action";
 
 
     @Override
@@ -138,7 +139,6 @@ public class OnGoingTaskInfoActivity extends AppCompatActivity {
     }
 
     private void sendRequest(final String workid, final String userid) {
-
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -166,7 +166,10 @@ public class OnGoingTaskInfoActivity extends AppCompatActivity {
                         Intent intent = new Intent(OnGoingTaskInfoActivity.this, GongDanMain.class);
                         startActivity(intent);
                         GongDanMain.status = "3";
+                        //ActivityUtils.getInstance().delActivity(GongDanMain.class.getName());
                         finish();
+                        Intent intent0 = new Intent(action);
+                        sendBroadcast(intent0);
                     } else {
                         showResponse("请求失败，请稍后再试！");
                 }

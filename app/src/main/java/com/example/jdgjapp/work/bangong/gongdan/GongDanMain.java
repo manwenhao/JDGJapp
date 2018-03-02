@@ -1,6 +1,9 @@
 package com.example.jdgjapp.work.bangong.gongdan;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,7 +18,9 @@ import android.widget.TextView;
 
 import com.example.jdgjapp.Bean.Task;
 import com.example.jdgjapp.MyApplication;
+import com.example.jdgjapp.MyJPushReceiver;
 import com.example.jdgjapp.R;
+import com.example.jdgjapp.Util.ActivityUtils;
 
 import org.litepal.crud.DataSupport;
 
@@ -57,6 +62,21 @@ public class GongDanMain extends AppCompatActivity {
         doing=(Button)over.findViewById(R.id.doing);
         done=(Button)over.findViewById(R.id.haddone);
         nodata = (TextView)findViewById(R.id.tv_nodata);
+
+        ActivityUtils.getInstance().addActivity(GongDanMain.class.getName(),this);
+
+        IntentFilter filter0 = new IntentFilter(TransmitList.action1);//转发
+        registerReceiver(broadcastReceiver0, filter0);
+        IntentFilter filter1 = new IntentFilter(NotReceivedTaskInfoActivity.action);//接收
+        registerReceiver(broadcastReceiver1, filter1);
+        IntentFilter filter2 = new IntentFilter(NotStartTaskInfoActivity.action);//开始
+        registerReceiver(broadcastReceiver2, filter2);
+        IntentFilter filter3 = new IntentFilter(OnGoingTaskInfoActivity.action);//完成
+        registerReceiver(broadcastReceiver3, filter3);
+        IntentFilter filter4 = new IntentFilter(MyJPushReceiver.action);//jpush
+        registerReceiver(broadcastReceiver0, filter4);
+        IntentFilter filter5 = new IntentFilter(NotReceivedTaskInfoActivity.action1);//拒绝
+        registerReceiver(broadcastReceiver0, filter5);
 
         initlist();
         initbutton();
@@ -300,5 +320,35 @@ public class GongDanMain extends AppCompatActivity {
         });
 
     }
+
+    BroadcastReceiver broadcastReceiver0 = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            status="1";
+            refreshButton();
+        }
+    };
+    BroadcastReceiver broadcastReceiver1 = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            status="0";
+            refreshButton();
+        }
+    };
+    BroadcastReceiver broadcastReceiver2 = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            status="2";
+            refreshButton();
+        }
+    };
+    BroadcastReceiver broadcastReceiver3 = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            status="3";
+            refreshButton();
+        }
+    };
+
 
 }

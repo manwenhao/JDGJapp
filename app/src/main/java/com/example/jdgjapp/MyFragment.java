@@ -69,13 +69,6 @@ public class MyFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (Build.VERSION.SDK_INT >= 21){
-            View decorView = getActivity().getWindow().getDecorView();
-            decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            );
-            getActivity().getWindow().setStatusBarColor(Color.TRANSPARENT);
-        }
         return inflater.inflate(R.layout.fragment_my, container, false);
 
     }

@@ -1,8 +1,11 @@
 package com.example.jdgjapp.work.bangong.gongdan;
 
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -16,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.jdgjapp.Bean.Task;
 import com.example.jdgjapp.R;
+import com.example.jdgjapp.Util.ActivityUtils;
 import com.example.jdgjapp.work.bangong.shipin.ShiPin;
 import com.example.jdgjapp.work.bangong.shipin.ShiPinMain;
 
@@ -45,8 +49,10 @@ public class NotReceivedTaskInfoActivity extends AppCompatActivity {
     private TextView addrTv;
     private TextView statusTv;
     private TextView contentTv;
-
     private String taskid;
+    public static final String action = "notreceive.action";
+    public static final String action1 = "refuse.action";
+    public static NotReceivedTaskInfoActivity instance = null;
 
 
     @Override
@@ -65,6 +71,8 @@ public class NotReceivedTaskInfoActivity extends AppCompatActivity {
         addrTv = (TextView) findViewById(R.id.task_info_addr);
         statusTv = (TextView) findViewById(R.id.task_info_status);
         contentTv = (TextView) findViewById(R.id.task_info_content);
+
+        instance = this;
 
         //获取传递过来的taskid
         Intent intent = getIntent();
@@ -170,16 +178,18 @@ public class NotReceivedTaskInfoActivity extends AppCompatActivity {
 
                         Intent intent = new Intent(NotReceivedTaskInfoActivity.this, GongDanMain.class);
                         startActivity(intent);
-                        GongDanMain.status = "0";
                         finish();
+                        Intent intent0 = new Intent(action);
+                        sendBroadcast(intent0);
                     } else if(responseDate.equals("no")){
                         DataSupport.deleteAll(Task.class,"taskid = ?", taskid);
                         showResponse("已拒绝工单" + taskid);
 
                         Intent intent = new Intent(NotReceivedTaskInfoActivity.this, GongDanMain.class);
                         startActivity(intent);
-                        GongDanMain.status = "0";
                         finish();
+                        Intent intent0 = new Intent(action1);
+                        sendBroadcast(intent0);
 
                     } else {  //发送失败
                         showResponse("请求失败，请稍后再试！");
@@ -201,6 +211,9 @@ public class NotReceivedTaskInfoActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
 
 
 }
