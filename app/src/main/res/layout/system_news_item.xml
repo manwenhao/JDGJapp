@@ -11,7 +11,17 @@
         android:textSize="15sp"
         android:text="材料管理通知"
         android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginLeft="5dp"/>
+    <ImageView
+        android:id="@+id/system_news_item_icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/unread"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"/>
     <TextView
         android:id="@+id/system_news_item_time"
         android:layout_width="wrap_content"
@@ -21,6 +31,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="5dp"
+        android:layout_below="@id/system_news_item_icon"
         android:text="1999-22-22 11:22:22"/>
     <TextView
         android:id="@+id/system_news_item_cont"
@@ -34,5 +45,6 @@
         android:text="您有一个材料申请通过申请"
 
         />
+
 
 </RelativeLayout>
