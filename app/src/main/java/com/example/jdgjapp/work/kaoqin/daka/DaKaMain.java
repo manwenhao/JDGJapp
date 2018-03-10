@@ -38,17 +38,23 @@ import com.example.jdgjapp.R;
 import com.example.jdgjapp.Util.ACache;
 import com.example.jdgjapp.Util.ReturnUsrDep;
 import com.example.jdgjapp.work.bangong.gongdan.TaskReportActivity;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.litepal.crud.DataSupport;
 import org.w3c.dom.Text;
 
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import okhttp3.Call;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -126,6 +132,35 @@ public class DaKaMain extends AppCompatActivity {
         }
 
         setListeners();
+    }
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 1:
+                    Log.d(TAG, "已执行自动下班打卡");
+                    //读取当前flag
+                    SharedPreferences pref = getSharedPreferences(ReturnUsrDep.returnUsr().getUsr_id(),MODE_PRIVATE);
+                    flag  = pref.getInt("dkflag",0);
+                    if (flag == 1){
+                        startLocation();
+                    }
+                    break;
+            }
+        }
+    };
+
+    /**
+     * string类型时间转换为date
+     * @param strDate
+     * @return
+     */
+    public static Date strToDateLong(String strDate) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        ParsePosition pos = new ParsePosition(0);
+        Date strtodate = formatter.parse(strDate, pos);
+        return strtodate;
     }
 
     private void setListeners(){
@@ -343,6 +378,9 @@ public class DaKaMain extends AppCompatActivity {
                                 editor.putInt("dkflag",1);
                                 editor.apply();
 
+                                //获取今日下班时间
+                                getXBtime();
+
                             }else if (type.equals("2")){  //下班打卡成功
                                 //更新按钮上的内容
                                 updateUI(UPDATE_BUTTON_shangban);
@@ -410,6 +448,39 @@ public class DaKaMain extends AppCompatActivity {
             }
         }).start();
         Log.d(TAG, "*********打卡定位已发送*********");
+    }
+
+    private void getXBtime(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OkHttpUtils.post()
+                        .url("http://106.14.145.208/JDGJ/BackAppTimeForDown")
+                        .build()
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onError(Call call, Exception e, int id) {
+                                Log.d(TAG, "获取下班时间失败");
+                            }
+
+                            @Override
+                            public void onResponse(String response, int id) {
+                                Log.d(TAG, "获取下班时间成功"+response);
+                                if (response!=null){
+                                    //到下班时间自动下班打卡
+                                    TimerTask task = new TimerTask() {
+                                        @Override
+                                        public void run() {
+                                            handler.sendEmptyMessage(1);
+                                        }
+                                    };
+                                    Timer timer = new Timer(true);
+                                    timer.schedule(task,strToDateLong(response));
+                                }
+                            }
+                        });
+            }
+        }).start();
     }
 
     private void showResponse(final String response){
