@@ -4,99 +4,110 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@android:color/white">
-
-    
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="20dp"
         android:background="#3C3C3C"
-        android:gravity="center"
-        android:text="工   作"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp" />
-
-    <com.example.jdgjapp.Util.BounceScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+        android:fitsSystemWindows="true"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/workborder"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="#fff"
-        android:gravity="center_vertical"
-        android:text="考勤中心"
-        android:paddingLeft="5dp"
-        android:textColor="#000"
-        android:textSize="20sp"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/workborder"/>
-    <com.example.jdgjapp.Util.GridViewForScrollView
-        android:id="@+id/work_one_gridView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:horizontalSpacing="1dp"
-        android:numColumns="3"
-        android:verticalSpacing="1dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:background="#fff"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#E4E3E9"
-        android:layout_marginTop="20dp"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="#F8F7F8"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#E4E3E9"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="#fff"
-        android:gravity="center_vertical"
-        android:text="智能办公"
-        android:textColor="#000"
-        android:paddingLeft="5dp"
-        android:textSize="20sp"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/workborder"/>
-    <com.example.jdgjapp.Util.GridViewForScrollView
-        android:id="@+id/work_two_gridView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:horizontalSpacing="1dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:numColumns="3"
-        android:verticalSpacing="1dp"
-        android:background="#fff"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="20dp"
-        android:background="#E4E3E9"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#fff">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#3C3C3C"
+            android:gravity="center"
+            android:text="工   作"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            />
+
+        <com.example.jdgjapp.Util.BounceScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/workborder"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="#fff"
+                    android:gravity="center_vertical"
+                    android:text="考勤中心"
+                    android:paddingLeft="5dp"
+                    android:textColor="#000"
+                    android:textSize="20sp"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/workborder"/>
+                <com.example.jdgjapp.Util.GridViewForScrollView
+                    android:id="@+id/work_one_gridView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:horizontalSpacing="1dp"
+                    android:numColumns="3"
+                    android:verticalSpacing="1dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="#fff"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#E4E3E9"
+                    android:layout_marginTop="20dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="#F8F7F8"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#E4E3E9"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="#fff"
+                    android:gravity="center_vertical"
+                    android:text="智能办公"
+                    android:textColor="#000"
+                    android:paddingLeft="5dp"
+                    android:textSize="20sp"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/workborder"/>
+                <com.example.jdgjapp.Util.GridViewForScrollView
+                    android:id="@+id/work_two_gridView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:horizontalSpacing="1dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:numColumns="3"
+                    android:verticalSpacing="1dp"
+                    android:background="#fff"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#E4E3E9"/>
 
 
-</LinearLayout>
-    </com.example.jdgjapp.Util.BounceScrollView>
+            </LinearLayout>
+        </com.example.jdgjapp.Util.BounceScrollView>
+    </LinearLayout>
 
 </LinearLayout>

@@ -12,13 +12,16 @@
 
     <com.example.jdgjapp.Util.BounceScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="#00000000">
+        android:background="#00000000"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"

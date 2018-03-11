@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.jdgjapp.Bean.Friend;
 import com.example.jdgjapp.Bean.User;
+import com.example.jdgjapp.FriendInfo;
 import com.example.jdgjapp.MyApplication;
 import com.example.jdgjapp.R;
 import com.example.jdgjapp.Util.ACache;
@@ -262,6 +263,11 @@ public class DeptMember extends AppCompatActivity {
                 ContactsSortAdapter.ViewHolder viewHolder = (ContactsSortAdapter.ViewHolder) view.getTag();
                 viewHolder.cbChecked.performClick();
                 adapter.toggleChecked(position);
+                if (flag!=1&&flag!=2&&ContactsSortAdapter.flag==0){
+                    Intent intent=new Intent(MyApplication.getContext(), FriendInfo.class);
+                    intent.putExtra("user_id",mAllContactsList.get(position).getId());
+                    startActivity(intent);
+                }
             }
         });
     }

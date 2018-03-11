@@ -81,7 +81,6 @@ public class AddressListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_address_list, container, false);
-
         etSearch=(EditText)view.findViewById(R.id.et_search);
         ivClearText=(ImageView)view.findViewById(R.id.ivClearText);
         mListView=(ListView)view.findViewById(R.id.lv_contacts);
@@ -197,6 +196,13 @@ public class AddressListFragment extends Fragment {
                 ContactsSortAdapter.ViewHolder viewHolder = (ContactsSortAdapter.ViewHolder) view.getTag();
                 viewHolder.cbChecked.performClick();
                 adapter.toggleChecked(position);
+                if (ContactsSortAdapter.flag==0){
+                    Intent intent=new Intent(MyApplication.getContext(),FriendInfo.class);
+                    intent.putExtra("user_id",mAllContactsList.get(position).getId());
+                    getActivity().startActivity(intent);
+                }
+
+
             }
         });
         relativeLayout.setOnClickListener(new View.OnClickListener() {
