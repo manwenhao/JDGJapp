@@ -1,9 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:beyole="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.jdgjapp.FriendInfo">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
 
-</android.support.constraint.ConstraintLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="联系人资料"
+            android:background="#3C3C3C"
+            android:textColor="#fff"
+            android:textSize="20sp" />
+
+
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/workborder">
+        <com.example.jdgjapp.Util.RoundImageView
+            android:id="@+id/friend_photo"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            beyole:borderRadius="20dip"
+            beyole:imageType="circle"
+            android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"/>
+
+    <TextView
+        android:id="@+id/friend_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="申请列表"
+        android:gravity="center_vertical"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:paddingLeft="10dp"
+        android:textColor="#000"
+        android:textSize="15sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"/>
+    <TextView
+        android:id="@+id/friend_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="申请列表"
+        android:gravity="center_vertical"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:paddingLeft="10dp"
+        android:textColor="#000"
+        android:textSize="15sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"/>
+    <TextView
+        android:id="@+id/friend_sex"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="申请列表"
+        android:gravity="center_vertical"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:paddingLeft="10dp"
+        android:textColor="#000"
+        android:textSize="15sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"/>
+    <TextView
+        android:id="@+id/friend_addr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="申请列表"
+        android:gravity="center_vertical"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:paddingLeft="10dp"
+        android:textColor="#000"
+        android:textSize="15sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"/>
+    <TextView
+        android:id="@+id/friend_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="申请列表"
+        android:gravity="center_vertical"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:paddingLeft="10dp"
+        android:textColor="#000"
+        android:textSize="15sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"/>
+    <TextView
+        android:id="@+id/friend_birth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="申请列表"
+        android:gravity="center_vertical"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:paddingLeft="10dp"
+        android:textColor="#000"
+        android:textSize="15sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"/>
+    <TextView
+        android:id="@+id/friend_dept"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="申请列表"
+        android:gravity="center_vertical"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:paddingLeft="10dp"
+        android:textColor="#000"
+        android:textSize="15sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"/>
+
+
+
+</LinearLayout>
