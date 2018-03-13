@@ -7,11 +7,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +41,7 @@ public class ApplyCL extends AppCompatActivity {
     private ListView listView;
     private List<ApplyCaiLiao> datalist=new ArrayList<ApplyCaiLiao>();
     private EditText reason;
+    private Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,25 @@ public class ApplyCL extends AppCompatActivity {
         ok=(TextView)findViewById(R.id.apply_cailiao_ok);
         listView=(ListView)findViewById(R.id.cailiao_apply_listview);
         reason=(EditText)findViewById(R.id.apply_cailiao_reason);
+        spinner=(Spinner)findViewById(R.id.cl_spply_reason);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String reasonstr=spinner.getSelectedItem().toString();
+                if (reasonstr.equals("其他")){
+                    reason.setVisibility(View.VISIBLE);
+                    reason.setText("");
+                }else {
+                    reason.setText("");
+                    reason.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -81,7 +103,10 @@ public class ApplyCL extends AppCompatActivity {
                     @Override
                     public void run() {
                         Log.d("发送的申请材料",datalist.toString());
-                        String reasonstring=reason.getText().toString();
+                        String reasonstring=spinner.getSelectedItem().toString();
+                        if (reasonstring.equals("其他")){
+                            reasonstring=reason.getText().toString();
+                        }
                         if (reasonstring.equals("")){
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -185,7 +210,7 @@ public class ApplyCL extends AppCompatActivity {
                 vh=(ViewHolder)view.getTag();
                 viewHolder=vh;
             }
-            vh.name.setText("材料名"+list.get(i).getMat_name());
+            vh.name.setText("材料名："+list.get(i).getMat_name());
             if (list.get(i).getMat_num().equals("0")){
                 vh.num.setText("再无库存");
                 vh.checkBox.setFocusable(false);
