@@ -146,6 +146,60 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/workborder"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:id="@+id/firend_info_bohao"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <ImageView
+                android:id="@+id/friedn_info_tel"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:textSize="15sp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:text="拨号"
+                />
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/workborder"/>
+        <RelativeLayout
+            android:id="@+id/friend_info_duanxin"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <ImageView
+                android:id="@+id/friend_info_msg"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:textSize="15sp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:text="短信"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/workborder"
+        android:layout_marginTop="5dp"/>
 
 
 

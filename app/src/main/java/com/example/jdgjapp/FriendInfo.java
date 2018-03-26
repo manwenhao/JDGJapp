@@ -1,10 +1,16 @@
 package com.example.jdgjapp;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.jdgjapp.Util.RoundImageView;
@@ -16,11 +22,14 @@ import com.zhy.http.okhttp.callback.StringCallback;
 import java.lang.reflect.Type;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.Call;
 
 public class FriendInfo extends AppCompatActivity {
     private RoundImageView photo;
     private TextView manid,name,sex,addr,birth,dept,phone;
+    private ImageView tel,msg;
+    private RelativeLayout bohao,duanxin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +43,12 @@ public class FriendInfo extends AppCompatActivity {
         birth=(TextView)findViewById(R.id.friend_birth);
         dept=(TextView)findViewById(R.id.friend_dept);
         phone=(TextView)findViewById(R.id.friend_phone);
+        tel=(ImageView) findViewById(R.id.friedn_info_tel);
+        msg=(ImageView) findViewById(R.id.friend_info_msg);
+        bohao=(RelativeLayout)findViewById(R.id.firend_info_bohao);
+        duanxin=(RelativeLayout)findViewById(R.id.friend_info_duanxin);
+        Glide.with(this).load(R.drawable.friend_info_tel1).into(tel);
+        Glide.with(this).load(R.drawable.friedn_info_msg).into(msg);
         final String user_id=getIntent().getStringExtra("user_id");
         new Thread(new Runnable() {
             @Override
@@ -70,6 +85,32 @@ public class FriendInfo extends AppCompatActivity {
                                                     .error(R.mipmap.nothing)
                                                     .into(photo);
                                         }
+                                        bohao.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                if (TextUtils.isEmpty(e.getUsr_phone())){
+                                                    Toast.makeText(FriendInfo.this, "暂无手机号，请稍后再试！", Toast.LENGTH_SHORT).show();
+                                                }else {
+                                                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"
+                                                            + e.getUsr_phone()));
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                    startActivity(intent);
+                                                }
+                                            }
+                                        });
+                                        duanxin.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                if (TextUtils.isEmpty(e.getUsr_phone())){
+                                                    Toast.makeText(FriendInfo.this, "暂无手机号，请稍后再试！", Toast.LENGTH_SHORT).show();
+                                                }else {
+                                                    Uri smsToUri = Uri.parse("smsto:"+e.getUsr_phone());
+                                                    Intent intent = new Intent(Intent.ACTION_SENDTO, smsToUri);
+                                                    startActivity(intent);
+                                                }
+                                            }
+                                        });
+
                                         if (TextUtils.isEmpty(e.getId())){
                                             manid.setText("工号：暂无");
                                         }else {
