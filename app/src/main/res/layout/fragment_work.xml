@@ -4,11 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@android:color/white">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:background="#3C3C3C"
-        android:fitsSystemWindows="true"/>
 
     <LinearLayout
         android:layout_width="match_parent"
