@@ -22,6 +22,8 @@ import com.example.jdgjapp.Bean.Travel;
 import com.example.jdgjapp.Bean.User;
 import com.example.jdgjapp.Util.ACache;
 import com.example.jdgjapp.Util.ReturnUsrDep;
+import com.example.jdgjapp.work.kaoqin.daka.DaKaMain;
+import com.example.jdgjapp.work.kaoqin.daka.DingWeiService;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -221,6 +223,16 @@ public class LoginActivity extends AppCompatActivity {
 
                         //同步数据
                         TongBuTaskRequest(MyApplication.getid());
+
+                        //仍在上班期间则重新打开实时定位
+                        SharedPreferences pref = getSharedPreferences(ReturnUsrDep.returnUsr().getUsr_id(),MODE_PRIVATE);
+                        Integer flag  = pref.getInt("dkflag",0);
+                        if (flag == 1){
+                            //开启实时定位服务
+                            Intent startIntent = new Intent(LoginActivity.this,DingWeiService.class);
+                            startService(startIntent);
+                            Log.d(TAG, "实时定位重新开启");
+                        }
 
                         Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                         startActivity(intent);

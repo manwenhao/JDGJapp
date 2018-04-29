@@ -29,6 +29,8 @@ import com.example.jdgjapp.Bean.User;
 import com.example.jdgjapp.Util.ReturnUsrDep;
 import com.example.jdgjapp.Util.RoundImageView;
 import com.example.jdgjapp.Util.SpacingTextView;
+import com.example.jdgjapp.work.kaoqin.daka.DaKaMain;
+import com.example.jdgjapp.work.kaoqin.daka.DingWeiService;
 
 import org.litepal.crud.DataSupport;
 
@@ -126,6 +128,10 @@ public class MyFragment extends Fragment {
                     intent = new Intent(getActivity(),LoginActivity.class);
                     startActivity(intent);
                     getActivity().finish();
+                    //关闭实时定位服务
+                    Intent stopIntent = new Intent(getActivity(),DingWeiService.class);
+                    getActivity().stopService(stopIntent);
+                    Log.d(TAG, "实时定位服务关闭");
                     break;
                 case R.id.iv_icon:
                     intent = new Intent(getActivity(),SetIconActivity.class);
