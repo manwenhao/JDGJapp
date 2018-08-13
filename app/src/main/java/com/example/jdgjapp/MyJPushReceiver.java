@@ -170,12 +170,7 @@ public class MyJPushReceiver extends BroadcastReceiver {
                         Log.d(TAG, "JPush工单cycle is      " + cycle);
 
                         //自定义通知栏
-                        JPushLocalNotification ln0 = new JPushLocalNotification();
-                        ln0.setBuilderId(0);
-                        ln0.setTitle("您有一个新的工单");
-                        ln0.setContent("注意查收");
-                        ln0.setNotificationId(11111111) ;
-                        JPushInterface.addLocalNotification(context, ln0);
+
 
                         break;
 
