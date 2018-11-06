@@ -85,10 +85,10 @@
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
-        android:icon="@drawable/jidun"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <meta-data
             android:name="Mob-AppKey"
@@ -98,7 +98,8 @@
             android:value="6d5f2ffe527c08738bd583749852ee6c" />
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="zkLYaSLrKGRLbc9Vzdkroh9yjjjRoudh" />
+            android:value="zbT3vmxUqZzMYTW9c6vuuxIAItdkdAKw"/>
+           <!-- android:value="zkLYaSLrKGRLbc9Vzdkroh9yjjjRoudh"-->
 
         <activity
             android:name="com.mob.tools.MobUIShell"
@@ -135,6 +136,7 @@
         <activity android:name=".SetPasswordActivity" />
         <activity android:name=".Friends.MyDeptMent" />
         <activity android:name=".Friends.DeptMember" />
+        <activity android:name=".work.kaoqin.tongji.kaoqingActivity"/>
 
         <service
             android:name="com.baidu.location.f"

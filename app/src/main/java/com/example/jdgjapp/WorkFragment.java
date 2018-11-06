@@ -30,8 +30,11 @@ import com.example.jdgjapp.work.kaoqin.qiandao.GuiJiMain;
 import com.example.jdgjapp.work.kaoqin.qiandao.QianDaoMain;
 import com.example.jdgjapp.work.kaoqin.qingjia.QingJiaMain;
 import com.example.jdgjapp.work.kaoqin.tongji.TongJiMain;
+import com.example.jdgjapp.work.kaoqin.tongji.kaoqingActivity;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +44,7 @@ import java.util.Map;
  */
 
 public class WorkFragment extends Fragment {
+    private static final String TAG = "WorkFragment";
     private GridViewForScrollView kaoqin;
     private GridViewForScrollView bangong;
 
@@ -93,7 +97,8 @@ public class WorkFragment extends Fragment {
                         startActivity(new Intent(getActivity(), DaKaMain.class));
                         break;
                     case 1:
-                        startActivity(new Intent(getActivity(), TongJiMain.class));
+                        Intent intent = new Intent(getActivity(), kaoqingActivity.class);
+                        startActivity(intent);
                         break;
                     case 2:
                         startActivity(new Intent(getActivity(), QingJiaMain.class));

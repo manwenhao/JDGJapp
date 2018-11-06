@@ -98,8 +98,8 @@ public class TongJiMain extends AppCompatActivity {
                 dd = String.valueOf(mDay);
             }
             mDay = dayOfMonth;
-            sendRequest(ReturnUsrDep.returnUsr().getUsr_id(),String.valueOf(mYear),mm);
-            dateBtn.setText(String.valueOf(mYear) +"年"+ mm+"月");
+            sendRequest(ReturnUsrDep.returnUsr().getUsr_id(), String.valueOf(mYear), mm);
+            dateBtn.setText(String.valueOf(mYear) + "年" + mm + "月");
 
         }
     };
@@ -122,31 +122,31 @@ public class TongJiMain extends AppCompatActivity {
         }
     }
 
-    private void sendRequest(final String userid,final String year,final String month){
+    private void sendRequest(final String userid, final String year, final String month) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 OkHttpUtils.post()
-                        .addParams("user_id",userid)
-                        .addParams("year",year)
-                        .addParams("month",month)
+                        .addParams("user_id", userid)
+                        .addParams("year", year)
+                        .addParams("month", month)
                         .url("http://106.14.145.208:80/JDGJ/BackAppKqCount")
                         .build()
                         .execute(new StringCallback() {
                             @Override
                             public void onError(Call call, Exception e, int id) {
-                                Log.d(TAG, "出勤统计获取失败"+e);
+                                Log.d(TAG, "出勤统计获取失败" + e);
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(TongJiMain.this,"请求失败，请稍后再试！",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(TongJiMain.this, "请求失败，请稍后再试！", Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }
 
                             @Override
                             public void onResponse(String response, int id) {
-                                Log.d(TAG, "出勤统计获取成功"+response);
+                                Log.d(TAG, "出勤统计获取成功" + response);
                                 parseJSon(response);
                                 showDays();
                             }
@@ -155,11 +155,12 @@ public class TongJiMain extends AppCompatActivity {
         }).start();
     }
 
-    private void parseJSon(final String response){
+    private void parseJSon(final String response) {
         Gson gson = new Gson();
-        List<TongjiDays> list = gson.fromJson(response,new TypeToken<List<TongjiDays>>(){}.getType());
+        List<TongjiDays> list = gson.fromJson(response, new TypeToken<List<TongjiDays>>() {
+        }.getType());
         DataSupport.deleteAll(TongjiDays.class);
-        for (TongjiDays tongjiDays : list){
+        for (TongjiDays tongjiDays : list) {
             TongjiDays tongjiDays1 = new TongjiDays();
             tongjiDays1.setCq(tongjiDays.getCq());
             tongjiDays1.setCc(tongjiDays.getCc());
@@ -170,12 +171,12 @@ public class TongJiMain extends AppCompatActivity {
         }
     }
 
-    private void showDays(){
+    private void showDays() {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 List<TongjiDays> tongjiDays = DataSupport.findAll(TongjiDays.class);
-                for (TongjiDays tongjiDay : tongjiDays){
+                for (TongjiDays tongjiDay : tongjiDays) {
                     cqBth.setText(tongjiDay.getCq());
                     ccBtn.setText(tongjiDay.getCc());
                     qjBtn.setText(tongjiDay.getQj());

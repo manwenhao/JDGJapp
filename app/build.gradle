@@ -34,6 +34,10 @@ repositories {
         dirs 'libs' //就是你放aar的目录地址
     }
 
+
+    maven { url 'https://jitpack.io' }
+
+
 }
 android {
     defaultConfig {
@@ -75,9 +79,11 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.github.tony19:logback-android-core:1.1.1-4'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
     compile('com.github.tony19:logback-android-classic:1.1.1-4') {
         // workaround issue #73
         exclude group: 'com.google.android', module: 'android'
     }
     androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.6.3'
+
 }

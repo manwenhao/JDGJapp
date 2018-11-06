@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="4dp"
+    >
+    <LinearLayout
+        android:id="@+id/ll_chooseDate"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <TextView
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:text="请选择年月:"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:text="2018年12月"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:paddingRight="6dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        android:background="@color/smssdk_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <LinearLayout
+        android:background="#ddd"
+        android:layout_width="match_parent"
+        android:layout_height="30dp">
+        <TextView
+            android:textSize="16sp"
+            android:layout_gravity="center_vertical"
+            android:text="考勤图表"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        android:background="@color/smssdk_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pieChart"
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
+    </com.github.mikephil.charting.charts.PieChart>
+    <View
+        android:background="@color/smssdk_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <LinearLayout
+        android:background="#ddd"
+        android:layout_width="match_parent"
+        android:layout_height="30dp">
+        <TextView
+            android:textSize="16sp"
+            android:layout_gravity="center_vertical"
+            android:text="月度汇总"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        android:background="@color/smssdk_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            >
+        <TextView
+            android:textColor="@color/smssdk_gray"
+            android:gravity="center_vertical"
+            android:text="出勤天数："
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp" />
+        <TextView
+            android:id="@+id/tv_cqtime"
+            android:layout_weight="1"
+            android:paddingRight="40dp"
+            android:gravity="center_vertical|right"
+            android:text="10"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp" />
+        </LinearLayout>
+        <View
+            android:background="@color/smssdk_gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:textColor="@color/smssdk_gray"
+                android:gravity="center_vertical"
+                android:text="出差天数："
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp" />
+            <TextView
+                android:id="@+id/tv_cctime"
+                android:layout_weight="1"
+                android:paddingRight="40dp"
+                android:gravity="center_vertical|right"
+                android:text="10"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp" />
+        </LinearLayout>
+        <View
+            android:background="@color/smssdk_gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:textColor="@color/smssdk_gray"
+                android:gravity="center_vertical"
+                android:text="请假天数："
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp" />
+            <TextView
+                android:id="@+id/tv_qjtime"
+                android:layout_weight="1"
+                android:paddingRight="40dp"
+                android:gravity="center_vertical|right"
+                android:text="10"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp" />
+        </LinearLayout>
+        <View
+            android:background="@color/smssdk_gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:textColor="@color/smssdk_gray"
+                android:gravity="center_vertical"
+                android:text="迟到天数："
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp" />
+            <TextView
+                android:id="@+id/tv_cdtime"
+                android:layout_weight="1"
+                android:paddingRight="40dp"
+                android:gravity="center_vertical|right"
+                android:text="10"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp" />
+        </LinearLayout>
+        <View
+            android:background="@color/smssdk_gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:textColor="@color/smssdk_gray"
+                android:gravity="center_vertical"
+                android:text="早退天数："
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp" />
+            <TextView
+                android:id="@+id/tv_zttime"
+                android:layout_weight="1"
+                android:paddingRight="40dp"
+                android:gravity="center_vertical|right"
+                android:text="10"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp" />
+        </LinearLayout>
+        <View
+            android:background="@color/smssdk_gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:textColor="@color/smssdk_gray"
+                android:gravity="center_vertical"
+                android:text="缺勤天数："
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp" />
+            <TextView
+                android:id="@+id/tv_qqtime"
+                android:layout_weight="1"
+                android:paddingRight="40dp"
+                android:gravity="center_vertical|right"
+                android:text="10"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp" />
+        </LinearLayout>
+        <View
+            android:background="@color/smssdk_gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
+</ScrollView>
